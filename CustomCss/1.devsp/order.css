@@ -1,0 +1,64 @@
+#MSOZoneCell_WebPartctl00_ctl57_g_cfc64fbc_b751_494c_b5ee_539df7585b2e{
+	padding-left: 14%;
+	margin-top: -10px;
+}
+
+   #slwp_ctl00_PlaceHolderMain_ctl03_ctl00 {
+        margin-left: 70%;
+    }
+
+    .ms-rteFontSize-5 {
+        padding-left: 45%;
+    }
+
+    #MSOZoneCell_WebPartctl00_ctl55_g_cfc64fbc_b751_494c_b5ee_539df7585b2e {
+        margin: auto;
+        width: 1350px;
+    }
+
+.ordersContainer {        
+    margin-left: 120px;
+}
+
+.title_orders{
+	margin-left:-250px;
+	margin-top: 40px;
+}
+
+.title_orders h1 {    
+  /*  margin-top: -10px; */
+}
+
+#MSOZoneCell_WebPartctl00_ctl57_g_cfc64fbc_b751_494c_b5ee_539df7585b2e{
+	margin-top: -40px;
+}
+
+.link-item{
+	text-transform: uppercase;
+    text-align: center;
+    margin: 5px;	
+}
+
+.link-item h1 a{
+	color: black;
+	text-decoration: none;
+}
+
+.link-item h1{
+	font-size: 1.5em;
+}
+    
+.myItem{	
+    clear: both;
+    padding: 6px;
+	background-color: rgba(219, 219, 219, .20);
+	box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+	width: 805px;    
+	margin: 15px;
+	cursor: pointer;
+}
+
+.myItem:hover {
+    background-color: rgba(150, 150, 150, .35);
+}

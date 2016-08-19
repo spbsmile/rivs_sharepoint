@@ -1,0 +1,93 @@
+
+.ms-dialog .ms-backgroundImage .ms-core-overlay #s4-bodyContainer .bootstrap-scope{
+     display:none;
+}
+
+#contentRow {
+    padding:0;
+    margin: auto;
+    width: 1360px;
+}
+
+#s4-titlerow {
+    margin: auto;
+    margin-bottom: 0px;
+    padding-top: 19px;
+    padding-bottom: 8px;
+    width: 1360px;
+}
+
+.ms-core-sideNavBox-removeLeftMargin{
+	margin-left: 0; 
+}
+
+#DeltaPlaceHolderSearchArea,#sideNavBox{
+ display:none;
+}
+
+.ms-heroCommandLink, .ms-heroCommandLink:visited {
+    color: red;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0072c6;;
+    text-decoration: none;
+}
+
+.ms-breadcrumb-top{
+	display:none;
+}
+
+.ms-core-pageTitle{
+	text-align: center;
+    text-transform: uppercase;
+    color: red;
+    font-size: 1.9em;
+    margin-top: 10px;
+}
+
+#siteIcon{
+	display:none;
+}
+
+.ms-comm-homeWelcome.ms-core-defaultFont{
+	font-size: 16px;
+}
+
+#DeltaPlaceHolderPageTitleInTitleArea{
+	margin-left:580px;
+}
+
+#contentBox {
+    margin-right: 100px;
+    margin-left: 100px;
+    min-width: 703px;
+}
+
+.ms-comm-forumContainer {
+    border-collapse: separate;
+    max-width: 690px;
+    font-size: 14px;
+}
+
+/*Инструменты сообщества. Правая колонка с параметрами обсуждений*/
+.ms-wiki-columnSpacing{
+  display:none;
+}
+
+#sideNavBox{
+	background-color: rgba(219, 219, 219, .20);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+}
+
+.ms-rte-layoutszone-inner{
+	background-color: rgba(219, 219, 219, .20);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+}
+
+.ms-rte-layoutszone-inner{
+	padding: 4px;
+}

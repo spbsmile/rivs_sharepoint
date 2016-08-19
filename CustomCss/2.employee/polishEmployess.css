@@ -1,0 +1,45 @@
+.ms-searchCenter-result-main{
+    float: none;
+}
+
+.ms-webpart-zone.ms-fullWidth{
+    width:100%;
+}
+
+.search-input {
+  width:483px;
+  margin-top: 15px;
+  margin-left: 130px;
+}
+
+.ms-fullWidth {
+  width:auto;
+}
+
+.contentDiscription{
+	margin-left: 85px;
+}
+
+s4-wpcell-plain .ms-webpartzone-cell. ms-webpart-cell-vertical. ms-fullWidth {	
+	width:auto;
+}
+/*
+.bootstrap-scope .table-hover>tbody>tr:hover.menudepheader{
+	background-color:gray;
+}
+
+.menudepheader {
+    background-color:gray;
+    color: #FFFFFF;
+}
+*/
+.logotypeprint {
+    display: none;
+}
+
+#textarea_mainsearch_client{
+    resize: none;
+    width: 400px;
+    height: 34px;
+    overflow: auto;
+}

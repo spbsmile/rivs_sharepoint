@@ -1,0 +1,44 @@
+#weatherTitleCity{
+    position: absolute;
+    top: -31px;
+}
+   .wi-fw {
+        transform: scale(2, 2);
+    }
+    #weatherCont {
+        float: right;
+        margin-right: 125px;
+        position: relative;
+        height: 60px;
+        width: 160px;
+        margin-top: -6px;
+    }
+    #weatherIcon {
+        position: absolute;
+        top: 1%;
+        left: 25%;
+    }
+    #weatherDis {
+        position: absolute;
+        top: 40%;
+        left: 10%;
+    }
+    #weatherCity {
+        position: absolute;
+        top: 70%;
+        left: 5%;
+    }
+    #weatherTableTop {
+        width: 444px;
+    }
+    #weatherTableTop td {
+        text-align: center;
+    }
+    #weatherTableBottom {
+        width: 540px; 
+        margin-top: 10px;
+    }
+    #weatherTableBottom td {
+         text-align: center;
+         width: 134px;
+    }

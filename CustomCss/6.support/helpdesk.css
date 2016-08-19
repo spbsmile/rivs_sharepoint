@@ -1,0 +1,108 @@
+.titleContainer{
+    border-radius: 0.5em;
+    width: 400px;
+	text-align: center;
+    margin: 10px;    
+    margin-left: 490px;
+	text-transform: uppercase;
+}
+
+.titleSupport{
+	padding-left: 110px;
+    font-size: 1.2em;
+    font-weight: 600;	
+}
+
+input#sendTicket {	
+    text-transform: uppercase;
+    border-radius: 0.5em;	
+}
+
+input#closePrepareClaim {
+    margin-left: 20px;    
+    text-transform: uppercase;
+    border-radius: 0.5em;
+}
+
+input#pressButtonSupport{
+	margin-left: 618px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+	text-transform: uppercase;
+}
+
+label.pleaseLetter {
+    margin-left: 555px;
+    margin-top: 10px;
+}
+
+.resultLoader{
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+h3.panel-title {   
+    text-transform: uppercase;
+	font-size: 14px;
+}
+
+.inputContainer input{
+	float: left;
+}
+
+.panel-footer.specificationHelpdesk.backgroundPanelRivs{
+	 height: 362px;
+}
+
+.panel.panel-primary.tableClaimSended, .panel.panel-primary.tableClaimClosed{	
+	border-radius: 0.5em;
+}
+
+.inputContainer{
+	width: 300px;
+    height: 100px;
+	margin-left: 400px;
+}
+
+.bootstrap-scope label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.titlePhoneSupport{
+	margin: 5px;
+    padding-left: 60px;
+}
+
+.bootstrap-scope .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#formhelper{
+    margin-top: 24px;
+    margin-left: 700px;
+    margin-right: 150px;
+}
+
+.left-container{
+	width: 500px;
+    float: left;
+    margin-left: 150px;
+}
+
+.backgroundPanelRivs{
+	background-color: rgba(219, 219, 219, .20)!important;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em !important
+}
+
+.descriptionClaim{
+	height: 155px !important;
+	margin: 0px -2.67188px 0px 0px;
+	width: 618px; 
+	resize: none;
+}

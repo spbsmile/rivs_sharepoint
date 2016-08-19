@@ -1,0 +1,240 @@
+h1, .h1 {
+    font-size: 1.9em;
+}
+
+.page_T {
+    width: auto;
+    font-family: "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;
+}
+
+/* do not group these rules */
+*::-webkit-input-placeholder {
+    color: white;
+}
+*:-moz-placeholder {
+
+    color: white;
+}
+*::-moz-placeholder {
+
+    color: white;
+}
+*:-ms-input-placeholder {
+
+    color: white;
+}
+
+.body_T {
+    width: 1360px;
+    margin: auto;
+}
+
+.header_main {
+    background-image: url(img/background.jpg);
+    height: 340px;
+    border-radius: 1em;
+}
+
+.header_main a {
+    text-decoration: none;
+}
+
+.logo {
+    float: left;
+    padding: 10px;
+    margin-top: 40px;
+    margin-left: 20px;
+    background-color: rgba(191, 189, 189, .55);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 1.1em;
+}
+
+.logo:hover {
+    background-color: rgba(191, 189, 189, .75);
+}
+
+.title_page_rivs h1{
+	text-align: center;
+    text-transform: uppercase;
+    color: red;
+	font-size: 1.9em;
+	margin-top: 10px;
+}
+
+.search {
+    float: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.headerLine2 {
+    height: 232px;
+    margin-top: 20px;
+}
+
+.clocks_container{
+    padding: 0;
+    margin: 0;
+    float: right;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.clock_article{
+    display: inline-block !important;
+}
+
+.clock_footer{
+    color: white;
+    opacity:0.8;
+	text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.clock_title_spb{
+	margin-left: -10px;
+}
+
+.clock_title_uchaly{
+	padding-left: 25px;
+}
+
+.clock_title_kentay{
+	padding-left: 25px;
+}
+
+.headerClocks {
+    margin-right: 500px;
+}
+
+.dateline{
+	margin: auto;
+    padding: 3px;   
+    color: white;
+    opacity: 0.8;
+    text-transform: uppercase;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+    width: 230px;
+    text-align: center;
+}
+
+.mainMenu {
+    height: 30px;
+    margin-top: 160px;
+    margin-left: 235px;
+    float: left
+}
+
+.logo_search {
+    width: 1360px;
+    height: 60px;
+}
+
+.mmenuBtn {
+    background-color: rgba(191, 189, 189, .35);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    padding: 10px;
+    margin-left: 25px;
+    border-radius: 0.5em;
+    border-bottom-width: medium;
+    font-size: 1.4em;
+    float: left;
+}
+
+a.mmenuBtn.overrmmenuBtn {
+    text-transform: uppercase;
+    background-color: rgba(191, 189, 189, .35);
+    color: white;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.mmenuBtn.overrmmenuBtn:hover {
+    background-color: rgba(235, 35, 35, .75);
+}
+
+.mmenuBtn a {
+    color: white !important;
+    text-transform: uppercase;
+}
+
+.mmenuBtn a:visited{
+	color:white;
+}
+
+.textSearch {
+    background-color: rgba(191, 189, 189, .35);
+    border-radius: 0.5em;
+	border: inset 3px white;
+    font-size: 1.2em !important;
+    height: 35px;
+    color: white !important;
+    width: 200px;
+	overflow: auto !important;
+}
+.textSearch:hover {
+    border-color: rgba(235, 35, 35, .75);
+}
+
+.textSearch:focus {
+    border-color: rgba(235, 35, 35, .75);
+}
+
+.searchBtn {
+    font-family: 'Glyphicons Halflings';
+    background-color: rgba(191, 189, 189, .35);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    width: 40px;
+    margin-left: 10px;
+    padding: 2px 35px 2px 15px;
+    float: right;
+    border-radius: 0.5em;
+    border-bottom-width: medium;
+    font-size: 1.7em;
+	color: white !important;
+}
+
+.searchBtn:hover {
+    background-color: rgba(235, 35, 35, .75);
+}
+
+.search a {
+    color: white;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.left_column {
+    width: 260px;
+    float: left;
+}
+
+.left_column h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: red;
+}
+
+.centr_column {
+    width: 820px;
+    float: left;
+    margin: auto;
+}
+
+.centr_column h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: red;
+}
+
+.right_column {
+    width: 260px;
+    float: right;
+}
+
+p {
+    margin: 0 0 5px;
+}

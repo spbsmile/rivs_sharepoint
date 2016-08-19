@@ -1,0 +1,90 @@
+
+.ms-dialog .ms-backgroundImage .ms-core-overlay #s4-bodyContainer .bootstrap-scope{
+     display:none;
+}
+
+#contentRow {
+    padding:0;
+    margin: auto;
+    width: 1360px;
+}
+
+#s4-titlerow {
+    margin: auto;
+    margin-bottom: 0px;
+    padding-top: 19px;
+    padding-bottom: 8px;
+    width: 1360px;
+}
+
+#MSOZoneCell_WebPartWPQ3,#SearchBox,.ms-welcomepageheader,#MSOZoneCell_WebPartWPQ5,#MSOZoneCell_WebPartWPQ6{
+  display:none;
+}
+
+#DeltaPlaceHolderPageTitleInTitleArea span a{
+	color: red;
+}
+
+#WPQ2_ListTitleViewSelectorMenu_Container_surfaceopt0{
+	color: red;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+#Hero-WPQ2{
+	margin-left: 5px;
+}
+
+.ms-csrlistview-controldiv{
+	margin-top: 10px;
+}
+
+#sideNavBox {
+    background-color: rgba(219, 219, 219, .20);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+}
+
+.ms-heroCommandLink, .ms-core-pageTitle a{
+	color: red;
+}
+
+a:visited {
+    color: #0072c6;;
+    text-decoration: none;
+}
+
+.ms-core-pageTitle{
+	text-align: center;
+    text-transform: uppercase;
+    color: red;
+    font-size: 1.9em;
+    margin-top: 10px;
+	padding-left: 200px;
+}
+
+.ms-breadcrumb-top{
+	display:none;
+}
+
+.ms-listlink {
+	font-size:16px;
+}
+
+#siteIcon{
+	display:none;
+}
+
+.span.additional-background.ms-navedit-flyoutArrow{
+	display:none;
+}
+
+#MSOZoneCell_WebPartWPQ2{
+    background-color: rgba(219, 219, 219, .20);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+}
+
+.ms-core-sideNavBox-removeLeftMargin{
+	margin-left: 0; 
+}

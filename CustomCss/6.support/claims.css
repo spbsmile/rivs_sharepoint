@@ -1,0 +1,120 @@
+#MSOZoneCell_WebPartWPQ2 
+{
+	background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+	margin-top: 20px;
+}
+#MSOZoneCell_WebPartWPQ1
+{
+  	background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+	margin-top: 20px;
+}
+#MSOZoneCell_WebPartWPQ3
+{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+	margin-top: 20px;
+}
+
+#WebPartTitleWPQ1, #WebPartTitleWPQ2, #WebPartTitleWPQ3 {
+	margin-left: 20px;
+}
+
+#MSOZoneCell_WebPartWPQ4{
+	padding-left: 40%;
+}
+
+table tr td {
+    text-align: center;
+}
+
+td.ms-addnew{
+ display:none;
+}
+
+.ms-list-emptyText-compact {
+    padding-top: 0px;
+    padding-bottom: 112px;
+    color: #777;
+    margin: 5px;
+}
+
+.ms-headerSortTitleLink, .ms-headerSortArrowLink, .ms-vh-div {
+    cursor: default;
+    font-size: small;
+    font-weight: 700;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+.ms-cellstyle, .ms-cellStyleNonEditable, .ms-cellStyleMenuHover, .ms-MenuCellStyle-TdHover, .ms-MenuCellStyle-MenuDivHover {
+    border: solid 1px gray;
+    border-collapse: collapse;
+}
+
+.ms-itmHoverEnabled:hover > * {
+    background-color: rgba(205, 230, 247, 0.14);
+    border: 1px solid rgba(132, 63, 63, 0.53);
+}
+
+table {
+    border-width: 0px;
+    display: table;
+    border-collapse: collapse;
+}
+
+.ms-webpart-titleText {
+    font-size: 1.46em;
+    font-weight: 500;
+}
+
+table.ms-listviewtable {
+    border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.ms-fullWidth{
+	-webkit-box-sizing: border-box;
+    width: 1360px;
+    margin: auto;
+}
+
+.textModalClaim{
+	width: 500px;
+    height: 100px;
+}
+
+.ms-vh, .ms-vh2, .ms-vh-icon, .ms-vh-icon-empty, .ms-vh2-nofilter, .ms-vh2-nofilter-notextalign, .ms-vh2-nofilter-perm, .ms-vhImage, .ms-vh2-nograd, .ms-vh3-nograd, .ms-vh2-nograd-icon, .ms-vh2-nofilter-icon, .ms-ph {
+    font-weight: normal;
+    font-size: 0.85em;
+    color: #777;
+    text-align: left;
+    text-decoration: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.ms-vb, .ms-vb2, .ms-vb-user, .ms-vb-tall, .ms-pb, .ms-pb-selected {
+    color: #444;
+    vertical-align: top;
+}
+
+.ms-vb, .ms-vb2, .ms-vb-user, .ms-vb-tall, .ms-pb, .ms-pb-selected {
+    color: #444;
+    vertical-align: inherit;
+}

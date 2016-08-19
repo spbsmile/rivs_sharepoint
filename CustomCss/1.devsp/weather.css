@@ -1,0 +1,117 @@
+.weatherBlock{
+    display: table;
+}
+
+.weatherRow{
+    display: table-row;
+}
+
+.weatherBlock, .currencyBlock {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 260px;
+    background-color: rgba(219, 219, 219, .20);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+}
+
+.modalWeatherDialog{
+	
+}
+
+.cell_weather_city {
+    font-size: 1em;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+.cell_weather_dicsription {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.cell_weather {
+    display: table-cell;
+    text-align: center;
+    height: 120px;
+    width: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#cell_weather_spb{
+	border-right: ridge 1px;
+	border-bottom: ridge 1px;
+}
+
+#cell_weather_uchaly{
+	border-bottom: ridge 1px;
+}
+
+#cell_weather_magnitogorsk{
+	border-right: ridge 1px;
+}
+
+#modal-body-weather{
+	padding:0;
+}
+
+.modalWeatherBlock{
+    width: 100%;
+    background-color: rgba(219, 219, 219, .20);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+	display: table;
+}
+
+.modalCellWeather{
+	display: table-cell;
+    text-align: center;
+    height: 150px;
+    width: 25%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#tachkentModalWeather{
+	border-right: ridge 1px;
+}
+
+#kentayModalWeather{
+	border-right: ridge 1px;
+}
+
+#mgnModalWeather{
+	border-right: ridge 1px;
+}
+
+#erevanModalWeather{
+	border-bottom: ridge 1px;
+}
+
+#moscowModalWeather{
+	border-bottom: ridge 1px;
+	border-right: ridge 1px;
+}
+
+#uchalyModalWeather{
+	border-bottom: ridge 1px;
+	border-right: ridge 1px;
+}
+
+#spbModalWeather{
+	border-bottom: ridge 1px;
+	border-right: ridge 1px;
+}
+
+.modalCellWeather:hover{
+	background-color: rgba(150, 150, 150, .35) !important;
+}
+
+.cell_weather:hover, .currencyBlock:hover {
+    background-color: rgba(150, 150, 150, .35) !important;
+}
+
+.weatherBlock p {
+    font-size: 1.2em;
+}

@@ -1,0 +1,98 @@
+﻿
+#ctl00_ctl57_g_86d47d3d_fb0e_4f06_a474_12cf4437da29_ctl00_BtnDatechange{
+      text-transform: uppercase;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+    font-size: 1.3em;
+    margin-top: -10px;
+    margin-bottom: 10px;
+	cursor: pointer;
+}
+
+.currencyBackBtn{
+  text-transform: uppercase;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+    font-size: 1.3em;
+    position: absolute;   
+    margin-top: 3px;
+}
+
+.currencyBackBtn a:visited {
+    color: black;
+}
+
+.currencyBackBtn a {
+    color: black !important;;
+}
+
+#tablecurrency{
+	margin:auto !important;
+	width: 1360px !important;
+}
+
+#titleCurrency { 
+    display: none;
+}
+
+.currencyTitle{
+    display: block;
+    border-bottom: #BFBFBF 1px solid;
+    font-weight: 100 !important;
+    font-size: 2em;
+}
+
+.currencyBlock h2 {
+    text-align: center;
+    font-size: 1.9em;
+}
+
+.currencyBlock, .weatherBlock {
+	cursor: pointer
+}
+
+.currencyBlock table {
+    font-size: 1.4em;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.glyphIcon {
+    font-family: 'Glyphicons Halflings';
+    text-align: center;
+}
+
+#tablecurrency {
+        width: 60%;
+        margin-left: 20%;
+    }
+
+        #tablecurrency td {
+            text-align: center;
+        }
+
+    .form-control .dtDatePicker {
+        width: 100px;
+        float: left;
+        margin-left: 45%;
+    }
+
+    .firstRowTable {
+        background-color: gray;
+        color: #FFFFFF;
+    }
+
+    .columnFixedWidth {
+        width: 90px;
+    }
+
+    .bootstrap-scope .table-hover > tbody > tr:hover.firstRowTable {
+        background-color: gray;
+    }
+
+    #titleCurrency {
+        padding-left: 45%; 
+        margin-bottom: 20px;
+    }
+
+

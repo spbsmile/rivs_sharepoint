@@ -1,0 +1,183 @@
+
+#MSOZoneCell_WebPartWPQ4, #MSOZoneCell_WebPartWPQ2, .printthis{
+	display:none;
+}
+
+#breadcrumbs_container{
+	display:none;
+}
+
+#chief_widget{
+	width: 450px;
+    margin: 0 auto;
+}
+
+.ms-searchCenter-result-main{
+	width: 1360px;
+    margin: auto;
+}
+
+.widget_departament,.widget_organization,.widget_organization_inner{
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    font-size: 1.4em;
+    font-weight: 500;
+    color: black;
+    margin-left: 20px;
+    margin-top: 20px;
+	display: table;
+    width: 247px;
+    height: 80px;
+	background-color: rgba(219, 219, 219, .20);
+    border-radius: 1em;
+	cursor: pointer;
+}
+
+.containerOtdels,.additionalEmployee{
+	display: none;
+}
+
+.widget_departament:hover {
+   background-color: rgba(150, 150, 150, .35);
+}
+
+.widget_organization:hover {
+    background-color: rgba(150, 150, 150, .35);
+}
+
+.widget_organization_inner:hover {
+    background-color: rgba(150, 150, 150, .35);
+}
+
+.departament_row{
+    float: left;
+}
+
+.iconperson{
+	border-radius: 4px;
+	width: 120px;
+}
+
+.owner{
+    font-size: 1.6em;
+    font-weight: 500;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.employeeBlock{
+    display: table;
+	width: 1360px;
+}
+
+.employeeRow{
+    display: table-row;
+}
+.employeeCell_widget{
+    display: table-cell;
+    width: 450px;
+    border-radius: 0.5em;
+}
+
+container_widget_departments{
+	width: 1360px;
+    float: left;
+    margin: auto;
+}
+
+.wrap_employeeCell_widget {
+    height: 185px;
+	width : 430px; 
+    margin: 2%;
+    background-color: rgba(219, 219, 219, .20);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+}
+
+.wrap_employeeCell_widget:hover {
+    background-color: rgba(150, 150, 150, .35) !important;
+}
+
+#breadcrumbs_container{
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.title_inner{
+	text-align:center;
+	display: table-cell;
+    vertical-align: middle;
+}
+
+.right_column_personal_widget{
+	padding-top:6px;
+}
+
+.left_column_personal_widget{
+	height: 170px; 
+	width: 160px !important;
+	margin-top: 5px;
+}
+
+/* breadcrumbs copy past*/
+
+/** The Magic **/
+.btn-breadcrumb .btn:not(:last-child):after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    border-left: 10px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -17px;
+    left: 100%;
+    z-index: 3;
+}
+
+.btn-breadcrumb .btn:not(:last-child):before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    border-left: 10px solid rgb(173, 173, 173);
+    position: absolute;
+    top: 50%;
+    margin-top: -17px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 3;
+}
+
+/** The Spacing **/
+.btn-breadcrumb .btn {
+    padding: 6px 12px 6px 24px;
+}
+
+.btn-breadcrumb .btn:first-child {
+    padding: 6px 6px 6px 10px;
+}
+
+.btn-breadcrumb .btn:last-child {
+    padding: 6px 18px 6px 24px;
+}
+
+/** Default button **/
+.btn-breadcrumb .btn.btn-default:not(:last-child):after {
+    border-left: 10px solid #fff;
+}
+
+.btn-breadcrumb .btn.btn-default:not(:last-child):before {
+    border-left: 10px solid #ccc;
+}
+
+.btn-breadcrumb .btn.btn-default:hover:not(:last-child):after {
+    border-left: 10px solid #ebebeb;
+}
+
+.btn-breadcrumb .btn.btn-default:hover:not(:last-child):before {
+    border-left: 10px solid #adadad;
+}
