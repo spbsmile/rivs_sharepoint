@@ -114,8 +114,13 @@ container_widget_departments{
 
 .left_column_personal_widget{
 	height: 170px; 
-	width: 160px !important;
+	width: 150px !important;
 	margin-top: 5px;
+}
+
+.col-xs-6.col-md-3.left_column_personal_widget {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 /* breadcrumbs copy past*/

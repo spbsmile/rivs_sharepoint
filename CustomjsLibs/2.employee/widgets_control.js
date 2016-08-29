@@ -77,14 +77,14 @@ $(document).ready(function () {
 	// dynamic main page
 	function createMainPage() {
 		$.ajax({
-			url : getUrlQuerySearch('*', "Department%2cOrganization%2cIsDisabled%2cotdel2%2cTitle", 600, false),
-			method : "GET",
-			headers : {
-				"Accept" : "application/json;odata=verbose",
-				"X-RequestDigest" : $("#__REQUESTDIGEST").val()
+			url: getUrlQuerySearch('*', "Department%2cOrganization%2cIsDisabled%2cotdel2%2cTitle", 600, false),
+			method: "GET",
+			headers: {
+				"Accept": "application/json;odata=verbose",
+				"X-RequestDigest": $("#__REQUESTDIGEST").val()
 			},
-			success : successCreateMainPage,
-			error : errorHandler
+			success: successCreateMainPage,
+			error: errorHandler
 		});
 	}
 
@@ -96,14 +96,17 @@ $(document).ready(function () {
 			var department = results[i].Cells.results[2].Value;
 			var otdel = clearLetter(results[i].Cells.results[3].Value);
 			var isDisabled = results[i].Cells.results[4].Value;
+			// todo comment this field
 			var otdel2 = results[i].Cells.results[5].Value;
 
 			if (department && !isDisabled && department != "Аналитический центр") {
+				// check on hierarchy otdel				
 				if (otdel && otdel != department) {
 					if (!departmentsTree.hasOwnProperty(otdel)) {
 						departmentsTree[otdel] = [];
 						departmentsTree[otdel].push(department);
 					} else if (departmentsTree[otdel].indexOf(department) == -1) {
+						// example: otdel = ГипроРИВС, department = Руководство
 						departmentsTree[otdel].push(department);
 					}
 				} else if (!departmentsTree.hasOwnProperty(department)) {
@@ -126,16 +129,44 @@ $(document).ready(function () {
 			}
 		}
 
+		var sortHierarchyOtdel = {};
+		sortHierarchyOtdel["ГипроРИВС"] = ["Руководство", "Секретариат", "Бюро главных инженеров", "Отдел технологического проектирования", "Строительная группа", "Отдел гидротехнических сооружений",
+			"Сметно-Экономический отдел", "Технологическая группа", "Экологическая группа", "Группа оформления проектной документации"];
+
+		for (var property in sortHierarchyOtdel) {
+			if (sortHierarchyOtdel.hasOwnProperty(property) && departmentsTree.hasOwnProperty(property)) {
+				sortHierarchy(sortHierarchyOtdel[property], property);
+			}
+		}
+
+		// main page
 		var sortArray = ["Руководство", "Секретариат и канцелярия", "Планово-финансовый департамент", "Бухгалтерия", "Коммерческий отдел", "Департамент информационных технологий",
 			"Департамент основного технологического оборудования", "ГипроРИВС", "Департамент технологических исследований", "Департамент процессов рудоподготовки", "Аналитический Центр",
 			"Департамент АСУ", "Департамент ПЭ и ЭП", "Департамент строительства", "Департамент гидрометаллургии", "Лаборатория НМФП", "Служба стандартизации", "Производственная служба", "Отдел ВЭД и отгрузок",
-			"Служба обеспечения запасными частями и технического сервиса ОП", "Административная группа", "Машзавод РИВС", "Уральское Представительство", "Казахстан", "Представительство в Республике Армения",
-			"Департамент административного управления", "Отдел НТИ", "Рекламный отдел", "Транспортная группа"];
+			"Служба обеспечения запасными частями и технического сервиса ОП", "Отдел НТИ", "Машзавод РИВС", "Уральское Представительство", "Казахстан", "Представительство в Республике Армения",
+			"Рекламный отдел", "Департамент административного управления", "Административная группа", "Транспортная группа"];
+
+		function sortHierarchy(array, property) {
+			var a = [];
+
+			for (var index = 0; index < departmentsTree[property].length; index++) {
+				a.push(departmentsTree[property][index]);
+			}
+			
+			for (i = 0; i < array.length; i++) {
+				var index = a.indexOf(array[i]);
+				if (index === -1) continue;
+				var temp = a[i];
+				a[i] = array[i];
+				a[index] = temp;
+			}			
+			departmentsTree[property] = a;
+		}
 
 		function sortObject(o) {
 			var sorted = {},
-			key,
-			a = [];
+				key,
+				a = [];
 
 			for (key in o) {
 				if (o.hasOwnProperty(key)) {
@@ -197,6 +228,34 @@ $(document).ready(function () {
 		});
 	}
 
+	function createWidgetsOtdels(organization, otdels) {
+		//otdels.sort();
+		var initialIndex = 0;
+		otdels[0] = otdels[0].trim();
+		var index = otdels.indexOf("Руководство");
+		if (index != -1) {			
+			var temp = otdels[0];
+			otdels[0] = otdels[index];
+			otdels[index] = temp;
+			createWidgetEmployees("#chief_widget", "widget_organization_inner owner", otdels[0]);
+			initialIndex++;
+		}
+		for (var i = initialIndex; i < otdels.length; i++) {
+			if (clearLetter(otdels[i]) === organization) {
+				continue;
+			}
+			createWidgetEmployees("#employeeBlock", "widget_organization_inner departament_row", otdels[i]);
+		}
+		//  handlers of click widget otdels on inner page
+		$(".widget_organization_inner").on('click', function () {
+			// todo apply filter: only relative organization
+			var otdel = $(this).children('.title_inner').text();
+			prepareSearch();
+			startSearch(otdel, organization, false, false);
+			$("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + otdel + '\</a>');
+		});
+	}
+
 	// main functions of search
 	function prepareSearch() {
 		$("#container_widget_departments").hide();
@@ -210,13 +269,13 @@ $(document).ready(function () {
 
 	function startSearch(query, organization, isMainSearch, isHaveOtdels, additionalEmployees, isInputSearch) {
 		$.ajax({
-			url : getUrlQuerySearch(query, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganization%2cIsDisabled%2cRefinableString01", 100, true, isInputSearch),
-			method : "GET",
-			headers : {
-				"Accept" : "application/json;odata=verbose",
-				"X-RequestDigest" : $("#__REQUESTDIGEST").val()
+			url: getUrlQuerySearch(query, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganization%2cIsDisabled%2cRefinableString01", 100, true, isInputSearch),
+			method: "GET",
+			headers: {
+				"Accept": "application/json;odata=verbose",
+				"X-RequestDigest": $("#__REQUESTDIGEST").val()
 			},
-			success : function (data) {
+			success: function (data) {
 				var rowId = null;
 				var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
 				var indexRow = null;
@@ -259,7 +318,7 @@ $(document).ready(function () {
 					}
 
 					if (innerIndex === 0 && !isHaveOtdels) {
-						if (d.postalCode && d.department != "Коммерческий отдел" && d.department != "Департамент административного управления" ) {
+						if (d.postalCode && d.department != "Коммерческий отдел" && d.department != "Департамент административного управления") {
 							$("#chief_widget").append(
 								createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone));
 						} else {
@@ -285,7 +344,7 @@ $(document).ready(function () {
 						var employeeData = additionalEmployees[i].split(",");
 						if (indexRow != Math.floor((innerIndex - innerShift) / countWidgetsInRow)) {
 							indexRow = Math.floor((innerIndex - innerShift) / countWidgetsInRow);
-							rowId = "row_empl_" + indexRow;							
+							rowId = "row_empl_" + indexRow;
 							$("#employeeBlock").append('<div id="' + "row_empl_" + indexRow + '" class="employeeRow">' +
 								createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5]) +
 								'</div>');
@@ -297,8 +356,8 @@ $(document).ready(function () {
 						} else if (employeeData[1] == "Лигузов Алексей Дмитриевич") {
 							$("#chief_widget").append(
 								createWidgetEmployee(employeeData[0], employeeData[1], "Департамент административного управления", "Заместитель генерального директора. Директор Департамента АУ", employeeData[4], employeeData[5]));
-						} 
-						 else {							
+						}
+						else {
 							$(rowId).append(
 								createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5]));
 						}
@@ -312,7 +371,7 @@ $(document).ready(function () {
 						createWidgetEmployee("#", null, null, null, null, null, true));
 				}
 			},
-			error : errorHandler
+			error: errorHandler
 		});
 	}
 
@@ -352,22 +411,22 @@ $(document).ready(function () {
 
 	function getOnePersonFromSearch(personName, idStorage) {
 		$.ajax({
-			url : getUrlQuerySearch(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganization%2cIsDisabled%2cRefinableString01%2cCountryCode", 1, true),
-			method : "GET",
-			headers : {
-				"Accept" : "application/json;odata=verbose",
-				"X-RequestDigest" : $("#__REQUESTDIGEST").val()
+			url: getUrlQuerySearch(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganization%2cIsDisabled%2cRefinableString01%2cCountryCode", 1, true),
+			method: "GET",
+			headers: {
+				"Accept": "application/json;odata=verbose",
+				"X-RequestDigest": $("#__REQUESTDIGEST").val()
 			},
-			success : function (data) {
+			success: function (data) {
 				var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
-				
+
 				var array = [];
 				for (var i = 0; i < results.length; i++) {
 					var d = getData(results[i]);
 					console.log(d);
 					array[0] = d.photo;
 					array[1] = d.name;
-					array[2] = d.department;										
+					array[2] = d.department;
 					array[3] = d.jobTitle.replace(",", ".");
 					array[4] = d.email;
 					array[5] = d.phone;
@@ -379,7 +438,7 @@ $(document).ready(function () {
 					$(idStorage).text(array + $(idStorage).text());
 				}
 			},
-			error : errorHandler
+			error: errorHandler
 		});
 	}
 
@@ -403,6 +462,10 @@ $(document).ready(function () {
 		var module = [];
 		module.name = result.Cells.results[2].Value;
 		module.jobTitle = result.Cells.results[3].Value ? result.Cells.results[3].Value : "_";
+		if (module.jobTitle) { //module.name === "Лигузов Алексей Дмитриевич"){			
+			var lines = module.jobTitle.split(/\r\n|\r|\n/g);
+			module.jobTitle = lines[0]; 						
+		}
 		module.email = result.Cells.results[4].Value ? result.Cells.results[4].Value : "";
 		module.phone = result.Cells.results[6].Value ? result.Cells.results[6].Value : "";
 		module.department = result.Cells.results[7].Value;
@@ -417,33 +480,6 @@ $(document).ready(function () {
 		module.postalCode = result.Cells.results[11].Value;
 		module.countryCode = result.Cells.results[12].Value;
 		return module;
-	}
-
-	function createWidgetsOtdels(organization, otdels) {
-		otdels.sort();
-		var initialIndex = 0;
-		var index = otdels.indexOf("Руководство");
-		if (index != -1) {
-			var temp = otdels[0];
-			otdels[0] = otdels[index];
-			otdels[index] = temp;
-			createWidgetEmployees("#chief_widget", "widget_organization_inner owner", otdels[0]);
-			initialIndex++;
-		}
-		for (var i = initialIndex; i < otdels.length; i++) {
-			if (clearLetter(otdels[i]) === organization) {
-				continue;
-			}
-			createWidgetEmployees("#employeeBlock", "widget_organization_inner departament_row", otdels[i]);
-		}
-		//  handlers of click widget otdels on inner page
-		$(".widget_organization_inner").on('click', function () {
-			// todo apply filter: only relative organization
-			var otdel = $(this).children('.title_inner').text();
-			prepareSearch();
-			startSearch(otdel, organization, false, false);
-			$("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + otdel + '\</a>');
-		});
 	}
 
 	function clearLetter(letter) {
