@@ -2,8 +2,8 @@ $(document).ready(function () {
 	$(".welcome-image").hide();
 	$(".welcome-content").hide();
 
-	var listId = "ffb15214-eff0-49d7-ac88-ecbfecdc6ab3";
-
+	//var listId = "ffb15214-eff0-49d7-ac88-ecbfecdc6ab3";
+	
 	jQuery.ajax({
 		url : "http://intranet/sites/documents/_api/web/lists/GetByTitle('ПРИКАЗЫ')/Items?$select=Id,Title,File/ServerRelativeUrl&$expand=File",
 		type : "GET",
@@ -14,13 +14,10 @@ $(document).ready(function () {
 		error : onError
 	});
 
-	function doSuccess(data) {
-		console.log("success");
-		var results = data.d.results;
-		console.log(results + " results");
+	function doSuccess(data) {		
+		var results = data.d.results;		
 		for (var i = 0; i < results.length; i++) {
-			var r = results[i];
-			console.log(r + " ");
+			var r = results[i];			
 			var id = "news" + i;
 
 			var docTitle = r.Title;
@@ -28,16 +25,16 @@ $(document).ready(function () {
 
 			$("#resultsDivOrders").append('<div class="myItem">' +
 				'<div class="link-item"><h1>' +
-				'<a class="linkOrder"  target="_blank" href="' + docPath + '"> ' + docTitle + ' </a>' +
+				'<div class="linkOrder"> ' + docPath + ' </div>' +
+				'<div class="linkTitle">' + docTitle + '</div>' +
 				'</h1></div></div>');
 		}
 
-		$(".link-item").on('click', function () {
-			window.open(
-				$(this).find(".linkOrder").attr('href'),
+		$(".link-item").on('click', function () {						
+			window.open(				
+				$(this).find(".linkOrder").text(),
 				'_blank');
 		});
-
 	}
 
 	// Display error messages.
