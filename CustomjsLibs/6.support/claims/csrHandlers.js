@@ -16,7 +16,7 @@ function clickAcceptTask(itemId, created, authId, discription, priority, categor
             "Discription": "",
             "Priority": "",
             "Category": "",
-            // "AttachFile": "",
+            "AttachFileNew": "",
             "timegettask": "",
             "employeeIt": ""
         },
@@ -27,7 +27,7 @@ function clickAcceptTask(itemId, created, authId, discription, priority, categor
         "Discription": dist,
         "Priority": priority,
         "Category": category,
-        // "AttachFileId": t,
+        "AttachFileNewId": lookupId,
         "timegettask": moment().format("L") + "\n" + moment().format("HH:mm"),
         "employeeItId": employeeId
     };

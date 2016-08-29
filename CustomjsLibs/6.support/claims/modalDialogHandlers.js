@@ -14,8 +14,16 @@ function clickDialogGetOut() {
                         } else {
                             employeId = currentUserId;
                         }
-                        clickAcceptTask(null, moment(new Date()).format(), userSourceId, $("#discriptionModal").val(), $("#urgencyModalClaim option:selected").text(),
-                            $("#categoryModalClaim option:selected").text(), null, employeId);
+
+                        if ($("#getFile").get(0).files.length === 0) {
+                            clickAcceptTask(null, moment(new Date()).format(), userSourceId, $("#discriptionModal").val(), $("#urgencyModalClaim option:selected").text(),
+                                $("#categoryModalClaim option:selected").text(), null, employeId);
+                        } else {                            
+                            sendClaimWithFile(function (itemId) {
+                                clickAcceptTask(null, moment(new Date()).format(), userSourceId, $("#discriptionModal").val(), $("#urgencyModalClaim option:selected").text(),
+                                    $("#categoryModalClaim option:selected").text(), itemId, employeId);
+                            });
+                        }
                     }
                 }
             ],
