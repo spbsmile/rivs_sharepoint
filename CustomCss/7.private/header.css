@@ -1,0 +1,72 @@
+.personal_widget {
+    background-color: rgba(191, 189, 189, .55);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    height: 150px;
+    width: 440px;
+    border-radius: 1.1em;
+    color: black;
+    margin-left: 200px;
+	margin-top: 10px;
+	float: left;
+}
+
+.personal_widget table {
+    width: 100%;
+}
+
+.personal_widget th {
+    text-align: center;
+    font-size: 20px;
+    color: red;
+    line-height: 30px;
+    border-bottom: red;
+    border-bottom-width: thin;
+    border-bottom-style: solid;
+	text-transform: uppercase;
+}
+
+.personal_widget img {
+    float: left;
+    border-radius: 1.1em;
+    width: 90px;
+    height: 100px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.personal_widget p {
+    margin-left: 10px;
+    text-align: center;
+}
+
+.title_person{
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.image_person{
+	
+}
+
+.department_person_widget{
+	
+}
+
+.job_title_person_widget{
+	
+}
+
+.phone_value{
+	
+}
+
+.email_value{
+	
+}
+
+.container_person_meta{
+    line-height: 16px;
+    font-size: 16px;
+    font-weight: 500;
+}

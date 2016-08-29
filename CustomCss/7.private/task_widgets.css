@@ -1,0 +1,88 @@
+.taskBlock{
+	float: left;
+    margin-left: 17px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 260px;
+    background-color: rgba(219, 219, 219, .20);
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+}
+
+.centr_column h1.countCommonTask{
+	text-align: right;
+    font-size: 36px;   
+    margin-right: 20px;
+	font-weight: 700;
+	margin-bottom: 6px;
+}
+
+.titleTask{
+	font-size: 20px;
+	float: right;
+    padding-top: 16px;
+    padding-right: 20px;
+}
+
+.title_name {
+    font-size: 18px;
+	text-align: left;
+	padding-left: 20px;
+	text-transform:uppercase;
+	margin-bottom: 20px;
+    font-weight: 400;
+}
+.title_name a{
+	color:black;
+}
+
+.iconTask{
+	float:right;
+}
+
+.taskBlock .tHeader {
+    width: 100%;
+    height: 52px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin-bottom: 20px;
+}
+
+.taskBlock .tHeader img{
+	float:right;
+}
+
+.allTaskColor{
+    background-color: #E66800;
+}
+
+.centr_column  h1.commonCountAllTaskColor{
+	color:#E66800;
+}
+
+.controlColor{
+    background-color: #197300;
+}
+
+.centr_column  h1.commonCountControlTaskColor{
+	color:#197300;
+}
+
+.myTaskColor{
+    background-color: #6400E6;
+}
+
+.centr_column  h1.commonCountMyTaskColor{
+	color:#6400E6;
+}
+
+.focusColor{
+    background-color: #E66800;
+}
+
+.commonCountFocusTaskColor{
+	color:#E66800;
+}

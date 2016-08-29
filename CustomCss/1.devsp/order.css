@@ -17,16 +17,19 @@
     }
 
 .ordersContainer {        
-    margin-left: 120px;
+    margin-left: 230px;
 }
 
 .title_orders{
-	margin-left:-250px;
-	margin-top: 40px;
+	margin-left:-60px;	
 }
 
-.title_orders h1 {    
-  /*  margin-top: -10px; */
+.linkOrder {    
+  display:none;
+}
+
+.linkTitle{
+	color: black;
 }
 
 #MSOZoneCell_WebPartctl00_ctl57_g_cfc64fbc_b751_494c_b5ee_539df7585b2e{
