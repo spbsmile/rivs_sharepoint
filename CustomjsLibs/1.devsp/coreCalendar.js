@@ -31,9 +31,9 @@ $(document).ready(function () {
 
     $("#btnPrevMonth").click(function () {
         currentIterateMonth--;
-		var shiftStartDate = parseInt(moment([moment().format('YYYY'), currentIterateMonth]).weekday());
+        var shiftStartDate = parseInt(moment([moment().format('YYYY'), currentIterateMonth]).weekday());
         setCellsOfBirthdaysEmployes(currentIterateMonth, shiftStartDate);
-        
+
         setCellCalendar(shiftStartDate, currentIterateMonth);
         setMonthViewForIterate(currentIterateMonth);
         return false;
@@ -41,9 +41,9 @@ $(document).ready(function () {
 
     $("#btnNextMonth").click(function () {
         currentIterateMonth++;
-		var shiftStartDate = parseInt(moment([moment().format('YYYY'), currentIterateMonth]).weekday());
+        var shiftStartDate = parseInt(moment([moment().format('YYYY'), currentIterateMonth]).weekday());
         setCellsOfBirthdaysEmployes(currentIterateMonth, shiftStartDate);
-        
+
         setCellCalendar(shiftStartDate, currentIterateMonth);
         setMonthViewForIterate(currentIterateMonth);
         return false;
@@ -51,17 +51,17 @@ $(document).ready(function () {
 });
 
 function setMonthViewForIterate(indexMonth) {
-	//if sep top css 
+    //if sep top css 
     if (indexMonth === parseInt(moment().format('M') - 1)) {
         setCurrentMonthView();
-		//sept month widly
+        //sept month widly
     } else {
-        $('#DayNow').html(moment(new Date(moment().format('YYYY'), indexMonth, 04)).format("MMMM") + " <br>" + moment(new Date(moment().format('YYYY'), indexMonth, 04)).format('YYYY'));		
-	}
+        $('#DayNow').html(moment(new Date(moment().format('YYYY'), indexMonth, 04)).format("MMMM") + " <br>" + moment(new Date(moment().format('YYYY'), indexMonth, 04)).format('YYYY'));
+    }
 }
 
 function setCurrentMonthView() {
-	$('#DayNow').html(moment().format("MMMM") + " <br>" + moment().format('YYYY'));   
+    $('#DayNow').html(moment().format("MMMM") + " <br>" + moment().format('YYYY'));
 }
 
 function successHandler(data) {
@@ -71,27 +71,27 @@ function successHandler(data) {
 
     dataEmployee = results;
     var thresholdDateHirePersons = moment().day(-thresholdCountDaysHirePersons).format("YYYY-MM-DD");
-	
-	//icon current day
-	$("#cell_" + (parseInt(moment().format('D')) + shiftStartDate - 1)).addClass('day_current');
+
+    //icon current day
+    $("#cell_" + (parseInt(moment().format('D')) + shiftStartDate - 1)).addClass('day_current');
     // iterate of all users
     for (var i = 0; i < results.length; i++) {
-		var name = results[i].Cells.results[2].Value;
-		var job = results[i].Cells.results[3].Value;
-		var department = results[i].Cells.results[4].Value;
-		var birthday = results[i].Cells.results[5].Value;
-		var pictureUrl = results[i].Cells.results[6].Value;
+        var name = results[i].Cells.results[2].Value;
+        var job = results[i].Cells.results[3].Value;
+        var department = results[i].Cells.results[4].Value;
+        var birthday = results[i].Cells.results[5].Value;
+        var pictureUrl = results[i].Cells.results[6].Value;
         var hireDate = results[i].Cells.results[7].Value;
-        
-		// define new hire persons
-		if (moment(hireDate).isAfter(thresholdDateHirePersons) && department != "Комнаты переговоров") {
+
+        // define new hire persons
+        if (moment(hireDate).isAfter(thresholdDateHirePersons) && department != "Комнаты переговоров") {
             if (!newEmploeeInit) {
                 $("#newEmployee_block").append('<h1> Новые Сотрудники </h1>');
                 newEmploeeInit = true;
-            }          
+            }
             displayWidgetEmployee("#newEmployee_block", name, job, department, pictureUrl);
         }
-        
+
         //filter of current month birthday field
         if (moment(birthday, 'DD.MM.YYYY').isValid() && moment(birthday, 'DD.MM.YYYY').month() === moment().month()) {
             var numberDayBirthday = moment(birthday, 'DD.MM.YYYY').format('D');
@@ -124,21 +124,21 @@ function setCellsOfBirthdaysEmployes(iterateMonth, shiftStartDate) {
     for (var i = 0; i <= 41; i++) {
         var id = "#cell_" + i;
         $(id).text("");
-		$(id).removeClass();
-		$(id).removeAttr("title");
+        $(id).removeClass();
+        $(id).removeAttr("title");
     }
-	
-	//icon current day
-	if (iterateMonth === parseInt(moment().format('M') - 1)) {
+
+    //icon current day
+    if (iterateMonth === parseInt(moment().format('M') - 1)) {
         $("#cell_" + (parseInt(moment().format('D')) + shiftStartDate - 1)).addClass('day_current');
-    } 
-	
+    }
+
     var results = dataEmployee;
     // iterate of all users
     for (var i = 0; i < results.length; i++) {
 
         var birthday = results[i].Cells.results[5].Value;
-		//filter of current month birthday field
+        //filter of current month birthday field
         if (moment(birthday, 'DD.MM.YYYY').isValid() && moment(birthday, 'DD.MM.YYYY').month() === iterateMonth) {
             var name = results[i].Cells.results[2].Value;
             var numberDayBirthday = moment(birthday, 'DD.MM.YYYY').format('D');
@@ -153,7 +153,7 @@ function setCellsOfBirthdaysEmployes(iterateMonth, shiftStartDate) {
             var prevName = $(id).prop("title") && $(id).prop("title").split(':')[1] ? ", " + $(id).prop("title").split(':')[1] : " ";
             $(id).attr('title', 'День Рождения: ' + name + prevName);
         }
-    } 
+    }
 }
 
 function setCellCalendar(shift, currentMonth) {
@@ -191,12 +191,15 @@ function displayWidgetEmployee(containerId, name, jobTitle, department, photo) {
     } else {
         photoImprove = "/_layouts/15/CustomjsLibs/1.devsp/noPhoto.jpg";
     }
+
+    var departmentImprove = department ? department : "_";
+
     var fio = name.split(" ");
     $(containerId).append('<div class="employeeRow"> <div class="employeeCell"> <div class="wrap_employeeCell "> ' +
         ' <a class="thumbnailMainPage"> <img src=' + photoImprove + '>' + '</a>' +
         '<h2 class="title_name">' +
         '<p>' + fio[0] + '<br>' + fio[1] + '<br>' + fio[2] + '</p> </h2> ' +
-        '<div class="empl_jobs_title"> <span class="department_inwidget"> ' + department + '</br> </span>' +
+        '<div class="empl_jobs_title"> <span class="department_inwidget"> ' + departmentImprove + '</br> </span>' +
         '<span class="jobTitle_inwidget"> ' + jobTitle + ' </span> </div></div></div>'
     );
 }
