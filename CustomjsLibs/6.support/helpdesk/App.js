@@ -5,7 +5,7 @@ var TableClaims;
 var fileName = " ";
 // for sort in table
 var claimSended = [];
-var claimClosed = [];
+var claimResolved = [];
 
 (function (TableClaims) {
 	TableClaims[TableClaims["New"] = 0] = "New";
@@ -17,19 +17,29 @@ $(document).ready(function () {
 
 	SP.SOD.executeFunc('sp.js', 'SP.ClientContext', sharePointReady);
 
-	function sharePointReady() {		
+	function sharePointReady() {
 		var context = SP.ClientContext.get_current();
 		var currentUser = context.get_web().get_currentUser();
 		context.load(currentUser);
 		context.executeQueryAsync(function () {
 			currentUserId = currentUser.get_id();
-			displayClaimsCurrentUser(settings().listIdNewClaims, "#panelSendClaims", "#tbodySendClaims", settings().btnNewClaim, TableClaims.New, "Author", settings().listFieldsNewClaimsTable, settings().tooltipBtnNewClaim, settings().statusClaim[0]);
-			displayClaimsCurrentUser(settings().listIdAcceptedClaims, "#panelSendClaims", "#tbodySendClaims", settings().btnNewClaim, TableClaims.Accepted, "Author0", settings().listFieldsAcceptedClaimsTable, settings().tooltipBtnNewClaim, settings().statusClaim[1]);
-			displayClaimsCurrentUser(settings().listIdResolvedClaims, "#panelResolvedClaims", "#tbodyResolvedClaims", settings().btnResolvedClaim, TableClaims.Resolved, "Author0", settings().listFieldsResolvedClaimsTable, settings().tooltipBtnResolvedClaim, settings().statusClaim[2]);
+			fetchClaimsCurrentUser(settings().listIdNewClaims, "Author", settings().listFieldsNewClaimsTable, claimSended, TableClaims.New, settings().statusClaim[0], settings().tooltipBtnNewClaim,
+				function () {
+					fetchClaimsCurrentUser(settings().listIdAcceptedClaims, "Author0", settings().listFieldsAcceptedClaimsTable, claimSended, TableClaims.Accepted, settings().statusClaim[1], settings().tooltipBtnNewClaim,
+						function () {
+							fetchClaimsCurrentUser(settings().listIdResolvedClaims, "Author0", settings().listFieldsResolvedClaimsTable, claimResolved, TableClaims.Resolved, settings().statusClaim[2], settings().tooltipBtnResolvedClaim,
+								function () {
+									displayClaims()
+								}
+							)
+						}
+					)
+				}
+			)
 		}, function (data) {
-            reportClaimOperation("Техническая ошибка получения заявок пользователя: " + "<br/>" + data.toString());
-            onError(data);
-        });
+			reportClaimOperation("Техническая ошибка получения заявок пользователя: " + "<br/>" + data.toString());
+			onError(data);
+		});
 	}
 
 	SP.SOD.loadMultiple(["moment.min.js", "moment-with-locales.min.js", "moment-timezone.min.js"], function () {
@@ -41,7 +51,10 @@ $(document).ready(function () {
 		if ($("#getFile").get(0).files.length === 0) {
 			sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), $("#discription").val(), null, ""), "Заявка Отправлена!");
 		} else {
-			sendClaimWithFile();
+			$("#modalSendClaim").modal();
+			sendClaimWithFile(function (itemId) {
+				sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), $("#discription").val(), itemId, ""), "Заявка с файлом Отправлена!");
+			});
 		}
 	});
 
@@ -72,11 +85,11 @@ function removeRow(rowId, panelId, tableId) {
 }
 
 function reportClaimOperation(message) {
-	console.log(reportClaimOperation + " reportClaimOperation");
 	$("#loader").hide();
 	$("#msgResultLoader").show();
 	$("#msgResultLoader").text(message);
 	$("#pressButtonSupport").show();
 	$("#supportForm").hide();
-	$("#discription").val(" ");
+	// ovveride when add 
+	//$("#discription").val(" ");
 }
