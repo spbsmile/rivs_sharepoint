@@ -2,7 +2,7 @@ function recallClaim(rowId, itemId) {
     removeRow(rowId, "#panelSendClaims", "#tableSend");
     $("#modalSendClaim").modal();    
     $.ajax({
-        url: "http://intranet/support/" + "/_api/web/lists(guid'" + settings().listIdNewClaims + "')/items(" + itemId + ")",
+        url: "/support/_api/web/lists(guid'" + settings().listIdNewClaims + "')/items(" + itemId + ")",
         type: "POST",
         headers: {
             "ACCEPT": "application/json;odata=verbose",

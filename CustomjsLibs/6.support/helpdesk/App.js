@@ -48,12 +48,14 @@ $(document).ready(function () {
 	});
 
 	$("#sendTicket").click(function () {
+		var discription = $("#discription").val() + "\n" + " Подкатегория: " + $("#subcategory option:selected").text();
 		if ($("#getFile").get(0).files.length === 0) {
-			sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), $("#discription").val(), null, ""), "Заявка Отправлена!");
+
+			sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), discription, null, ""), "Заявка Отправлена!");
 		} else {
 			$("#modalSendClaim").modal();
 			sendClaimWithFile(function (itemId) {
-				sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), $("#discription").val(), itemId, ""), "Заявка с файлом Отправлена!");
+				sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), discription, itemId, ""), "Заявка с файлом Отправлена!");
 			});
 		}
 	});
@@ -85,6 +87,7 @@ function removeRow(rowId, panelId, tableId) {
 }
 
 function reportClaimOperation(message) {
+	console.log(message + " message");
 	$("#loader").hide();
 	$("#msgResultLoader").show();
 	$("#msgResultLoader").text(message);

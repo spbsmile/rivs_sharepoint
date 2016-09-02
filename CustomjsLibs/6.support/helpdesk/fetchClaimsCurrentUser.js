@@ -1,5 +1,5 @@
 function fetchClaimsCurrentUser(listId, fieldAuthor, fields, arrayClaim, typeTable, statusClaim, tooltip, callback) {
-    var url = "http://intranet/support" + "/_api/web/lists(guid'" + listId + "')/items?&$select=" + "AttachFileNew/Title," + fieldAuthor + fields + "&$expand=" + "Author,AttachFileNew," + fieldAuthor + "&$filter=" + fieldAuthor + "/Id eq " + currentUserId;
+    var url = "/support/_api/web/lists(guid'" + listId + "')/items?&$select=" + "AttachFileNew/Title," + fieldAuthor + fields + "&$expand=" + "Author,AttachFileNew," + fieldAuthor + "&$filter=" + fieldAuthor + "/Id eq " + currentUserId;
     $.ajax({
         url: url,
         type: "GET",

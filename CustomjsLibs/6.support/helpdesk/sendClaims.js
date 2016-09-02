@@ -1,8 +1,7 @@
 ﻿function sendClaim(itemData, messageReport) {
-    $("#modalSendClaim").modal();
-    console.log("hello modal");
+    $("#modalSendClaim").modal();    
     $.ajax({
-        url: "http://intranet/support/" + "_api/web/lists(guid'" + settings().listIdNewClaims + "')/items",
+        url: "/support/_api/web/lists(guid'" + settings().listIdNewClaims + "')/items",
         type: "POST",
         contentType: "application/json;odata=verbose",
         data: JSON.stringify(itemData),
@@ -10,7 +9,7 @@
             "accept": "application/json;odata=verbose",
             "X-RequestDigest": jQuery("#__REQUESTDIGEST").val()
         },
-        success: function (data) {
+        success: function (data) {            
             reportClaimOperation(messageReport);
             if (!$("#panelSendClaims").is(":visible")) {
                 fetchClaimsCurrentUser(settings().listIdNewClaims, "Author", settings().listFieldsNewClaimsTable, claimSended, TableClaims.New, settings().statusClaim[0], settings().tooltipBtnNewClaim,
@@ -46,7 +45,7 @@
                 displayTableWithClaim("#panelSendClaims", "#tbodySendClaims", settings().btnNewClaim, claimSended);
             }
         },
-        error: function (data) {
+        error: function (data) {            
             reportClaimOperation("Ошибка отправки: " + data.toString());
             onError(data);
         }
