@@ -1,84 +1,69 @@
 $(document).ready(function () {
 
     var currentUser = $().SPServices.SPGetCurrentUser();
-    console.log(currentUser + " currentUser");
 
     var thisUsersValues = $().SPServices.SPGetCurrentUser({
         fieldNames: ["ID", "Title", "EMail", "Picture", "Department", "JobTitle", "WorkPhone", "Name", "SipAddres"],
         debug: false
     });
 
-    // console.log(thisUsersValues + " thisUsersValues");
-    // console.log(thisUsersValues.Title + " thisUsersValues Title");
-    // console.log(thisUsersValues.EMail + " thisUsersValues EMail");
-    // console.log(thisUsersValues.Picture + " thisUsersValues Picture");
-    // console.log(thisUsersValues.Department + " thisUsersValues Department");
-    // console.log(thisUsersValues.JobTitle + " thisUsersValues JobTitle");
-    // console.log(thisUsersValues.WorkPhone + " thisUsersValues WorkPhone");
-    // console.log(thisUsersValues.ID + " thisUsersValues ID");
-    // console.log(thisUsersValues.Name + " thisUsersValues Name");
-    // console.log(thisUsersValues.SipAddres + " thisUsersValues SipAddres");
-
-
-    var photo = thisUsersValues.Picture;
-    photo = photo.replace(/ /g, '%20');
-    photo = photo.replace("_MThumb.jpg", "_LThumb.jpg");
-
-    $(".title_person").text(thisUsersValues.Title);
-
-    $(".department_person_widget").text(thisUsersValues.Department);
-
-    $(".job_title_person_widget").text(thisUsersValues.JobTitle);
-
-    $(".phone_value").text(thisUsersValues.WorkPhone);
-
-    $(".email_value").text(thisUsersValues.EMail);
-
-    $(".image_person").attr("src", photo);
-
-    console.log(window.location.pathname + " path only");
-
-    console.log(window.location.href + " full url");
-
-    //console.log(decodeURI(window.location.href) + " after decode uri, full url");
-
-    var uri = decodeURI(window.location.href);
-    var decodeUriComponent = decodeURIComponent(window.location.href);
-    console.log(decodeUriComponent + " decodeUriComponent");
-    console.log(uri + " uri");
-
     var regexStr = /ID=([^"]*?)(?=&)/;
-    var regexp = new RegExp(regexStr);
-    var myArrayTest = regexStr.exec(uri);
+    var resultRegex = regexStr.exec(decodeURIComponent(window.location.href));    
+    var id = resultRegex ? resultRegex[1] : "";       
+    console.log(id)
+    if (id) {
+        $.ajax({
+            url: "_api/web/getuserbyid(" + id + ")",
+            method: "GET",
+            headers: {
+                "Accept": "application/json;odata=verbose",
+                "X-RequestDigest": $("#__REQUESTDIGEST").val()
+            },
+            success: function (data) {
+                var datajs = JSON.stringify(data);                
+                var results = data.d;
+                $(".title_person").text(results.Title);
+                $(".email_value").text(results.Email);
 
-    //var myVar = regexp.exec(uri)[1];
-    console.log(myArrayTest + " myVar");
+                $.ajax({
+                    url: "_api/search/query?querytext='" + results.Title + "'&selectproperties='JobTitle%2cWorkPhone%2cDepartment%2cPictureURL'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json;odata=verbose",
+                        "X-RequestDigest": $("#__REQUESTDIGEST").val()
+                    },
+                    success: function (dataNew) {                        
+                        var results = dataNew.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
 
-    var myArray;
-    while ((myArray = regexStr.exec(uri)) !== null) {
-        console.log(myArray + " regex")
+                        for (var i = 0; i < results.length; i++) {
+                            var result = results[i];                            
+                            $(".job_title_person_widget").text(result.Cells.results[2].Value);
+                            $(".phone_value").text(result.Cells.results[3].Value);
+                            $(".department_person_widget").text(result.Cells.results[4].Value);
+                            var photo = result.Cells.results[5].Value;
+                            photo = photo.replace(/ /g, '%20');
+                            photo = photo.replace("_MThumb.jpg", "_LThumb.jpg");
+                            $(".image_person").attr("src", photo);                            
+                        }
+                    },
+                    error: errorHandler
+                });
+            }
+        });
+    } else {
+        $(".title_person").text(thisUsersValues.Title);
+        var photo = thisUsersValues.Picture;
+        photo = photo.replace(/ /g, '%20');
+        photo = photo.replace("_MThumb.jpg", "_LThumb.jpg");
+
+        $(".email_value").text(thisUsersValues.EMail);
+        $(".department_person_widget").text(thisUsersValues.Department);
+        $(".job_title_person_widget").text(thisUsersValues.JobTitle);
+        $(".phone_value").text(thisUsersValues.WorkPhone);
+        $(".image_person").attr("src", photo);
     }
 
-    var re = /ID=([^"]*?)(?=&)/;
-    var str = 'http://intranet/my/Person.aspx?accountname=i:0#.w|rivs\sptest&Source=http://intranet/support/_layouts/userdisp.aspx?Force=1&ID=17&Source=http%3A%2F%2Fintranet%2Fsupport%2FPages%2Fdefault%2Easpx&AjaxDelta=1&isStartPlt1=1472455153057&Title=Техподдержка';
-    var m;
-
-    if ((m = re.exec(window.location.href)) !== null) {
-
-        console.log(m + " hello m");
-        if (m.index === re.lastIndex) {
-            re.lastIndex++;
-        }
-        // View your result using the m-variable.
-        // eg m[0] etc.
+    function errorHandler(data) {
+        console.log(data + "fail");
     }
-
-    //decode url
-
-    //      i:0#.w|rivs\m_zabiyakin
-    //      i:0#.w|rivs\m_zabiyakin this Name property
-
-
-    // http://<site url>/_api/web/getuserbyid(ID#)
-
 });

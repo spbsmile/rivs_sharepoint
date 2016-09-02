@@ -3,9 +3,9 @@ $(document).ready(function () {
 	$(".welcome-content").hide();
 
 	//var listId = "ffb15214-eff0-49d7-ac88-ecbfecdc6ab3";
-	
+	$("#loaderOrderPage").show();
 	jQuery.ajax({
-		url : "http://intranet/sites/documents/_api/web/lists/GetByTitle('ПРИКАЗЫ')/Items?$select=Id,Title,File/ServerRelativeUrl&$expand=File",
+		url : "/sites/documents/_api/web/lists/GetByTitle('ПРИКАЗЫ')/Items?$select=Id,Title,File/ServerRelativeUrl&$expand=File",
 		type : "GET",
 		headers : {
 			"Accept" : "application/json; odata=verbose"
@@ -14,8 +14,9 @@ $(document).ready(function () {
 		error : onError
 	});
 
-	function doSuccess(data) {		
-		var results = data.d.results;		
+	function doSuccess(data) {
+		$("#loaderOrderPage").hide();		
+		var results = data.d.results;				
 		for (var i = 0; i < results.length; i++) {
 			var r = results[i];			
 			var id = "news" + i;
