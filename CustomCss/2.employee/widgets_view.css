@@ -32,6 +32,12 @@
 	cursor: pointer;
 }
 
+ul#loaderEmployeePage{
+	color: grey;
+	margin-left: 0px;
+}
+
+
 .containerOtdels,.additionalEmployee{
 	display: none;
 }
@@ -92,11 +98,11 @@ container_widget_departments{
     box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
     border-radius: 0.5em;
 }
-
+/*
 .wrap_employeeCell_widget:hover {
     background-color: rgba(150, 150, 150, .35) !important;
 }
-
+*/
 #breadcrumbs_container{
     margin-top: 20px;
     margin-bottom: 15px;
