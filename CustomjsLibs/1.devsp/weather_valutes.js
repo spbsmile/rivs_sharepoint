@@ -107,7 +107,7 @@ function defineWeatherIcon(childId, state) {
 		imageUrl += "cloudy.png"
 	} else if (state === "гроза" || state === "гроза с мелким дождём") {
 		imageUrl += "rain_w_thunder.png"
-	} else if (state === "дождь" || state === "легкий дождь") {
+	} else if (state === "дождь" || state === "легкий дождь"|| state === "проливной дождь") {
 		imageUrl += "chance_of_rain.png"
 	} else if (state === "снег") {
 		imageUrl += "snow.png"
