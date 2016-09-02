@@ -32,6 +32,12 @@
 	color: black;
 }
 
+ul.fa-ul.loaderPage {
+    color: grey;
+    margin-left: 386px;
+    margin-top: 20px;
+}
+
 #MSOZoneCell_WebPartctl00_ctl57_g_cfc64fbc_b751_494c_b5ee_539df7585b2e{
 	margin-top: -40px;
 }

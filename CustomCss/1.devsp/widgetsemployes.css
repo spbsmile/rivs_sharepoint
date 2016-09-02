@@ -28,11 +28,11 @@
     width: 260px;
     display: table;
 }
-
+/*
 .wrap_employeeCell:hover {
     background-color: rgba(150, 150, 150, .35) !important;
 }
-
+*/
 .title_name {
 	padding-top: 7px;
     font-size: 1.3em;

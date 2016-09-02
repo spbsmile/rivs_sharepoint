@@ -1,12 +1,33 @@
-﻿
-#ctl00_ctl58_g_86d47d3d_fb0e_4f06_a474_12cf4437da29_ctl00_BtnDatechange{
-      text-transform: uppercase;
+﻿.btnDateChange{
+	text-transform: uppercase;
     box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
     border-radius: 0.5em;
-    font-size: 1.3em;
+    font-size: 1.3em !important;
     margin-top: -10px;
     margin-bottom: 10px;
 	cursor: pointer;
+}
+
+.form-control .dtDatePicker {
+    width: 100px;
+    float: left;
+    margin-left: 45%;
+}
+
+#rowChangeDate.form-group.form-control .dtDatePicker .hasDatepicker{
+	width: 100px;
+    float: left;
+    margin-left: 45%;
+}
+
+#rowChangeDate.form-group input{
+	width: 100px;
+    float: left;
+    margin-left: 45%;
+}
+
+.log{
+	display:none;
 }
 
 .currencyBackBtn{
@@ -71,36 +92,30 @@
 }
 
 #tablecurrency {
-        width: 60%;
-        margin-left: 20%;
-    }
+    width: 60%;
+    margin-left: 20%;
+}
 
-        #tablecurrency td {
-            text-align: center;
-        }
+#tablecurrency td {
+    text-align: center;
+}
 
-    .form-control .dtDatePicker {
-        width: 100px;
-        float: left;
-        margin-left: 45%;
-    }
+.firstRowTable {
+    background-color: gray;
+    color: #FFFFFF;
+}
 
-    .firstRowTable {
-        background-color: gray;
-        color: #FFFFFF;
-    }
+.columnFixedWidth {
+    width: 90px;
+}
 
-    .columnFixedWidth {
-        width: 90px;
-    }
+.bootstrap-scope .table-hover > tbody > tr:hover.firstRowTable {
+    background-color: gray;
+}
 
-    .bootstrap-scope .table-hover > tbody > tr:hover.firstRowTable {
-        background-color: gray;
-    }
-
-    #titleCurrency {
-        padding-left: 45%; 
-        margin-bottom: 20px;
-    }
+#titleCurrency {
+    padding-left: 45%; 
+    margin-bottom: 20px;
+}
 
 

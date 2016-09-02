@@ -15,8 +15,8 @@
     border-radius: 0.5em;
 }
 
-.modalWeatherDialog{
-	
+h4#myModalLabelWeather {
+    text-transform: uppercase;
 }
 
 .cell_weather_city {
@@ -107,8 +107,8 @@
 .modalCellWeather:hover{
 	background-color: rgba(150, 150, 150, .35) !important;
 }
-
-.cell_weather:hover, .currencyBlock:hover {
+/*.cell_weather:hover,*/
+.weatherBlock:hover, .currencyBlock:hover {
     background-color: rgba(150, 150, 150, .35) !important;
 }
 
