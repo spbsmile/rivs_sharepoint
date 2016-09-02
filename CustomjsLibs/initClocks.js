@@ -50,8 +50,10 @@ function initLocalClocks(timezone, initialId) {
 	// Loop through each of these hands to set their angle
 	for (var j = 0; j < hands.length; j++) {
 		var elements = document.getElementById(initialId + "_" + hands[j].hand);
-		elements.style.webkitTransform = 'rotateZ(' + hands[j].angle + 'deg)';
-		elements.style.transform = 'rotateZ(' + hands[j].angle + 'deg)';
+		if(elements){
+			elements.style.webkitTransform = 'rotateZ(' + hands[j].angle + 'deg)';
+			elements.style.transform = 'rotateZ(' + hands[j].angle + 'deg)';
+		}		
 	}
 }
 
