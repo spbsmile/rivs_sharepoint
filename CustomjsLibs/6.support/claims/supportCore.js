@@ -3,13 +3,23 @@ $(document).ready(function () {
     $(".welcome-content").hide();
     $(".welcome-image").hide();
     $(".userTargetModalContainer").hide();
+
+    $("#js-listviewthead-WPQ2").parent().css(
+        { "table-layout": "fixed" });
+
+    $("#js-listviewthead-WPQ3").parent().css(
+        { "table-layout": "fixed" });
+
+    $("#js-listviewthead-WPQ1").parent().css(
+        { "table-layout": "fixed" });
+
     $("input[name='userSource']").pickSPUser(
         {
             onPickUser: function (personObj) {
-                $("#userSource").next().find(".pt-pickSPUser-input").hide();                
+                $("#userSource").next().find(".pt-pickSPUser-input").hide();
             },
             onRemoveUser: function ($input, $ui, personObj) {
-                $("#userSource").next().find(".pt-pickSPUser-input").show();                
+                $("#userSource").next().find(".pt-pickSPUser-input").show();
             },
             filterSuggestions: function (suggestions) {
                 var newSuggestions = [];
@@ -36,7 +46,7 @@ $(document).ready(function () {
                 $("input[name='userTarget']").pickSPUser(
                     {
                         onPickUser: function (personObj) {
-                            $("#userTarget").next().find(".pt-pickSPUser-input").hide();                            
+                            $("#userTarget").next().find(".pt-pickSPUser-input").hide();
                         },
                         onRemoveUser: function ($input, $ui, personObj) {
                             $("#userTarget").next().find(".pt-pickSPUser-input").show();
@@ -60,9 +70,10 @@ $(document).ready(function () {
 
 function removeItem(itemId, listId) {
     $.ajax({
-        url: settings().siteUrl + "_api/web/lists(guid'" + listId + "')/items(" + itemId + ")",
+        url: "/support/_api/web/lists(guid'" + listId + "')/items(" + itemId + ")",
         type: "POST",
         contentType: "application/json;odata=verbose",
+        async: true,
         headers: {
             "ACCEPT": "application/json;odata=verbose",
             "content-type": "application/json;odata=verbose",
@@ -78,12 +89,12 @@ function removeItem(itemId, listId) {
     });
 }
 
-
 function addItem(listId, itemData) {
     $.ajax({
-        url: settings().siteUrl + "_api/web/lists(guid'" + listId + "')/items",
+        url: "/support/_api/web/lists(guid'" + listId + "')/items",
         type: "POST",
         contentType: "application/json;odata=verbose",
+        async: true,
         data: JSON.stringify(itemData),
         headers: {
             "Accept": "application/json;odata=verbose",
@@ -97,8 +108,13 @@ function addItem(listId, itemData) {
     });
 }
 
+function onQueryFailed(sender, args) {
+    console.log("request failed " + args.get_message() + "\n" + args.get_stackTrace());
+}
+
 // Display error messages. 
 function onError(error) {
+    console.log(error);
     console.log(error.responseText);
 }
 

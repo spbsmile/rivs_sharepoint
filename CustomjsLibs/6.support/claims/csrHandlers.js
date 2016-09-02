@@ -1,4 +1,4 @@
-function clickAcceptTask(itemId, created, authId, discription, priority, category, lookupId, employeeId) {
+function clickAcceptTask(itemId, created, authId, discription, priority, category, lookupId, employeeId) {    
     if (employeeId === "null") {
         employeeId = currentUserId;
     }
