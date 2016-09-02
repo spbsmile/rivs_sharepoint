@@ -9,14 +9,14 @@ $(document).ready(function () {
 	$(".td.ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
 	$(".ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
 	$(".ms-list-itemLink-td.ms-cellstyle").hide();
-	
+
 	var isMember = null;
 	var currentUser = $().SPServices.SPGetCurrentUser();
 	$().SPServices({
-		operation : "GetGroupCollectionFromUser",
-		userLoginName : currentUser,
-		async : true,
-		completefunc : function (xData, Status) {
+		operation: "GetGroupCollectionFromUser",
+		userLoginName: currentUser,
+		async: true,
+		completefunc: function (xData, Status) {
 			if ($(xData.responseXML).find("Group[Name='" + "SupportOwner" + "']").length == 1) {
 				isMember = true;
 			} else {
@@ -33,12 +33,13 @@ $(document).ready(function () {
 	});
 
 	$().SPServices({
-		operation : "GetGroupCollectionFromUser",
-		userLoginName : currentUser,
-		async : true,
-		completefunc : function (xData, Status) {
+		operation: "GetGroupCollectionFromUser",
+		userLoginName: currentUser,
+		async: true,
+		completefunc: function (xData, Status) {
 			if ($(xData.responseXML).find("Group[Name='" + "DevepolerGroup" + "']").length == 1) {
 				$('#ms-designer-ribbon').show();
+				$("#suiteBarRight").show;
 				$('#RibbonContainer-TabRowRight').show();
 				$('#suiteBarButtons').show();
 				$('#s4-ribbonrow').show();
@@ -47,22 +48,14 @@ $(document).ready(function () {
 				$(".ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").show();
 				$(".ms-list-itemLink-td.ms-cellstyle").show();
 				$('#s4-ribbonrow').css({
-					"height" : "initial"
+					"height": "initial"
 				});
 			}
 		}
-	});
-/*
-	// “List Tools” tab is no longer available after adding webpart to the page  HACK
-	setTimeout(function () {
-		var elem = document.getElementById("MSOZoneCell_WebPartWPQ2");
-		if (elem != null) {
-			var dummyevent = new Array();
-			dummyevent["target"] = elem;
-			dummyevent["srcElement"] = elem;
-			console.log("click event");
-			WpClick(dummyevent);
-		}
-	}, 2000);
-*/
+	});	
+
+	$('.ms-subtleLink').each(function (i, obj) {			
+		$(this).attr("href", "#");
+		$(this).removeAttr("onclick");
+	});	
 });
