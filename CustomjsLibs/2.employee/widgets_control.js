@@ -24,13 +24,14 @@ $(document).ready(function () {
 	});
 
 	$("#mainsearch_client").keypress(function (e) {
-		if (e.which == 13) {
-			var query = $("#textarea_mainsearch_client").val();
+		var query = $("#textarea_mainsearch_client").val();
+		var query = query.trim();
+		if (e.which == 13 && query && query.length > 1) {
 			clearBreadcrumbs();
 			$("#textarea_mainsearch_client").val('');
 			$("#textarea_mainsearch_client").attr('rows', 1);
 			prepareSearch();
-			startSearch(query, "", true, false, null, true);
+			startSearch(query, "", false, false, null, true);
 			$("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + "Поиск: " + query + '\</a>');
 		}
 	});
@@ -76,6 +77,7 @@ $(document).ready(function () {
 
 	// dynamic main page
 	function createMainPage() {
+		$("#loaderEmployeePage").show();
 		$.ajax({
 			url: getUrlQuerySearch('*', "Department%2cOrganization%2cIsDisabled%2cotdel2%2cTitle", 600, false),
 			method: "GET",
@@ -152,14 +154,14 @@ $(document).ready(function () {
 			for (var index = 0; index < departmentsTree[property].length; index++) {
 				a.push(departmentsTree[property][index]);
 			}
-			
+
 			for (i = 0; i < array.length; i++) {
 				var index = a.indexOf(array[i]);
 				if (index === -1) continue;
 				var temp = a[i];
 				a[i] = array[i];
 				a[index] = temp;
-			}			
+			}
 			departmentsTree[property] = a;
 		}
 
@@ -198,6 +200,8 @@ $(document).ready(function () {
 			return sorted;
 		}
 
+		$("#loaderEmployeePage").hide();
+
 		var index = 0;
 		for (var name in sortObject(departmentsTree)) {
 			if (index === 0) {
@@ -233,7 +237,7 @@ $(document).ready(function () {
 		var initialIndex = 0;
 		otdels[0] = otdels[0].trim();
 		var index = otdels.indexOf("Руководство");
-		if (index != -1) {			
+		if (index != -1) {
 			var temp = otdels[0];
 			otdels[0] = otdels[index];
 			otdels[index] = temp;
@@ -423,7 +427,6 @@ $(document).ready(function () {
 				var array = [];
 				for (var i = 0; i < results.length; i++) {
 					var d = getData(results[i]);
-					console.log(d);
 					array[0] = d.photo;
 					array[1] = d.name;
 					array[2] = d.department;
@@ -464,7 +467,7 @@ $(document).ready(function () {
 		module.jobTitle = result.Cells.results[3].Value ? result.Cells.results[3].Value : "_";
 		if (module.jobTitle) { //module.name === "Лигузов Алексей Дмитриевич"){			
 			var lines = module.jobTitle.split(/\r\n|\r|\n/g);
-			module.jobTitle = lines[0]; 						
+			module.jobTitle = lines[0];
 		}
 		module.email = result.Cells.results[4].Value ? result.Cells.results[4].Value : "";
 		module.phone = result.Cells.results[6].Value ? result.Cells.results[6].Value : "";
@@ -489,9 +492,9 @@ $(document).ready(function () {
 		var f = t.replace('»', '');
 		var v = f.replace('«', '');
 		return v.replace('«', '');
-	}
+	}	
 
-	function errorHandler(data) {
-		console.log(data + "fail");
+	function errorHandler(error) {
+		console.log(error.responseText);
 	}
 });
