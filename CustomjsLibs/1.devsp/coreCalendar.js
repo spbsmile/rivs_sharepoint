@@ -112,6 +112,9 @@ function successHandler(data) {
             $(id).attr('title', 'День Рождения: ' + name + prevName);
         }
     }
+    if(!congratsBirthdayInit){
+        $(".calendar-container").css('margin-top','40px');             
+    }  
 }
 
 function capitalizeFirstLetter(string) {
@@ -133,6 +136,7 @@ function setCellsOfBirthdaysEmployes(iterateMonth, shiftStartDate) {
         $("#cell_" + (parseInt(moment().format('D')) + shiftStartDate - 1)).addClass('day_current');
     }
 
+    var isTodayBirthday = false;
     var results = dataEmployee;
     // iterate of all users
     for (var i = 0; i < results.length; i++) {
@@ -148,12 +152,17 @@ function setCellsOfBirthdaysEmployes(iterateMonth, shiftStartDate) {
             // congrat today birthdays
             if (moment().format('D') === numberDayBirthday) {
                 $(id).addClass('birthday_current');
+                
+                isTodayBirthday = true;
             }
             $(id).addClass('birthday');
             var prevName = $(id).prop("title") && $(id).prop("title").split(':')[1] ? ", " + $(id).prop("title").split(':')[1] : " ";
             $(id).attr('title', 'День Рождения: ' + name + prevName);
         }
     }
+    if(!isTodayBirthday){
+        $(".calendar-container").css('margin-top','40px');             
+    }  
 }
 
 function setCellCalendar(shift, currentMonth) {
