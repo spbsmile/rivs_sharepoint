@@ -19,7 +19,7 @@ $(document).ready(function () {
 		clearBreadcrumbs();
 		$("#textarea_mainsearch_client").val('');
 		prepareSearch();
-		startSearch(query, "", true, false);
+		startSearch(query, "", false, false);
 		$("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + "Поиск: " + query + '\</a>');
 	});
 
@@ -101,14 +101,14 @@ $(document).ready(function () {
 			// todo comment this field
 			var otdel2 = results[i].Cells.results[5].Value;
 
-			if (department && !isDisabled && department != "Аналитический центр") {
+			if (department && !isDisabled) {
 				// check on hierarchy otdel				
 				if (otdel && otdel != department) {
 					if (!departmentsTree.hasOwnProperty(otdel)) {
 						departmentsTree[otdel] = [];
 						departmentsTree[otdel].push(department);
 					} else if (departmentsTree[otdel].indexOf(department) == -1) {
-						// example: otdel = ГипроРИВС, department = Руководство
+						// example: otdel = ГипроРИВС, department = Руководство						
 						departmentsTree[otdel].push(department);
 					}
 				} else if (!departmentsTree.hasOwnProperty(department)) {
@@ -129,11 +129,13 @@ $(document).ready(function () {
 					}
 				}
 			}
-		}
+		}		
 
 		var sortHierarchyOtdel = {};
 		sortHierarchyOtdel["ГипроРИВС"] = ["Руководство", "Секретариат", "Бюро главных инженеров", "Отдел технологического проектирования", "Строительная группа", "Отдел гидротехнических сооружений",
 			"Сметно-Экономический отдел", "Технологическая группа", "Экологическая группа", "Группа оформления проектной документации"];
+
+		sortHierarchyOtdel["Машзавод РИВС"] = ["Управление", "Бухгалтерия", "Отдел экономики и труда", "Бюро по работе с персоналом", "Производственно-технический отдел", "Служба по снабжению и транспорту", "Энергомеханическая служба", "Отдел сервисного обслуживания ГОП", "Участок погрузочно-разгрузочных работ", "Отдел технического контроля", "Производственный цех", "Участок монтажных работ", "Вспомогательный персонал"]
 
 		for (var property in sortHierarchyOtdel) {
 			if (sortHierarchyOtdel.hasOwnProperty(property) && departmentsTree.hasOwnProperty(property)) {
@@ -237,6 +239,9 @@ $(document).ready(function () {
 		var initialIndex = 0;
 		otdels[0] = otdels[0].trim();
 		var index = otdels.indexOf("Руководство");
+		if(index < 0){
+			index = otdels.indexOf("Управление");
+		}
 		if (index != -1) {
 			var temp = otdels[0];
 			otdels[0] = otdels[index];
@@ -343,7 +348,6 @@ $(document).ready(function () {
 				}
 
 				if (additionalEmployees && additionalEmployees.length > 0 && additionalEmployees[0] != " " && additionalEmployees[0]) {
-
 					for (var i = 0; i < additionalEmployees.length - 1; i++) {
 						var employeeData = additionalEmployees[i].split(",");
 						if (indexRow != Math.floor((innerIndex - innerShift) / countWidgetsInRow)) {
@@ -379,7 +383,7 @@ $(document).ready(function () {
 		});
 	}
 
-	function createWidgetEmployee(photo, name, department, jobTitle, email, phone, isStub) {
+	function createWidgetEmployee(photo, name, department, jobTitle, email, phone, isStub) {		
 		var styleStub = isStub ? "style='display: none;'" : "";
 		var widget =
 			"<div class='employeeCell_widget'>" +
@@ -492,7 +496,7 @@ $(document).ready(function () {
 		var f = t.replace('»', '');
 		var v = f.replace('«', '');
 		return v.replace('«', '');
-	}	
+	}
 
 	function errorHandler(error) {
 		console.log(error.responseText);
