@@ -32,16 +32,14 @@ $(document).ready(function () {
     });
     var unicId = $('#currency').parent().attr('id');
     //weather
-    var spb = "15°C"; //$('#' + unicId + '_ctl00_spbDegreesDuplicat').text());
-    var uchaly = "22°C"; //$('#' + unicId + '_ctl00_uchalyDegrees').text());
-    var kentay = "30°C"; //$('#' + unicId + '_ctl00_kentayDegrees').text());
-    var magn = "21°C"; //$('#' + unicId + '_ctl00_magnitogorskDegrees').text());
-    var erdenet = "15°C"; //$('#' + unicId + '_ctl00_erdenetGegrees').text());
-    var msc = "16°C"; //$('#' + unicId + '_ctl00_mscDegrees').text());
-    var erevan = "27°C"; //$('#' + unicId + '_ctl00_erevanDegrees').text());
-    var tachkent = "32°C"; //$('#' + unicId + '_ctl00_tashkentDergrees').text());
-    var actualSpb = $('#' + unicId + '_ctl00_spbDegreesDuplicat').text();
-    console.log("ПОГОДА:" + actualSpb);
+    var spb = $('#' + unicId + '_ctl00_spbDegreesDuplicat').text();
+    var uchaly = $('#' + unicId + '_ctl00_uchalyDegrees').text();
+    var kentay = $('#' + unicId + '_ctl00_kentayDegrees').text();
+    var magn = $('#' + unicId + '_ctl00_magnitogorskDegrees').text();
+    var erdenet = $('#' + unicId + '_ctl00_erdenetGegrees').text();
+    var msc = $('#' + unicId + '_ctl00_mscDegrees').text();
+    var erevan = $('#' + unicId + '_ctl00_erevanDegrees').text();
+    var tachkent = $('#' + unicId + '_ctl00_tashkentDergrees').text();
     $("#spbIconDuplicat_View").addClass($('#' + unicId + '_ctl00_spbIconDuplicat').attr('class'));
     $("#spbDescriptionDuplicat_View").text($('#' + unicId + '_ctl00_spbDescriptionDuplicat').text());
     $("#spbDegreesDuplicat_View").text(spb);
