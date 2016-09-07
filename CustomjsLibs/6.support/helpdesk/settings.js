@@ -16,7 +16,7 @@ function settings()
     module.tooltipBtnNewClaim = "Если Вы сами справились с задачей";
 
     module.btnNewClaim = '<input type="button"  value="Отозвать Заявку">';
-    module.btnResolvedClaim = '<input type="button"  value="Переоткрыть Заявку" >';  
+    module.btnResolvedClaim = '<input type="button"  value="Повторить" >';  
 
     module.listFieldsNewClaimsTable = "/Title,ID,Created,Discription,urgently,category";
     module.listFieldsAcceptedClaimsTable = "/Title,ID,DateCreate,Discription,TimeCreate,Priority,Category,Author/Title";    
