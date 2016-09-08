@@ -11,11 +11,11 @@ $(document).ready(function () {
     moment.locale(window.navigator.userLanguage || window.navigator.language);
     setCurrentMonthView();
 
-    var currentMonth = parseInt(moment().format('M') - 1);
+    var currentMonth = parseInt(moment().format('M')) - 1;
     //for next/prev month
     currentIterateMonth = currentMonth;
     // number first day week of month //http://stackoverflow.com/questions/26131003/moment-js-start-and-end-of-given-month
-    shiftStartDate = parseInt(moment([moment().format('YYYY'), currentMonth]).weekday());
+    shiftStartDate = moment([moment().format('YYYY'), currentMonth]).weekday();
     setCellCalendar(shiftStartDate, currentMonth);
 
     $.ajax({
@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     $("#btnPrevMonth").click(function () {
         currentIterateMonth--;
-        var shiftStartDate = parseInt(moment([moment().format('YYYY'), currentIterateMonth]).weekday());
+        var shiftStartDate = moment([moment().format('YYYY'), currentIterateMonth]).weekday();
         setCellsOfBirthdaysEmployes(currentIterateMonth, shiftStartDate);
 
         setCellCalendar(shiftStartDate, currentIterateMonth);
@@ -41,7 +41,7 @@ $(document).ready(function () {
 
     $("#btnNextMonth").click(function () {
         currentIterateMonth++;
-        var shiftStartDate = parseInt(moment([moment().format('YYYY'), currentIterateMonth]).weekday());
+        var shiftStartDate = moment([moment().format('YYYY'), currentIterateMonth]).weekday();
         setCellsOfBirthdaysEmployes(currentIterateMonth, shiftStartDate);
 
         setCellCalendar(shiftStartDate, currentIterateMonth);
@@ -52,11 +52,11 @@ $(document).ready(function () {
 
 function setMonthViewForIterate(indexMonth) {
     //if sep top css 
-    if (indexMonth === parseInt(moment().format('M') - 1)) {
+    if (indexMonth === parseInt(moment().format('M')) - 1) {
         setCurrentMonthView();
         //sept month widly
-    } else {
-        $('#DayNow').html(moment(new Date(moment().format('YYYY'), indexMonth, 04)).format("MMMM") + " <br>" + moment(new Date(moment().format('YYYY'), indexMonth, 04)).format('YYYY'));
+    } else {        
+        $('#DayNow').html(moment().format("MMMM") + " <br>" + moment().format('YYYY'));
     }
 }
 
@@ -132,8 +132,8 @@ function setCellsOfBirthdaysEmployes(iterateMonth, shiftStartDate) {
         $(id).removeAttr("title");
     }
 
-    //icon current day
-    if (iterateMonth === parseInt(moment().format('M') - 1)) {
+    //icon current day    
+    if (iterateMonth === parseInt(moment().format('M')) - 1) {
         $("#cell_" + (parseInt(moment().format('D')) + shiftStartDate - 1)).addClass('day_current');
     }
 
@@ -177,9 +177,10 @@ function setCellCalendar(shift, currentMonth) {
         $(id).addClass('prev-month');
     }
 
-    var interval = shift + parseInt(moment().daysInMonth());
+    var interval = shift + moment().daysInMonth();
     var currentMonthDayValue = 1;
     var lastCellIndex = 0;
+
     for (var i = shift; i < interval; i++) {
         var id = "#cell_" + i;
         lastCellIndex = i;
