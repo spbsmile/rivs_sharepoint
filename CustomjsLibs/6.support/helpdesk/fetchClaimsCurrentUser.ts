@@ -12,14 +12,13 @@ function fetchClaimsCurrentUser(listId, fieldAuthor, fields, arrayClaim, typeTab
                 claim.listId = listId;
                 claim.typeTable = typeTable;
                 claim.statusClaim = statusClaim;
-                claim.tooltip = tooltip;
+                claim.tooltip = tooltip;                
                 arrayClaim.unshift(claim);
-            }
-            if (typeof callback === 'function' && callback) {
+            }         
+            if (typeof callback === 'function' && callback) {                
                 callback();
             }
         },
         error: onQueryFailed
     });
 }
-//# sourceMappingURL=fetchClaimsCurrentUser.js.map
