@@ -469,7 +469,7 @@ $(document).ready(function () {
 		var module = [];
 		module.name = result.Cells.results[2].Value;
 		module.jobTitle = result.Cells.results[3].Value ? result.Cells.results[3].Value : "_";
-		if (module.jobTitle) { //module.name === "Лигузов Алексей Дмитриевич"){			
+		if (module.jobTitle) {			
 			var lines = module.jobTitle.split(/\r\n|\r|\n/g);
 			module.jobTitle = lines[0];
 		}

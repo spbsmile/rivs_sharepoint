@@ -32,6 +32,7 @@
 	text-transform:uppercase;
 	margin-bottom: 20px;
     font-weight: 400;
+	cursor: pointer;
 }
 .title_name a{
 	color:black;
@@ -49,6 +50,14 @@
     font-size: 20px;
     font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin-bottom: 20px;
+}
+
+.table_task, .btn_back{
+	display:none;
+}
+
+.panel.panel-primary.tableClaimSended {
+    float: left;
 }
 
 .taskBlock .tHeader img{

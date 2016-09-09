@@ -205,8 +205,6 @@ a.mmenuBtn.overrmmenuBtn {
 }
 
 .left_column {
-    width: 260px;
-	height: 260px;
     float: left;
 }
 
@@ -228,8 +226,7 @@ a.mmenuBtn.overrmmenuBtn {
     color: red;
 }
 
-.right_column {
-    width: 260px;
+.right_column {    
     float: right;
 }
 

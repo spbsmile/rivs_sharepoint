@@ -25,17 +25,21 @@
 }
 
 #js-listviewthead-WPQ2 tr th:nth-child(8){
-	width:30px;
+	width:10px;
 }
 
 #js-listviewthead-WPQ2 tr th:nth-child(9){
-	width:80px;
+	width:50px;
 }
 
 #js-listviewthead-WPQ2 tr th:nth-child(10){
-	width:80px;
+	width:50px;
 }
 
+#js-listviewthead-WPQ2 tr th:nth-child(11){
+	width:170px;
+}
+/*  anouther list*/
 #js-listviewthead-WPQ1 tr th:nth-child(2){
 	width:100px;
 }
@@ -78,8 +82,25 @@
 	padding-left: 40%;
 }
 
+#dialog-form-comment-claim{
+	height: 180px !important;
+}
+
 table tr td {
     text-align: center;
+}
+
+.userRedirectClaim {
+    margin-top: 10px;
+}
+
+label.userSourceModalContainer.title {
+    margin-bottom: 2px;
+    display: inline-block;
+}
+
+.commentContainerModal {
+    margin-top: 10px;
 }
 
 td.ms-addnew{
