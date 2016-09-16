@@ -5,6 +5,8 @@ var fileName = " ";
 // for sort in table
 var claimSended = [];
 var claimResolved = [];
+var clientIp = null;
+var clientMachineName = null;
 (function (TableClaims) {
     TableClaims[TableClaims["New"] = 0] = "New";
     TableClaims[TableClaims["Accepted"] = 1] = "Accepted";
@@ -35,7 +37,7 @@ $(document).ready(function () {
         moment.locale(window.navigator.userLanguage || window.navigator.language);
     });
     $("#sendTicket").click(function () {
-        var discription = $("#discription").val() + "\n" + " Подкатегория: " + $("#subcategory option:selected").text();
+        var discription = $("#discription").val() + "\n" + " Подкатегория: " + $("#subcategory option:selected").text() + "\n" + " ПК: " + clientMachineName;
         if ($("#getFile").get(0).files.length === 0) {
             sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), discription, null, ""), "Заявка Отправлена!");
         }
@@ -55,6 +57,14 @@ $(document).ready(function () {
         $("#supportForm").hide();
     });
     $("#mainTips").hide();
+    $('#ip_machine_client').children('span').each(function (i) {
+        if (i === 0) {
+            clientIp = $(this).text();
+        }
+        else if (i === 1) {
+            clientMachineName = $(this).text();
+        }
+    });
 });
 //todo open dialog
 function reopenClaim(rowSelectorId, itemData) {
