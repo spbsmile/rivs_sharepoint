@@ -2,6 +2,7 @@
  * Created by M_Zabiyakin on 21.06.2016.
  */
 // use for breadcrumbs
+
 var additionalEmployeesCurrent;
 var organizationCurrent;
 // dictionary hierarchy
@@ -25,7 +26,7 @@ $(document).ready(function () {
 
 	$("#mainsearch_client").keypress(function (e) {
 		var query = $("#textarea_mainsearch_client").val();
-		var query = query.trim();
+		query = query.trim();
 		if (e.which == 13 && query && query.length > 1) {
 			clearBreadcrumbs();
 			$("#textarea_mainsearch_client").val('');
