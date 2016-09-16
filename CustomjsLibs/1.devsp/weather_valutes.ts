@@ -9,7 +9,7 @@ $(document).ready(function () {
 		else if (i === 2) {
 			//usd
 			var flowCurrency = $(this).text();
-			if (flowCurrency === "down") {				
+			if (flowCurrency === "down") {
 				$("#usd_top").hide();
 				$("#usd_down").show();
 			} else {
@@ -29,7 +29,7 @@ $(document).ready(function () {
 	});
 
 	var unicId = $('#currency').parent().attr('id');
-
+	
 	//weather
 	var spb = $('#' + unicId + '_ctl00_spbDegreesDuplicat').text();
 	var uchaly = $('#' + unicId + '_ctl00_uchalyDegrees').text();
@@ -38,7 +38,7 @@ $(document).ready(function () {
 	var erdenet = $('#' + unicId + '_ctl00_erdenetGegrees').text();
 	var msc = $('#' + unicId + '_ctl00_mscDegrees').text();
 	var erevan = $('#' + unicId + '_ctl00_erevanDegrees').text();
-	var tachkent = $('#' + unicId + '_ctl00_tashkentDergrees').text();	
+	var tachkent = $('#' + unicId + '_ctl00_tashkentDergrees').text();
 
 	$("#spbIconDuplicat_View").addClass($('#' + unicId + '_ctl00_spbIconDuplicat').attr('class'));
 	$("#spbDescriptionDuplicat_View").text($('#' + unicId + '_ctl00_spbDescriptionDuplicat').text());
@@ -116,14 +116,15 @@ function defineWeatherIcon(childId, state) {
 		imageUrl += "cloudy.png"
 	} else if (state === "гроза" || state === "гроза с мелким дождём") {
 		imageUrl += "rain_w_thunder.png"
-	} else if (state === "дождь" || state === "легкий дождь"|| state === "проливной дождь") {
+	} else if (state === "дождь" || state === "легкий дождь" || state === "проливной дождь") {
 		imageUrl += "chance_of_rain.png"
 	} else if (state === "снег") {
 		imageUrl += "snow.png"
 	} else if (state === "туманно" || state === "сыро") {
 		imageUrl += "cloudy.png"
+	} else if (state === "" || state === "Label" || state === "label") {
+		imageUrl += "weather-offline.png"
 	}
 
 	$(childId).attr("src", imageUrl);
-
 }

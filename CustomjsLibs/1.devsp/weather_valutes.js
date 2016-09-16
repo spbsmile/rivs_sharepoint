@@ -114,6 +114,9 @@ function defineWeatherIcon(childId, state) {
     else if (state === "туманно" || state === "сыро") {
         imageUrl += "cloudy.png";
     }
+    else if (state === "" || state === "Label" || state === "label") {
+        imageUrl += "weather-offline.png";
+    }
     $(childId).attr("src", imageUrl);
 }
 //# sourceMappingURL=weather_valutes.js.map
