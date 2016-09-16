@@ -1,6 +1,6 @@
 .taskBlock{
 	float: left;
-    margin-left: 17px;
+    margin-left: 10px;
     margin-bottom: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -25,17 +25,84 @@
     padding-right: 20px;
 }
 
+.btn_taskout{
+	text-transform: uppercase;
+    background-color: rgba(191, 189, 189, .35);
+    color: white;
+    font-style: normal;
+    text-decoration: none;
+	box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    padding: 10px;
+    margin-left: 25px;
+    border-radius: 0.5em;
+    border-bottom-width: medium;
+	border-color: white !important;
+	font-size: 1.2em !important;   
+	cursor:pointer;
+}
+
+.btn_taskout:hover {
+    background-color: rgba(235, 35, 35, .75) !important;
+	border-color: rgba(235, 35, 35, .75) !important;
+    color: white;
+}
+
+.bootstrap-scope .panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #c72323;
+    border-color: #c72323;
+}
+
+.bootstrap-scope .panel-primary {
+    border-color: #c72323;
+}
+
+.iconTask {
+	cursor:pointer;
+	margin-top:18px;
+	margin-right:5px;
+	
+}
+
+.fa-tasks:hover{
+	color:red;
+}
+.fa-bookmark-o:hover{
+	color:red;
+}
+.fa-check-square-o:hover{
+	color:red;
+}
+.fa-dot-circle-o:hover{
+	color:red;
+}
+
+.tHeader .allTaskColor img{
+	cursor:pointer;
+}
+
 .title_name {
     font-size: 18px;
-	text-align: left;
-	padding-left: 20px;
-	text-transform:uppercase;
-	margin-bottom: 20px;
+	text-align: center;
+	padding-top: 10px;
+	text-transform:uppercase;	
     font-weight: 400;
 	cursor: pointer;
+	height : 30px;
 }
+
+.title_name:hover{
+	background-color:#ee352a;
+	color: white;
+}
+
 .title_name a{
 	color:black;
+}
+
+.btn_container {
+    margin-bottom: 20px;
+    margin-left: 10px;
 }
 
 .iconTask{
@@ -56,8 +123,10 @@
 	display:none;
 }
 
-.panel.panel-primary.tableClaimSended {
-    float: left;
+.panel.panel-primary.tableClaimSended {    
+	float: left;
+    margin-left: 14px;
+    margin-top: 25px;
 }
 
 .taskBlock .tHeader img{
@@ -76,6 +145,34 @@
     background-color: #197300;
 }
 
+label.userTargetModalContainer.title {
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+textarea#discriptionModal {
+	width: 550px;
+    height: 150px;
+}
+
+.labelUrgently, .labelFile, .labelCategory, .labelDiscription{
+	display:inline-block;
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.ui-widget-header {
+    border: 1px solid #0072c6;
+    background: #0072c6 url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x;
+    color: #fff;
+    /* border-color: #0072c6; */
+    font-weight: bold;
+}
+
+.discriptionContainerModal {
+    margin-top: 10px;
+}
+
 .centr_column  h1.commonCountControlTaskColor{
 	color:#197300;
 }
@@ -89,9 +186,9 @@
 }
 
 .focusColor{
-    background-color: #E66800;
+    background-color: #0056B8;
 }
 
-.commonCountFocusTaskColor{
-	color:#E66800;
+.centr_column  h1.commonCountFocusTaskColor{
+	color: #0056B8;
 }

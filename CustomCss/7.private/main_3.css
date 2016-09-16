@@ -113,7 +113,7 @@ textarea#textSearch {
     text-transform: uppercase;
     box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
     border-radius: 0.5em;
-    width: 230px;
+    width: 235px;
     text-align: center;
 }
 
@@ -214,8 +214,7 @@ a.mmenuBtn.overrmmenuBtn {
     color: red;
 }
 
-.centr_column {
-    width: 920px;
+.centr_column {    
     float: left;
     margin: auto;
 }

@@ -1,4 +1,5 @@
 function clickDialogGetOut() {
+    console.log("click dialog get out");
     $(function () {
         $("#dialog-form").dialog({
             buttons: [
@@ -6,7 +7,6 @@ function clickDialogGetOut() {
                     text: "Выдать",
                     click: function () {
                         $("#loaderClaimGive").show();
-                        var userSourceId = $("#userSource").val().split(";")[0];
                         var userTargetId = $("#userTarget").val().split(";")[0];
                         var employeId = null;
                         if (userTargetId) {

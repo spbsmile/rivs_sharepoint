@@ -1,57 +1,34 @@
 $(document).ready(function () {
     /* handlers on  */
-    $("#btn_alltask_asign").click(function () {                                         
-        appendTable(this);
+    $("#btn_alltask_asign").click(function () {
+        var titleTask = $(this).find(".titleTask").text();
+        console.log(titleTask + " titleTask");
+        var titleName = $(this).find(".title_name span").text();
+        console.log(titleName + " titleName");
+        appendTable("ВСЕ ЗАДАЧИ: НАЗНАЧЕНО");
     });
     $("#btn_alltask_running").click(function () {
-        appendTable(this);
+        appendTable("ВСЕ ЗАДАЧИ: ВЫПОЛНЯЮТСЯ");
     });
     $("#btn_alltask_expiration").click(function () {
-        appendTable(this);
+        appendTable("ВСЕ ЗАДАЧИ: ПРОСРОЧЕНЫ");
     });
     $("#btn_control_running").click(function () {
-        appendTable(this);
+        appendTable("НА КОНТРОЛЕ: ВЫПОЛЯНЮТСЯ");
     });
     $("#btn_control_expiration").click(function () {
-        appendTable(this);
+        appendTable("");
     });
     $("#btn_mytask_asign").click(function () {
-        appendTable(this);
+        appendTable("");
     });
     $("#btn_mytask_running").click(function () {
-        appendTable(this);
+        appendTable("");
     });
-    $("#btn_mytask_expiration").click(function () {        
-        appendTable(this);
+    $("#btn_mytask_expiration").click(function () {
+        $(".taskBlock").hide();
+        appendTable("");
     });
-
-    $("#btn_focus_asign").click(function () {        
-        appendTable(this);
-    });
-    $("#btn_focus_running").click(function () {       
-        appendTable(this);
-    });
-    $("#btn_focus_expiration").click(function () {        
-        appendTable(this);
-    });
-
-    // handlers on icon
-    $("#iconAllTask").click( function(){
-        console.log("hello task");
-    });
-
-    $("#iconControl").click( function(){
-        console.log("hello task");
-    });
-
-    $("#iconMyTask").click( function(){
-        console.log("hello task");
-    });
-
-    $("#iconFocusTask").click( function(){
-        console.log("hello task");
-    });
-    
     /* handler on btn_back */
     $(".btn_back").click(function () {
         $(".taskBlock").show();
@@ -69,8 +46,8 @@ $(document).ready(function () {
             var newSuggestions = [];
             var prevEmail = null;
             $.each(suggestions, function (i, userInfo) {
-                if (prevEmail === userInfo.email) 
-                return true;                
+                if (prevEmail === userInfo.email)
+                    return true;
                 prevEmail = userInfo.email;
                 newSuggestions.push(userInfo);
             });
@@ -81,11 +58,11 @@ $(document).ready(function () {
     $(".btn_taskout").click(function () {
         clickDialogGetOut();
     });
-    function appendTable(obj) {         
-        $(".panel-title").text($(obj).parent().parent().find(".titleTask").text() + ": " + $(obj).text());
-       // $(".taskBlock").hide();
+    function appendTable(tableName) {
+        $(".panel-title").text();
+        $(".taskBlock").hide();
         $(".table_task").show();
         $(".btn_back").show();
     }
 });
-//# sourceMappingURL=coreTasks.js.map
+//# sourceMappingURL==coreTasks.js.map
