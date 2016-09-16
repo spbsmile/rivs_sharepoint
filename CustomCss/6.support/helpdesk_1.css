@@ -12,6 +12,15 @@
     font-size: 1.2em;
     font-weight: 600;	
 }
+/*
+#MSOZoneCell_WebPartctl00_ctl49_g_b387e9f2_10ce_4b03_8f52_95922af51d77{
+	display:none;
+}
+*/
+
+.ms-webpart-chrome-title {
+    display: none;
+}
 
 input#sendTicket {	
     text-transform: uppercase;
