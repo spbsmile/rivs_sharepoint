@@ -1,10 +1,11 @@
-/**
+/*
  * Created by M_Zabiyakin on 25.06.2016.
  */
 var currentIterateMonth = null;
 var dataEmployee = null;
 var shiftStartDate = null;
 var thresholdCountDaysHirePersons = 7;
+var disableBirthdayData = false;
 $(document).ready(function () {
     moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6");
     moment.locale(window.navigator.userLanguage || window.navigator.language);
@@ -15,20 +16,39 @@ $(document).ready(function () {
     // number first day week of month //http://stackoverflow.com/questions/26131003/moment-js-start-and-end-of-given-month
     shiftStartDate = moment([moment().format('YYYY'), currentMonth]).weekday();
     setCellCalendar(shiftStartDate, currentMonth);
-    $.ajax({
-        url: "/_api/search/query?querytext='*'&trimduplicates=false&enablequeryrules=false&rowlimit=600&bypassresulttypes=true&selectproperties='Title%2cJobTitle%2cDepartment%2cBirthday%2cPictureURL%2chireDate%2cOrganization'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
-        method: "GET",
-        headers: {
-            "Accept": "application/json;odata=verbose",
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()
-        },
-        success: successHandler,
-        error: errorHandler
-    });
+    if (decodeURIComponent(window.location.href).indexOf("my") > 0) {
+        disableBirthdayData = true;
+    }
+    //icon current day
+    $("#cell_" + (parseInt(moment().format('D')) + shiftStartDate - 1)).addClass('day_current');
+    if (!disableBirthdayData) {
+        $.ajax({
+            url: "/_api/search/query?querytext='*'&trimduplicates=false&enablequeryrules=false&rowlimit=600&bypassresulttypes=true&selectproperties='Title%2cJobTitle%2cDepartment%2cBirthday%2cPictureURL%2chireDate%2cOrganization'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
+            method: "GET",
+            headers: {
+                "Accept": "application/json;odata=verbose",
+                "X-RequestDigest": $("#__REQUESTDIGEST").val()
+            },
+            success: successHandler,
+            error: errorHandler
+        });
+    }
     $("#btnPrevMonth").click(function () {
         currentIterateMonth--;
         var shiftStartDate = moment([moment().format('YYYY'), currentIterateMonth]).weekday();
-        setCellsOfBirthdaysEmployes(currentIterateMonth, shiftStartDate);
+        var monthForBirthday = 0;
+        if (currentIterateMonth <= 0) {
+            monthForBirthday = currentIterateMonth + 12;
+        }
+        else if (currentIterateMonth >= 12) {
+            monthForBirthday = currentIterateMonth - 12;
+        }
+        else {
+            monthForBirthday = currentIterateMonth;
+        }
+        if (!disableBirthdayData) {
+            setCellsOfBirthdaysEmployes(monthForBirthday, shiftStartDate);
+        }
         setCellCalendar(shiftStartDate, currentIterateMonth);
         setMonthViewForIterate(currentIterateMonth);
         return false;
@@ -36,7 +56,19 @@ $(document).ready(function () {
     $("#btnNextMonth").click(function () {
         currentIterateMonth++;
         var shiftStartDate = moment([moment().format('YYYY'), currentIterateMonth]).weekday();
-        setCellsOfBirthdaysEmployes(currentIterateMonth, shiftStartDate);
+        var monthForBirthday = 0;
+        if (currentIterateMonth >= 12) {
+            monthForBirthday = currentIterateMonth - 12;
+        }
+        else if (currentIterateMonth <= 0) {
+            monthForBirthday = currentIterateMonth + 12;
+        }
+        else {
+            monthForBirthday = currentIterateMonth;
+        }
+        if (!disableBirthdayData) {
+            setCellsOfBirthdaysEmployes(monthForBirthday, shiftStartDate);
+        }
         setCellCalendar(shiftStartDate, currentIterateMonth);
         setMonthViewForIterate(currentIterateMonth);
         return false;
@@ -48,7 +80,7 @@ function setMonthViewForIterate(indexMonth) {
         setCurrentMonthView();
     }
     else {
-        $('#DayNow').html(moment().format("MMMM") + " <br>" + moment().format('YYYY'));
+        $('#DayNow').html(moment(new Date(moment().format('YYYY'), indexMonth, 04)).format("MMMM") + " <br>" + moment(new Date(moment().format('YYYY'), indexMonth, 04)).format('YYYY'));
     }
 }
 function setCurrentMonthView() {
@@ -60,8 +92,6 @@ function successHandler(data) {
     var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
     dataEmployee = results;
     var thresholdDateHirePersons = moment().day(-thresholdCountDaysHirePersons).format("YYYY-MM-DD");
-    //icon current day
-    $("#cell_" + (parseInt(moment().format('D')) + shiftStartDate - 1)).addClass('day_current');
     // iterate of all users
     for (var i = 0; i < results.length; i++) {
         var name = results[i].Cells.results[2].Value;
@@ -123,7 +153,7 @@ function setCellsOfBirthdaysEmployes(iterateMonth, shiftStartDate) {
     // iterate of all users
     for (var i = 0; i < results.length; i++) {
         var birthday = results[i].Cells.results[5].Value;
-        //filter of current month birthday field
+        //filter of current month birthday field     
         if (moment(birthday, 'DD.MM.YYYY').isValid() && moment(birthday, 'DD.MM.YYYY').month() === iterateMonth) {
             var name = results[i].Cells.results[2].Value;
             var numberDayBirthday = moment(birthday, 'DD.MM.YYYY').format('D');
@@ -154,7 +184,7 @@ function setCellCalendar(shift, currentMonth) {
         prevMonthDayValue--;
         $(id).addClass('prev-month');
     }
-    var interval = shift + moment().daysInMonth();
+    var interval = shift + moment(moment([moment().format('YYYY'), currentMonth])).daysInMonth();
     var currentMonthDayValue = 1;
     var lastCellIndex = 0;
     for (var i = shift; i < interval; i++) {
@@ -187,4 +217,4 @@ function errorHandler(data, errorCode, errorMessage) {
     document.getElementById("internal").innerText =
         "Could not complete cross-domain call: " + errorMessage;
 }
-//# sourceMappingURL=coreCalendar.js.map
+//# sourceMappingURL=coreCalendar_2.js.map
