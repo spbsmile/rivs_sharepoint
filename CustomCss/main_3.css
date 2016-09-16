@@ -41,6 +41,7 @@ h1, .h1 {
 
 .logoContainer{
 	float:left;
+	position:relative;
 }
 
 .logo {
@@ -55,18 +56,32 @@ h1, .h1 {
 
 .externalSite{
 	margin-left: 60px;    
-    text-transform: uppercase;
+   /* text-transform: uppercase;*/
     text-decoration: none;
 }
 
 .externalSite a{
-	color: #FFFFFF !important;
-	display: inline-block;
+    position: absolute;
+    left: 25%;
+    top: 100%;
+    color: white !important;
+    display: inline-block;
     margin-top: 10px;
+    margin-left: 16px;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
+    border-radius: 0.5em;
+    font-size: 1em;
+    width: 110px;
+    text-align: center;
+	text-transform: uppercase;
+	padding-bottom :2px;
+    background-color: rgba(191, 189, 189, .55);
 }
 
 .externalSite a:hover{
-	text-decoration:none;
+	text-decoration: none;
+    background-color: rgba(235, 35, 35, .75);
+    color: white !important;
 }
 /*
 .linkExternalSite{
@@ -150,7 +165,7 @@ h1, .h1 {
     text-transform: uppercase;
     box-shadow: 0 1px 4px 0px rgba(0, 0, 0, .75);
     border-radius: 0.5em;
-    width: 230px;
+    width: 235px;
     text-align: center;
 }
 
