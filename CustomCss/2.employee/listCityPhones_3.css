@@ -1,0 +1,48 @@
+span.lineCityPhones {
+    color: #0072c6;
+    cursor: pointer;
+    font-size: 1.15em;
+}
+
+span.phoneCity {
+    margin-left: 20px;
+}
+
+span.titlePhoneCity {
+    font-size: 1.1em;
+}
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.bootstrap-scope .modal-body {
+    position: relative !important;
+    padding: 30px !important;;
+}
+
+.contentDiscription {
+    margin-left: 176px;  
+    margin-top: 10px;	
+}
+
+.search-input {
+    width: 483px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
