@@ -1,3 +1,4 @@
+/// <reference path="../uploadFile.js" />
 "use strict";
 var currentUserId = null;
 var TableClaims;
@@ -5,8 +6,8 @@ var fileName = " ";
 // for sort in table
 var claimSended = [];
 var claimResolved = [];
-var clientIp = null;
-var clientMachineName = null;
+var clientIp = " ";
+var clientMachineName = " ";
 (function (TableClaims) {
     TableClaims[TableClaims["New"] = 0] = "New";
     TableClaims[TableClaims["Accepted"] = 1] = "Accepted";
@@ -37,7 +38,7 @@ $(document).ready(function () {
         moment.locale(window.navigator.userLanguage || window.navigator.language);
     });
     $("#sendTicket").click(function () {
-        var discription = $("#discription").val() + "\n" + " Подкатегория: " + $("#subcategory option:selected").text() + "\n" + " ПК: " + clientMachineName;
+        var discription = $("#discription").val() + "\n" + " Подкатегория: " + $("#subcategory option:selected").text();
         if ($("#getFile").get(0).files.length === 0) {
             sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), discription, null, ""), "Заявка Отправлена!");
         }
@@ -57,6 +58,7 @@ $(document).ready(function () {
         $("#supportForm").hide();
     });
     $("#mainTips").hide();
+    // fetch cleint ip and machine name
     $('#ip_machine_client').children('span').each(function (i) {
         if (i === 0) {
             clientIp = $(this).text();

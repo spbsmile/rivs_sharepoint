@@ -47,20 +47,24 @@ function sendClaim(itemData, messageReport) {
         }
     });
 }
+// when send claim
 function getItemData(urgently, category, discription, fileId, comment) {
-    console.log(fileId + " getItemData");
     var item = {
         "__metadata": {
             "type": "SP.Data.ListListItem",
             "Discription": "",
             "urgently": "",
             "category": "",
-            "AttachFileNew": ""
+            "AttachFileNew": "",
+            "IP": "",
+            "MachineName": ""
         },
         "Discription": comment + discription,
         "urgently": urgently,
         "category": category,
-        "AttachFileNewId": fileId
+        "AttachFileNewId": fileId,
+        "IP": clientIp,
+        "MachineName": clientMachineName
     };
     return item;
 }

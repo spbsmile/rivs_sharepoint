@@ -13,13 +13,16 @@ $(document).ready(function () {
     $("#js-listviewthead-WPQ1").parent().css(
         { "table-layout": "fixed" });
 
+    /* 
+        var userSourceId = $("#userSource").val().split(";")[0];  
+    */
     $("input[name='userSource']").pickSPUser(
         {
             onPickUser: function (personObj) {
-                $("#userSource").next().find(".pt-pickSPUser-input").hide();
+                $("#userSource").next().find(".pt-pickSPUser-input").hide();                
             },
             onRemoveUser: function ($input, $ui, personObj) {
-                $("#userSource").next().find(".pt-pickSPUser-input").show();
+                $("#userSource").next().find(".pt-pickSPUser-input").show();                                                
             },
             filterSuggestions: function (suggestions) {
                 var newSuggestions = [];

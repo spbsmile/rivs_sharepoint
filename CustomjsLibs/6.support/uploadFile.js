@@ -1,3 +1,4 @@
+/// <reference path="../6.support/helpdesk/App.js" />
 function sendClaimWithFile(callback) {
     if (!window.FileReader) {
         alert("This browser does not support the HTML5 File APIs");
@@ -12,10 +13,10 @@ function sendClaimWithFile(callback) {
     var reader = new FileReader();
     reader.onload = function (e) {
         addItem(e.target.result, fileName);
-    }
+    };
     reader.onerror = function (e) {
         alert(e.target.error);
-    }
+    };
     reader.readAsArrayBuffer(fileInput[0].files[0]);
 
     function addItem(buffer, fileName) {
@@ -73,8 +74,7 @@ function sendClaimWithFile(callback) {
         return call;
     }
 
-    function updateItemFields(item) {
-        var now = new Date();
+    function updateItemFields(item) {        
         var call = jQuery.ajax({
             url: 'http://intranet/support' +
             "/_api/Web/Lists/getByTitle('Файлы техподдержки')/Items(" +
