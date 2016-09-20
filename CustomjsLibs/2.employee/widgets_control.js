@@ -80,7 +80,7 @@ $(document).ready(function () {
 	function createMainPage() {
 		$("#loaderEmployeePage").show();
 		$.ajax({
-			url: getUrlQuerySearch('*', "Department%2cOrganization%2cIsDisabled%2cotdel2%2cTitle", 600, false),
+			url: getUrlQuerySearch('*', "Department%2cOrganizationLong%2cIsDisabled%2cotdel2%2cTitle", 600, false),
 			method: "GET",
 			headers: {
 				"Accept": "application/json;odata=verbose",
@@ -130,19 +130,22 @@ $(document).ready(function () {
 					}
 				}
 			}
-		}		
+		}
 
 		var sortHierarchyOtdel = {};
 		sortHierarchyOtdel["ГипроРИВС"] = ["Руководство", "Секретариат", "Бюро главных инженеров", "Отдел технологического проектирования", "Строительная группа", "Отдел гидротехнических сооружений",
 			"Сметно-Экономический отдел", "Технологическая группа", "Экологическая группа", "Группа оформления проектной документации"];
 
-		sortHierarchyOtdel["Машзавод РИВС"] = ["Управление", "Бухгалтерия", "Отдел экономики и труда", "Бюро по работе с персоналом", "Производственно-технический отдел", "Служба по снабжению и транспорту", "Энергомеханическая служба", "Отдел сервисного обслуживания ГОП", "Участок погрузочно-разгрузочных работ", "Отдел технического контроля", "Производственный цех", "Участок монтажных работ", "Вспомогательный персонал"]
+		sortHierarchyOtdel["Машзавод РИВС"] = ["Управление", "Бухгалтерия", "Отдел экономики и труда", "Бюро по работе с персоналом", "Производственно-технический отдел", "Служба по снабжению и транспорту", "Энергомеханическая служба", "Отдел сервисного обслуживания ГОП", "Участок погрузочно-разгрузочных работ", "Отдел технического контроля", "Производственный цех", "Участок монтажных работ", "Вспомогательный персонал"];
+
+		sortHierarchyOtdel["Уральское Представительство"] = ["Дирекция", "Проектно-конструкторская группа", "Группа шеф-монтажных и пуско-наладочных работ", "Научно-исследовательская лаборатория",
+			"Лаборатория гидрометаллургии", "Департамент информационных технологий", "Канцелярия", "Группа комплектации, продаж и отгрузок оборудования"];
 
 		for (var property in sortHierarchyOtdel) {
 			if (sortHierarchyOtdel.hasOwnProperty(property) && departmentsTree.hasOwnProperty(property)) {
 				sortHierarchy(sortHierarchyOtdel[property], property);
 			}
-		}
+		}				
 
 		// main page
 		var sortArray = ["Руководство", "Секретариат и канцелярия", "Планово-финансовый департамент", "Бухгалтерия", "Коммерческий отдел", "Департамент информационных технологий",
@@ -240,8 +243,11 @@ $(document).ready(function () {
 		var initialIndex = 0;
 		otdels[0] = otdels[0].trim();
 		var index = otdels.indexOf("Руководство");
-		if(index < 0){
+		if (index < 0) {
 			index = otdels.indexOf("Управление");
+		}
+		if (index < 0) {
+			index = otdels.indexOf("Дирекция");
 		}
 		if (index != -1) {
 			var temp = otdels[0];
@@ -279,13 +285,13 @@ $(document).ready(function () {
 
 	function startSearch(query, organization, isMainSearch, isHaveOtdels, additionalEmployees, isInputSearch) {
 		$.ajax({
-			url: getUrlQuerySearch(query, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganization%2cIsDisabled%2cRefinableString01", 100, true, isInputSearch),
+			url: getUrlQuerySearch(query, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01", 100, true, isInputSearch),
 			method: "GET",
 			headers: {
 				"Accept": "application/json;odata=verbose",
 				"X-RequestDigest": $("#__REQUESTDIGEST").val()
 			},
-			success: function (data) {
+			success: function (data) {				
 				var rowId = null;
 				var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
 				var indexRow = null;
@@ -300,7 +306,7 @@ $(document).ready(function () {
 					return "#" + rowId;
 				}
 
-				for (var i = 0; i < results.length; i++) {
+				for (var i = 0; i < results.length; i++) {					
 					var d = getData(results[i]);
 
 					if (d.isdisabled) {
@@ -325,7 +331,7 @@ $(document).ready(function () {
 					}
 					if (isMainSearch && otdel && otdel != department) {
 						continue;
-					}
+					}					
 
 					if (innerIndex === 0 && !isHaveOtdels) {
 						if (d.postalCode && d.department != "Коммерческий отдел" && d.department != "Департамент административного управления") {
@@ -336,7 +342,7 @@ $(document).ready(function () {
 							indexRow = Math.floor((innerIndex - innerShift) / countWidgetsInRow);
 							rowId = createWidgetEmployeeWithNewRow(d, indexRow);
 						}
-					} else {
+					} else {						
 						if (indexRow != Math.floor((innerIndex - innerShift) / countWidgetsInRow)) {
 							indexRow = Math.floor((innerIndex - innerShift) / countWidgetsInRow);
 							rowId = createWidgetEmployeeWithNewRow(d, indexRow);
@@ -384,7 +390,7 @@ $(document).ready(function () {
 		});
 	}
 
-	function createWidgetEmployee(photo, name, department, jobTitle, email, phone, isStub) {		
+	function createWidgetEmployee(photo, name, department, jobTitle, email, phone, isStub) {
 		var styleStub = isStub ? "style='display: none;'" : "";
 		var widget =
 			"<div class='employeeCell_widget'>" +
@@ -409,7 +415,7 @@ $(document).ready(function () {
 			'<div class="' + cssClassWidget + '">' +
 			'<div class="title_inner"> ' + nameContainer + '</div>' + contentForWidgetOnMainPage);
 
-		if (idAdditionalEmployee && departmentsTree[nameContainer].hasOwnProperty("additionalEmployess")) {
+		if (idAdditionalEmployee && departmentsTree[nameContainer] && departmentsTree[nameContainer].hasOwnProperty("additionalEmployess")) {
 			var names = departmentsTree[nameContainer].additionalEmployess;
 			var id = "#" + idAdditionalEmployee;
 			for (var i = 0; i <= names.length; i++) {
@@ -420,7 +426,7 @@ $(document).ready(function () {
 
 	function getOnePersonFromSearch(personName, idStorage) {
 		$.ajax({
-			url: getUrlQuerySearch(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganization%2cIsDisabled%2cRefinableString01%2cCountryCode", 1, true),
+			url: getUrlQuerySearch(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01%2cCountryCode", 1, true),
 			method: "GET",
 			headers: {
 				"Accept": "application/json;odata=verbose",
@@ -470,7 +476,7 @@ $(document).ready(function () {
 		var module = [];
 		module.name = result.Cells.results[2].Value;
 		module.jobTitle = result.Cells.results[3].Value ? result.Cells.results[3].Value : "_";
-		if (module.jobTitle) {			
+		if (module.jobTitle) {
 			var lines = module.jobTitle.split(/\r\n|\r|\n/g);
 			module.jobTitle = lines[0];
 		}
