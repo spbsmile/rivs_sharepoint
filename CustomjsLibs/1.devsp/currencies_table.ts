@@ -1,5 +1,5 @@
-var CurrencyPage;
-(function (CurrencyPage) {
+namespace CurrencyPage {
+    
     // helper function for page:http://intranet/Pages/currency.aspx, correct format date in input 
     $(document).ready(function () {
         $(function () {
@@ -9,5 +9,6 @@ var CurrencyPage;
             });
         });
     });
-})(CurrencyPage || (CurrencyPage = {}));
-//# sourceMappingURL=currencies_table.js.map
+}
+
+

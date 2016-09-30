@@ -1,13 +1,17 @@
-var list = null;
-var listItems = null;
+namespace DocumentsPage {
+	
+	$(document).ready(function () {
 
-$(document).ready(function () {
+		/** hide useless sharepoint content */
+		$(".welcome-image").hide();
+		$(".welcome-content").hide();
 
-	$(".welcome-image").hide();
-	$(".welcome-content").hide();	
-
-	$(".link-item").on('click', function () {
-		window.open(
-			$(this).find(".linkOrder").attr('href'), "_self");
+		/** add ability click event on full button (.link-item div)*/
+		$(".link-item").on('click', function () {
+			window.open(
+				$(this).find(".linkOrder").attr('href'), "_self");
+		});		
 	});
-});
+}
+
+

@@ -8,7 +8,9 @@ $(document).ready(function () {
 
 	$(".td.ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
 	$(".ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
-	$(".ms-list-itemLink-td.ms-cellstyle").hide();
+
+	var libraryMenuClass = ".ms-list-itemLink-td.ms-cellstyle";
+	$(libraryMenuClass).hide();
 
 	var isMember = null;
 	var currentUser = $().SPServices.SPGetCurrentUser();
@@ -46,7 +48,7 @@ $(document).ready(function () {
 				$('#suiteBar').show();
 				$(".td.ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").show();
 				$(".ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").show();
-				$(".ms-list-itemLink-td.ms-cellstyle").show();
+				$(libraryMenuClass).show();
 				$('#s4-ribbonrow').css({
 					"height": "initial"
 				});
