@@ -17,6 +17,10 @@
     width: 1360px;
 }
 
+span.menu-item-text {
+    text-transform: uppercase;
+}
+
 #MSOZoneCell_WebPartWPQ3,#SearchBox,.ms-welcomepageheader,#MSOZoneCell_WebPartWPQ5,#MSOZoneCell_WebPartWPQ6{
   display:none;
 }

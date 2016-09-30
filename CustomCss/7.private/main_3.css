@@ -2,6 +2,11 @@ h1, .h1 {
     font-size: 1.9em;
 }
 
+BODY #s4-ribbonrow {
+    background-color: #800000;
+    background-image:none;
+}
+
 .page_T {
     width: auto;
     font-family: "Segoe UI", "Segoe", Tahoma, Helvetica, Arial, sans-serif;

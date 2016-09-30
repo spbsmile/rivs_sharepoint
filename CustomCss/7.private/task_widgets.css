@@ -103,6 +103,20 @@
 .btn_container {
     margin-bottom: 20px;
     margin-left: 10px;
+	margin-top: 15px;
+}
+
+input.textLabelTitle {
+    width: 300px;
+}
+
+input.textModalClaim {
+    width: 550px;
+    height: 150px;
+}
+
+input.btn.btn-default.btnGiveTask {
+    margin-left: 450px;
 }
 
 .iconTask{
@@ -119,12 +133,19 @@
 	margin-bottom: 20px;
 }
 
-.table_task, .btn_back{
+#give_task, #display_task{
 	display:none;
 }
 
-.panel.panel-primary.tableClaimSended {    
-	float: left;
+.lineTable{
+	
+}
+
+.table_task, .btn_back, #give_task{
+	display:none;
+}
+
+.panel.panel-primary.tableClaimSended {    	
     margin-left: 14px;
     margin-top: 25px;
 }
