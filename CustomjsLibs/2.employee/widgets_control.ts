@@ -1,12 +1,17 @@
 /// <reference path="../2.employee/departmentSortManager.ts" />
+
 // use for breadcrumbs
 var additionalEmployeesCurrent;
 var organizationCurrent;
 // dictionary hierarchy
 var departmentsTree = {};
-var countWidgetsInRow = 3;
+
+const countWidgetsInRow = 3;
+
 $(document).ready(function () {
+
     createMainPage();
+
     // search input handlers
     $("#btnMainSearch").click(function () {
         var query = $("#textarea_mainsearch_client").val();
@@ -16,6 +21,7 @@ $(document).ready(function () {
         startSearch(query, "", false, false);
         $("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + "Поиск: " + query + '\</a>');
     });
+
     // handler on keypart enter
     $("#mainsearch_client").keypress(function (e) {
         var query = $("#textarea_mainsearch_client").val();
@@ -29,6 +35,7 @@ $(document).ready(function () {
             $("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + "Поиск: " + query + '\</a>');
         }
     });
+
     // breadcrumbs handlers
     $("#breadcrumbs_employee").on('click', function () {
         $("#container_widget_departments").show();
@@ -38,6 +45,7 @@ $(document).ready(function () {
         $(".left_column").show();
         clearBreadcrumbs();
     });
+
     function clearBreadcrumbs() {
         $('#breadcrumbs_group').children('a').each(function (i) {
             if (i > 0) {
@@ -45,23 +53,28 @@ $(document).ready(function () {
             }
         });
     }
+
     function clickBreadcrumbMiddleLevel() {
         clearBreadcrumbs();
         addBreadcrumb(organizationCurrent);
         addBreadcrumbHandler();
         prepareSearch();
         startSearch(organizationCurrent, organizationCurrent, true, true, additionalEmployeesCurrent);
+
         var key = organizationCurrent.trim();
         if (departmentsTree[key]) {
             createWidgetsOtdels(key, departmentsTree[key]);
         }
     }
+
     function addBreadcrumbHandler() {
         $('.breadcrumbMiddleLevel').on('click', clickBreadcrumbMiddleLevel);
     }
+
     function addBreadcrumb(nameBreadcrumb) {
         $("#breadcrumbs_group").append('<a href="#" class="btn btn-default breadcrumbMiddleLevel">' + nameBreadcrumb + '\</a>');
     }
+
     // dynamic main page
     function createMainPage() {
         $("#loaderEmployeePage").show();
@@ -74,6 +87,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
+
                 // write data employess to object 'departmentsTree', iterate of all users 
                 for (var i = 0; i < results.length; i++) {
                     var department = results[i].Cells.results[2].Value;
@@ -81,19 +95,18 @@ $(document).ready(function () {
                     var isDisabled = results[i].Cells.results[4].Value;
                     // otdel2 - it's field define sencond department/otdel of employee. example: Zimina/Bondarenko in Owners  
                     var otdel2 = results[i].Cells.results[5].Value;
+
                     if (department && !isDisabled) {
                         // check on hierarchy otdel				
                         if (otdel && otdel != department) {
                             if (!departmentsTree.hasOwnProperty(otdel)) {
                                 departmentsTree[otdel] = [];
                                 departmentsTree[otdel].push(department);
-                            }
-                            else if (departmentsTree[otdel].indexOf(department) == -1) {
+                            } else if (departmentsTree[otdel].indexOf(department) == -1) {
                                 // example: otdel = ГипроРИВС, department = Руководство						
                                 departmentsTree[otdel].push(department);
                             }
-                        }
-                        else if (!departmentsTree.hasOwnProperty(department)) {
+                        } else if (!departmentsTree.hasOwnProperty(department)) {
                             departmentsTree[department] = [];
                         }
                         if (otdel2) {
@@ -103,8 +116,7 @@ $(document).ready(function () {
                                     departmentsTree[otdel2].additionalEmployess = [];
                                 }
                                 departmentsTree[otdel2].additionalEmployess.push(results[i].Cells.results[6].Value);
-                            }
-                            else {
+                            } else {
                                 if (!departmentsTree[otdel2].hasOwnProperty("additionalEmployess")) {
                                     departmentsTree[otdel2].additionalEmployess = [];
                                 }
@@ -113,22 +125,25 @@ $(document).ready(function () {
                         }
                     }
                 }
+
                 $("#loaderEmployeePage").hide();
+
                 // create widgets departments
                 var index = 0;
                 for (var name in sortDepartmentsTree(departmentsTree)) {
                     if (index === 0) {
                         createWidgetEmployees("#container_widget_departments", "widget_departament owner", name, "additionalEmployee_" + index);
-                    }
-                    else {
+                    } else {
                         createWidgetEmployees("#container_widget_departments", "widget_departament departament_row", name, "additionalEmployee_" + index);
                     }
                     index++;
                 }
+
                 //  handlers on click widget of main page
                 $(".widget_departament").on('click', function () {
                     var organization = $(this).children('.title_inner').text();
                     var dataAdditionalEmployee = $(this).children('.additionalEmployee').text().split('|');
+
                     prepareSearch();
                     addBreadcrumb(organization);
                     organizationCurrent = organization;
@@ -146,6 +161,7 @@ $(document).ready(function () {
             error: errorHandler
         });
     }
+
     // for: giprorivs, urals, mash factory ...
     function createWidgetsOtdels(organization, otdels) {
         //otdels.sort();
@@ -180,6 +196,7 @@ $(document).ready(function () {
             $("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + otdel + '\</a>');
         });
     }
+
     // main functions of search
     function prepareSearch() {
         $("#container_widget_departments").hide();
@@ -190,6 +207,7 @@ $(document).ready(function () {
         $("#employeeBlock").empty();
         $("#chief_widget").empty();
     }
+
     function startSearch(query, organization, isMainSearch, isHaveOtdels, additionalEmployees, isInputSearch) {
         $.ajax({
             url: getUrlQuerySearch(query, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01", 100, true, isInputSearch),
@@ -207,6 +225,7 @@ $(document).ready(function () {
                 var innerShift = 1;
                 /** */
                 var innerIndex = 0;
+
                 function createWidgetEmployeeWithNewRow(data, indexRow) {
                     var rowId = "row_empl_" + indexRow;
                     $("#employeeBlock").append('<div id="' + rowId + '" class="employeeRow">' +
@@ -214,14 +233,18 @@ $(document).ready(function () {
                         '</div>');
                     return "#" + rowId;
                 }
+
                 for (var i = 0; i < results.length; i++) {
                     var d = getData(results[i]);
+
                     // when employee disabled
                     if (d.isdisabled) {
                         continue;
                     }
+
                     var otdel = clearLetter(d.otdel);
                     var department = clearLetter(d.department);
+
                     // filter of common search query
                     if (organization) {
                         var organizationTrim = organization.trim();
@@ -238,28 +261,29 @@ $(document).ready(function () {
                     if (isMainSearch && otdel && otdel != department) {
                         continue;
                     }
+
                     if (innerIndex === 0 && !isHaveOtdels) {
                         // employee sorted by postalCode in rest query
                         if (d.postalCode && d.department != "Коммерческий отдел" && d.department != "Департамент административного управления") {
-                            $("#chief_widget").append(createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone));
-                        }
-                        else {
+                            $("#chief_widget").append(
+                                createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone));
+                        } else {
                             innerShift = 0;
                             lineIndex = Math.floor((innerIndex - innerShift) / countWidgetsInRow);
                             rowId = createWidgetEmployeeWithNewRow(d, lineIndex);
                         }
-                    }
-                    else {
+                    } else {
                         if (lineIndex != Math.floor((innerIndex - innerShift) / countWidgetsInRow)) {
                             lineIndex = Math.floor((innerIndex - innerShift) / countWidgetsInRow);
                             rowId = createWidgetEmployeeWithNewRow(d, lineIndex);
-                        }
-                        else {
-                            $(rowId).append(createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone));
+                        } else {
+                            $(rowId).append(
+                                createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone));
                         }
                     }
                     innerIndex++;
                 }
+
                 if (additionalEmployees && additionalEmployees.length > 0 && additionalEmployees[0] != " " && additionalEmployees[0]) {
                     for (var j = 0; j < additionalEmployees.length - 1; j++) {
                         var employeeData = additionalEmployees[j].split(",");
@@ -270,15 +294,17 @@ $(document).ready(function () {
                                 createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5]) +
                                 '</div>');
                             rowId = "#" + rowId;
-                        }
-                        else if (employeeData[1] == "Нестеров Петр Олегович") {
-                            $("#chief_widget").append(createWidgetEmployee(employeeData[0], employeeData[1], "Коммерческий отдел", "Коммерческий директор", employeeData[4], employeeData[5]));
-                        }
-                        else if (employeeData[1] == "Лигузов Алексей Дмитриевич") {
-                            $("#chief_widget").append(createWidgetEmployee(employeeData[0], employeeData[1], "Департамент административного управления", "Заместитель генерального директора. Директор Департамента АУ", employeeData[4], employeeData[5]));
+                            //todo: Отдел №2 - порядок countryCode
+                        } else if (employeeData[1] == "Нестеров Петр Олегович") {
+                            $("#chief_widget").append(
+                                createWidgetEmployee(employeeData[0], employeeData[1], "Коммерческий отдел", "Коммерческий директор", employeeData[4], employeeData[5]));
+                        } else if (employeeData[1] == "Лигузов Алексей Дмитриевич") {
+                            $("#chief_widget").append(
+                                createWidgetEmployee(employeeData[0], employeeData[1], "Департамент административного управления", "Заместитель генерального директора. Директор Департамента АУ", employeeData[4], employeeData[5]));
                         }
                         else {
-                            $(rowId).append(createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5]));
+                            $(rowId).append(
+                                createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5]));
                         }
                         innerIndex++;
                     }
@@ -286,15 +312,18 @@ $(document).ready(function () {
                 // stub for last row, this empty widgets
                 while (lineIndex === Math.floor((innerIndex - innerShift) / countWidgetsInRow)) {
                     innerIndex++;
-                    $(rowId).append(createWidgetEmployee("#", null, null, null, null, null, true));
+                    $(rowId).append(
+                        createWidgetEmployee("#", null, null, null, null, null, true));
                 }
             },
             error: errorHandler
         });
     }
+
     function createWidgetEmployee(photo, name, department, jobTitle, email, phone, isStub) {
         var styleStub = isStub ? "style='display: none;'" : "";
-        var widget = "<div class='employeeCell_widget'>" +
+        var widget =
+            "<div class='employeeCell_widget'>" +
             "<div class='wrap_employeeCell_widget'" + styleStub + ">" +
             '<div class="col-xs-6 col-md-3 left_column_personal_widget"><a class="thumbnail"><img class="iconperson" src="' + photo + '" alt="" ></a></div>' +
             '<div class="right_column_personal_widget">' +
@@ -307,11 +336,15 @@ $(document).ready(function () {
             '</div></div></div>';
         return widget;
     }
+
     function createWidgetEmployees(idContainer, cssClassWidget, nameContainer, idAdditionalEmployee) {
         var contentForWidgetOnMainPage = idAdditionalEmployee ? '<div class="containerOtdels"> ' + departmentsTree[nameContainer] + '</div>' +
             '<div id="' + idAdditionalEmployee + '" class="additionalEmployee"> </div></div>' : "";
-        $(idContainer).append('<div class="' + cssClassWidget + '">' +
+
+        $(idContainer).append(
+            '<div class="' + cssClassWidget + '">' +
             '<div class="title_inner"> ' + nameContainer + '</div>' + contentForWidgetOnMainPage);
+
         if (idAdditionalEmployee && departmentsTree[nameContainer] && departmentsTree[nameContainer].hasOwnProperty("additionalEmployess")) {
             var names = departmentsTree[nameContainer].additionalEmployess;
             var id = "#" + idAdditionalEmployee;
@@ -320,6 +353,7 @@ $(document).ready(function () {
             }
         }
     }
+
     function getOnePersonFromSearch(personName, idStorage) {
         $.ajax({
             url: getUrlQuerySearch(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01%2cCountryCode", 1, true),
@@ -330,6 +364,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
+
                 var array = [];
                 for (var i = 0; i < results.length; i++) {
                     var d = getData(results[i]);
@@ -343,16 +378,20 @@ $(document).ready(function () {
                     array[7] = d.postalCode;
                     array[8] = d.countryCode;
                     array[9] = "|";
+
                     $(idStorage).text(array + $(idStorage).text());
                 }
             },
             error: errorHandler
         });
     }
+
     function getUrlQuerySearch(query, selectproperties, rowlimit, isSortList, isInputSearch) {
         var textWithWildcard = isInputSearch ? query + "*" : query;
+
         var sortList = isSortList ? "&sortlist='RefinableString01:ascending%2cRefinableString02:ascending'" : "";
-        var url = "/_api/search/query?querytext='" + encodeURIComponent(textWithWildcard) + "'" +
+        var url =
+            "/_api/search/query?querytext='" + encodeURIComponent(textWithWildcard) + "'" +
             "&trimduplicates=false&rowlimit='" + rowlimit + "'" +
             sortList +
             "&bypassresulttypes=true" +
@@ -361,6 +400,7 @@ $(document).ready(function () {
             "&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'";
         return url;
     }
+
     function getData(result) {
         var module = [];
         module.name = result.Cells.results[2].Value;
@@ -375,8 +415,7 @@ $(document).ready(function () {
         if (result.Cells.results[8].Value) {
             var photo = result.Cells.results[8].Value.replace(/ /g, '%20');
             module.photo = photo.replace("_MThumb.jpg", "_LThumb.jpg");
-        }
-        else {
+        } else {
             module.photo = "/_layouts/15/CustomjsLibs/1.devsp/noPhoto.jpg";
         }
         module.otdel = result.Cells.results[9].Value ? result.Cells.results[9].Value : "";
@@ -385,6 +424,7 @@ $(document).ready(function () {
         module.countryCode = result.Cells.results[12].Value;
         return module;
     }
+
     function clearLetter(letter) {
         if (!letter)
             return "";
@@ -393,8 +433,8 @@ $(document).ready(function () {
         var v = f.replace('«', '');
         return v.replace('«', '');
     }
+
     function errorHandler(error) {
         console.log(error.responseText);
     }
 });
-//# sourceMappingURL=widgets_control.js.map
