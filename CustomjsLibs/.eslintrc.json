@@ -9,7 +9,11 @@
     "parserOptions": {
         "sourceType": "module"
     },
-    "rules": {/*
+    "plugins": [
+        "jquery",
+        "dollar-sign"
+    ],
+    "rules": { /*
         "indent": [
             "error",
             "tab"
@@ -17,7 +21,7 @@
         "linebreak-style": [
             "error",
             "windows"
-        ]/*,
+        ] /*,
         "quotes": [
             "error",
             "double"

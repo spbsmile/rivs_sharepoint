@@ -1,5 +1,5 @@
 {
-    "rules": {
+    "rules": {        
         "class-name": true,
         "comment-format": [
             true,
@@ -23,7 +23,7 @@
         "quotemark": [
             true,
             "double"
-        ],
+        ],     
         "semicolon": [
             true,
             "always"
