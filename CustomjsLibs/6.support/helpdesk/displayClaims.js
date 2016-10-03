@@ -3,12 +3,27 @@ function displayClaims() {
     displayTableWithClaim("#panelResolvedClaims", "#tbodyResolvedClaims", settings().btnResolvedClaim, claimResolved);
 }
 function displayTableWithClaim(panelId, tableId, buttonHtml, arrayClaim) {
-    if (arrayClaim.length > 0)
-        $(panelId).show();
+    //if (arrayClaim.length > 0) 
     for (var index = 0; index < arrayClaim.length; index++) {
         var claim = arrayClaim[index];
         var rowIndex = index + 1;
-        appendRow(tableId, rowIndex, claim.data, claim.typeTable, claim.statusClaim, claim.listId, claim.tooltip);
+        var claimMonth = null;
+        var typeTable = claim.typeTable;
+        var r = claim.data;
+        if (typeTable === TableClaims.Resolved) {
+            claimMonth = parseInt(moment(r.Date).format('M'));
+        }
+        else if (typeTable === TableClaims.Accepted) {
+            claimMonth = parseInt(moment(r.Created).format('M'));
+        }
+        else {
+            claimMonth = parseInt(moment(r.Created).format('M'));
+        }
+        if (parseInt(moment().format('M')) != claimMonth) {
+            continue;
+        }
+        $(panelId).show();
+        appendRow(tableId, rowIndex, claim.data, typeTable, claim.statusClaim, claim.listId, claim.tooltip);
         assignCallbackClaimButton(claim.listId, buttonHtml, rowIndex, claim.data, claim.typeTable, claim.data.ID);
     }
     // todo refactor this
