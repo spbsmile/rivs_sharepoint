@@ -25,7 +25,7 @@ var SiteHeader;
         var textWithWildcard = text + "*";
         var query = !!window.chrome && !!window.chrome.webstore ? textWithWildcard : encodeURIComponent(textWithWildcard);
         $.ajax({
-            url: "/_api/search/query?querytext='" + query + "'&trimduplicates=true&enablequeryrules=false&bypassresulttypes=true&rowlimit=100&sortlist='RefinableString01:ascending%2cRefinableString02:ascending'&selectproperties='Title%2cJobTitle%2cWorkemail%2cPath%2c+WorkPhone%2cDepartment%2cPictureURL%2cOrganization'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
+            url: "/_api/search/query?querytext='" + query + "'&trimduplicates=true&enablequeryrules=false&bypassresulttypes=true&rowlimit=100&sortlist='RefinableString01:ascending%2cRefinableString02:ascending'&selectproperties='Title%2cJobTitle%2cWorkemail%2cPath%2c+WorkPhone%2cDepartment%2cPictureURL%2cOrganization%2cIsDisabled'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
             method: "GET",
             headers: {
                 "Accept": "application/json;odata=verbose",
@@ -41,6 +41,10 @@ var SiteHeader;
                 }
                 else {
                     for (var i = 0; i < results.length; i++) {
+                        // when user disabled
+                        if (results[i].Cells.results[10].Value) {
+                            continue;
+                        }
                         var organization = results[i].Cells.results[9].Value;
                         var photo = results[i].Cells.results[8].Value;
                         var email = results[i].Cells.results[4].Value ? results[i].Cells.results[4].Value : "";
