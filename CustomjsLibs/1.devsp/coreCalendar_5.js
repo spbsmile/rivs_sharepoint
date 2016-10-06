@@ -2,6 +2,7 @@ var MainPage;
 (function (MainPage) {
     /** index of month for next/prev month, for iterations */
     var currentIterateMonth = null;
+    /** storage of data employees, initialize in ajax call */
     var employeesData = null;
     /** define how day number of week current month started, used for search started cell in calendar */
     var shiftStartDateCurrentMonth = null;
@@ -39,7 +40,7 @@ var MainPage;
         });
         // fetch all users
         $.ajax({
-            url: "/_api/search/query?querytext='*'&trimduplicates=false&enablequeryrules=false&rowlimit=600&bypassresulttypes=true&selectproperties='Title%2cJobTitle%2cDepartment%2cBirthday%2cPictureURL%2chireDate%2cOrganization%2cIsDisabled'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
+            url: "/_api/search/query?querytext='*'&trimduplicates=false&enablequeryrules=false&rowlimit=600&bypassresulttypes=true&selectproperties='Title%2cJobTitle%2cDepartment%2cBirthday%2cPictureURL%2chireDate%2cOrganizationLong%2cIsDisabled'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
             method: "GET",
             headers: {
                 "Accept": "application/json;odata=verbose",
@@ -102,7 +103,7 @@ var MainPage;
             error: errorHandler
         });
     });
-    /**  */
+    /**  invoke for each change month*/
     function addBirthdayIcons(iterateMonth, shiftStartDate) {
         // clear all cells
         for (var i = 0; i <= 41; i++) {
@@ -115,10 +116,10 @@ var MainPage;
             $("#cell_" + (parseInt(moment().format('D')) + shiftStartDate - 1)).addClass('day_current');
         }
         var isTodayBirthday = false;
-        // iterate of all users
+        // loop of all users
         for (var i = 0; i < employeesData.length; i++) {
             var birthday = employeesData[i].Cells.results[5].Value;
-            //filter of current month birthday field     
+            //filter birthday field of current month   
             if (moment(birthday, 'DD.MM.YYYY').isValid() && moment(birthday, 'DD.MM.YYYY').month() === iterateMonth) {
                 var name = employeesData[i].Cells.results[2].Value;
                 var numberDayBirthday = moment(birthday, 'DD.MM.YYYY').format('D');
@@ -139,11 +140,12 @@ var MainPage;
             $(".calendar-container").css('margin-top', '40px');
         }
     }
-    /** set calendar value (number of days) for currentMonth*/
+    /** set value (number of days) to calendar for currentMonth*/
     function setCellCalendar(shift, currentMonth) {
         var prevMonth = (currentMonth - 1);
         var shiftPrevMonth = shift - 1;
         var prevMonthDayValue = moment(moment([moment().format('YYYY'), prevMonth])).daysInMonth();
+        // loop for prev month
         for (var i = shiftPrevMonth; i >= 0; i--) {
             var id = "#cell_" + i;
             $(id).text(prevMonthDayValue);
@@ -153,19 +155,21 @@ var MainPage;
         var interval = shift + moment(moment([moment().format('YYYY'), currentMonth])).daysInMonth();
         var currentMonthDayValue = 1;
         var lastCellIndex = 0;
+        //loop for current month
         for (var j = shift; j < interval; j++) {
             var id = "#cell_" + j;
             lastCellIndex = j;
             $(id).text(currentMonthDayValue++);
         }
         var nextMonthDayValue = 1;
+        // loop for next month
         for (var i = (lastCellIndex + 1); i <= countCellInCalendar; i++) {
             var id = "#cell_" + i;
             $(id).text(nextMonthDayValue++);
             $(id).addClass('next-month');
         }
     }
-    /** dynamically create widget user, containerId - it's id div element, where will append widget */
+    /** dynamically create widget user, containerId - it's id div element, where will append widget, may be left side or right side */
     function displayWidgetEmployee(containerId, name, jobTitle, department, photo, organization) {
         var photoImprove = photo ? photo.replace(/ /g, '%20') : "/_layouts/15/CustomjsLibs/1.devsp/noPhoto.jpg";
         var departmentImprove = department ? department : "_";
@@ -212,4 +216,4 @@ var MainPage;
             "Could not complete cross-domain call: " + errorMessage;
     }
 })(MainPage || (MainPage = {}));
-//# sourceMappingURL=coreCalendar_4.js.map
+//# sourceMappingURL=coreCalendar_5.js.map

@@ -1,3 +1,4 @@
+/** show table claims */
 function displayClaims() {
     displayTableWithClaim("#panelSendClaims", "#tbodySendClaims", settings().btnNewClaim, claimSended);
     displayTableWithClaim("#panelResolvedClaims", "#tbodyResolvedClaims", settings().btnResolvedClaim, claimResolved);

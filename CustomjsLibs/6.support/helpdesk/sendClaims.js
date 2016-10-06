@@ -17,21 +17,20 @@ function sendClaim(itemData, messageReport) {
                 });
             }
             else {
-                var id = data.d.ID;
                 var claim = {};
-                var data = {};
-                data.Discription = $("#discription").val();
-                data.urgently = $("#urgentlyValue").val();
-                data.category = $("#category option:selected").text();
-                data.Created = moment();
-                data.ID = id;
+                var claimData = {};
+                claimData.Discription = $("#discription").val();
+                claimData.urgently = $("#urgentlyValue").val();
+                claimData.category = $("#category option:selected").text();
+                claimData.Created = moment();
+                claimData.ID = data.d.ID;
                 // todo refactor this
                 if (fileName) {
                     var temp = {};
                     temp.Title = fileName;
-                    data.AttachFileNew = temp;
+                    claimData.AttachFileNew = temp;
                 }
-                claim.data = data;
+                claim.data = claimData;
                 claim.listId = settings().listIdNewClaims;
                 claim.typeTable = TableClaims.New;
                 claim.statusClaim = settings().statusClaim[0];
@@ -47,7 +46,7 @@ function sendClaim(itemData, messageReport) {
         }
     });
 }
-// when send claim
+/** write data of claim when it's send */
 function getItemData(urgently, category, discription, fileId, comment) {
     var item = {
         "__metadata": {

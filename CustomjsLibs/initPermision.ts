@@ -9,11 +9,14 @@ $(document).ready(function () {
 	$(".td.ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
 	$(".ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
 
+	// site-collection 'document' 
 	var libraryMenuClass = ".ms-list-itemLink-td.ms-cellstyle";
 	$(libraryMenuClass).hide();
 
 	var isMember = null;
 	var currentUser = $().SPServices.SPGetCurrentUser();
+	
+	// navigation button 'support' link manager 
 	$().SPServices({
 		operation: "GetGroupCollectionFromUser",
 		userLoginName: currentUser,
@@ -34,6 +37,7 @@ $(document).ready(function () {
 		}
 	});
 
+	// show top panel for DevepolerGroup
 	$().SPServices({
 		operation: "GetGroupCollectionFromUser",
 		userLoginName: currentUser,
@@ -56,6 +60,7 @@ $(document).ready(function () {
 		}
 	});	
 
+	// disable click event on user link
 	$('.ms-subtleLink').each(function (i, obj) {			
 		$(this).attr("href", "#");
 		$(this).removeAttr("onclick");

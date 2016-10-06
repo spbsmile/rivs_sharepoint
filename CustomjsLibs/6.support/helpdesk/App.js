@@ -3,7 +3,7 @@
 var currentUserId = null;
 var TableClaims;
 var fileName = " ";
-// for sort in table
+/** this array for sort claim in table claims */
 var claimSended = [];
 var claimResolved = [];
 var clientIp = " ";
@@ -37,6 +37,7 @@ $(document).ready(function () {
         moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6");
         moment.locale(window.navigator.userLanguage || window.navigator.language);
     });
+    // click button "отправить"
     $("#sendTicket").click(function () {
         var discription = $("#discription").val() + "\n" + " Подкатегория: " + $("#subcategory option:selected").text();
         if ($("#getFile").get(0).files.length === 0) {
@@ -49,6 +50,7 @@ $(document).ready(function () {
             });
         }
     });
+    // click button "подать заявку"
     $("#pressButtonSupport").click(function () {
         $("#pressButtonSupport").hide();
         $("#supportForm").show();
@@ -73,12 +75,14 @@ function reopenClaim(rowSelectorId, itemData) {
     removeRow(rowSelectorId, "#panelResolvedClaims", "#tableResolved");
     sendClaim(itemData);
 }
+/** when user deleted claim */
 function removeRow(rowId, panelId, tableId) {
     $("#" + rowId).remove();
     if ($(tableId + " tr").length === 1) {
         $(panelId).hide();
     }
 }
+/** modal window of status operation claim */
 function reportClaimOperation(message) {
     $("#loader").hide();
     $("#msgResultLoader").show();

@@ -1,3 +1,4 @@
+/** get and write data of claims to arrayClaim */
 function fetchClaimsCurrentUser(listId, fieldAuthor, fields, arrayClaim, typeTable, statusClaim, tooltip, callback) {
     var url = "/support/_api/web/lists(guid'" + listId + "')/items?&$select=" + "AttachFileNew/Title," + fieldAuthor + fields + "&$expand=" + "Author,AttachFileNew," + fieldAuthor +
     "&$filter=" + fieldAuthor + "/Id eq " + currentUserId;
@@ -17,7 +18,8 @@ function fetchClaimsCurrentUser(listId, fieldAuthor, fields, arrayClaim, typeTab
                 claim.tooltip = tooltip;                
                 arrayClaim.unshift(claim);
             }         
-            if (typeof callback === 'function' && callback) {                
+            if (typeof callback === 'function' && callback) {    
+                // for synchron fetch all claims and when display it's            
                 callback();
             }
         },

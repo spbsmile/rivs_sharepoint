@@ -29,16 +29,15 @@ var OrdersPage;
                         '<div class="linkTitle">' + docTitle + '</div>' +
                         '</h1></div></div>');
                 }
+                // bind click event and all widget with .link-item class
                 $(".link-item").on('click', function () {
                     window.open($(this).find(".linkOrder").text(), '_blank');
                 });
             },
-            error: onError
+            error: function (sender, args) {
+                console.log("request failed " + args.get_message() + "\n" + args.get_stackTrace());
+            }
         });
-        // Display error messages.
-        function onError(sender, args) {
-            console.log("request failed " + args.get_message() + "\n" + args.get_stackTrace());
-        }
     });
 })(OrdersPage || (OrdersPage = {}));
 //# sourceMappingURL=orders.js.map
