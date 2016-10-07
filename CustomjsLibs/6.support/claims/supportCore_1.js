@@ -1,5 +1,20 @@
 $(document).ready(function () {
 
+    var currentUser = $().SPServices.SPGetCurrentUser();
+    
+    // redirect no SupportOwner users to other page
+    $().SPServices({
+        operation: "GetGroupCollectionFromUser",
+        userLoginName: currentUser,
+        async: true,
+        completefunc: function (xData, Status) {
+            if ($(xData.responseXML).find("Group[Name='" + "SupportOwner" + "']").length != 1) {
+                $("#DeltaPlaceHolderMain").hide();                
+                window.location = "http://intranet/Pages/helpdesk.aspx";                
+            }
+        }
+    });
+
     $(".welcome-content").hide();
     $(".welcome-image").hide();
     $(".userTargetModalContainer").hide();
@@ -14,15 +29,17 @@ $(document).ready(function () {
         { "table-layout": "fixed" });
 
     /* 
+        // this example code: ( get user id from spwidget library input )
         var userSourceId = $("#userSource").val().split(";")[0];  
     */
+    // initialize input spswidget
     $("input[name='userSource']").pickSPUser(
         {
             onPickUser: function (personObj) {
-                $("#userSource").next().find(".pt-pickSPUser-input").hide();                
+                $("#userSource").next().find(".pt-pickSPUser-input").hide();
             },
             onRemoveUser: function ($input, $ui, personObj) {
-                $("#userSource").next().find(".pt-pickSPUser-input").show();                                                
+                $("#userSource").next().find(".pt-pickSPUser-input").show();
             },
             filterSuggestions: function (suggestions) {
                 var newSuggestions = [];
@@ -37,8 +54,7 @@ $(document).ready(function () {
         }
     );
 
-    var currentUser = $().SPServices.SPGetCurrentUser();
-
+    // handler on add throw permission ability give task to other user (in getout task)
     $().SPServices({
         operation: "GetGroupCollectionFromUser",
         userLoginName: currentUser,
@@ -71,6 +87,7 @@ $(document).ready(function () {
     });
 });
 
+/** remove item from list after some action: accept claim, close claim */
 function removeItem(itemId, listId) {
     $.ajax({
         url: "/support/_api/web/lists(guid'" + listId + "')/items(" + itemId + ")",
@@ -92,6 +109,7 @@ function removeItem(itemId, listId) {
     });
 }
 
+/** add item from list after some action: accept claim, close claim */
 function addItem(listId, itemData) {
     $.ajax({
         url: "/support/_api/web/lists(guid'" + listId + "')/items",

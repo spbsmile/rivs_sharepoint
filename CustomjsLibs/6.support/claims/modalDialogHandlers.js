@@ -1,3 +1,33 @@
+$(document).ready(function () {
+    /* 
+        initialize user input spswidget
+            
+    */
+    $("input[name='userRedirectTarget']").pickSPUser(
+        {
+            onPickUser: function (personObj) {
+                $("#userRedirectTarget").next().find(".pt-pickSPUser-input").hide();
+            },
+            onRemoveUser: function ($input, $ui, personObj) {
+                $("#userRedirectTarget").next().find(".pt-pickSPUser-input").show();
+            },
+            filterSuggestions: function (suggestions) {
+                var newSuggestions = [];
+                var prevEmail = null;
+                $.each(suggestions, function (i, userInfo) {
+                    if (prevEmail === userInfo.email) return true;
+                    prevEmail = userInfo.email;
+                    newSuggestions.push(userInfo);
+                });
+                return newSuggestions;
+            }
+        }
+    );
+    $(".userRedirectClaim").hide();
+});
+
+
+/** when click button getout task open modal window*/
 function clickDialogGetOut() {
     $(function () {
         $("#dialog-form").dialog({
@@ -37,30 +67,6 @@ function clickDialogGetOut() {
 
 var isRedirect = false;
 
-$(document).ready(function () {
-    $("input[name='userRedirectTarget']").pickSPUser(
-        {
-            onPickUser: function (personObj) {
-                $("#userRedirectTarget").next().find(".pt-pickSPUser-input").hide();
-            },
-            onRemoveUser: function ($input, $ui, personObj) {
-                $("#userRedirectTarget").next().find(".pt-pickSPUser-input").show();
-            },
-            filterSuggestions: function (suggestions) {
-                var newSuggestions = [];
-                var prevEmail = null;
-                $.each(suggestions, function (i, userInfo) {
-                    if (prevEmail === userInfo.email) return true;
-                    prevEmail = userInfo.email;
-                    newSuggestions.push(userInfo);
-                });
-                return newSuggestions;
-            }
-        }
-    );
-    $(".userRedirectClaim").hide();
-});
-
 $(document).on('change', '#selectRedirectState', function () {
     if ($("#selectRedirectState").val() === "0") {
         $(".commentContainerModal").show();
@@ -73,6 +79,7 @@ $(document).on('change', '#selectRedirectState', function () {
     }
 });
 
+/** when click button close task open modal window*/
 function clickDialogCommentClosestClaim(itemId, d, time, category, urgently, authId, discription, timegettask, fileId) {
     $(function () {
         $("#dialog-form-comment-claim").dialog({
