@@ -1,4 +1,3 @@
-// namespace EmployeePage {
 function sortDepartmentsTree(departmentsTree) {
     var sortHierarchyOtdel = {};
     sortHierarchyOtdel["ГипроРИВС"] = ["Руководство", "Секретариат", "Бюро главных инженеров", "Отдел технологического проектирования", "Строительная группа", "Отдел гидротехнических сооружений",
@@ -61,5 +60,4 @@ function sortDepartmentsTree(departmentsTree) {
     }
     return sortObject(departmentsTree);
 }
-// } 
 //# sourceMappingURL=departmentSortManager.js.map
