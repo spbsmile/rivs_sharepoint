@@ -10,7 +10,7 @@ var SiteHeader;
         });
         // keyboard 'enter' input
         $("#textSearch").keypress(function (e) {
-            if (e.which == 13) {
+            if (e.which === 13) {
                 $('#modalSearchResult').modal();
                 $("#resultsDiv").empty();
                 $("#loaderSearch").show();

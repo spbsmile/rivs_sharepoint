@@ -1,11 +1,11 @@
 $(document).on('change', '#category', function () {
-		
+
 	$('#subcategory')
 		.find('option')
 		.remove()
 		.end();
 
-	var items = subcategory[$("#category").val()];
+	let items = subcategory[$("#category").val()];
 	$.each(items, function (i, item) {
 		$('#subcategory').append($('<option>', {
 			value: i,
@@ -26,8 +26,8 @@ $(document).on('change', '#category', function () {
 });
 
 $(document).on('change', '#subcategory', function () {
-	var idSubCategory = $("#subcategory").val();
-	var items = subcategory[$("#category").val()];
+	let idSubCategory = $("#subcategory").val();
+	let items = subcategory[$("#category").val()];
 
 	$("#mainFaqText").text(items[idSubCategory].faq);
 	if (items[idSubCategory].tip && items[idSubCategory].tip != "") {
@@ -38,7 +38,7 @@ $(document).on('change', '#subcategory', function () {
 	}
 });
 
-var subcategory = {
+let subcategory = {
 	'1': [{
 		main: "Установить программу",
 		faq: "Напишите название программы." + " По возможности укажите сайт разработчика программы." +

@@ -2,43 +2,43 @@
 /// <reference path="../2.employee/search.ts" />
 
 /** used for breadcrumbs */
-var additionalEmployeesCurrent;
+let additionalEmployeesCurrent;
 /** used for breadcrumbs */
-var organizationCurrent;
+let organizationCurrent;
 /** dictionary hierarchy */
-var departmentsTree = {};
+let departmentsTree = {};
 
 const countWidgetsInRow = 3;
 
-$(document).ready(function () {   
+$(document).ready(function () {
 
     // start create main page    
     $("#loaderEmployeePage").show();
     $.ajax({
-        url: getRestUrl('*', "Department%2cOrganizationLong%2cIsDisabled%2cotdel2%2cTitle", 600, false),
+        url: getRestUrl('*', "Department%2cOrganizationLong%2cIsDisabled%2cotdel2%2cTitle", 600, false, null),
         method: "GET",
         headers: {
             "Accept": "application/json;odata=verbose",
             "X-RequestDigest": $("#__REQUESTDIGEST").val()
         },
         success: function (data) {
-            var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
+            let results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
 
             // write data employess to object 'departmentsTree', iterate of all users 
-            for (var i = 0; i < results.length; i++) {
-                var department = results[i].Cells.results[2].Value;
-                var otdel = clearLetter(results[i].Cells.results[3].Value);
-                var isDisabled = results[i].Cells.results[4].Value;
+            for (let i = 0; i < results.length; i++) {
+                let department = results[i].Cells.results[2].Value;
+                let otdel = clearLetter(results[i].Cells.results[3].Value);
+                let isDisabled = results[i].Cells.results[4].Value;
                 // otdel2 - it's field define sencond department/otdel of employee. example: Zimina/Bondarenko in Owners  
-                var otdel2 = results[i].Cells.results[5].Value;
+                let otdel2 = results[i].Cells.results[5].Value;
 
                 if (department && !isDisabled) {
                     // check on hierarchy otdel				
-                    if (otdel && otdel != department) {
+                    if (otdel && otdel !== department) {
                         if (!departmentsTree.hasOwnProperty(otdel)) {
                             departmentsTree[otdel] = [];
                             departmentsTree[otdel].push(department);
-                        } else if (departmentsTree[otdel].indexOf(department) == -1) {
+                        } else if (departmentsTree[otdel].indexOf(department) === -1) {
                             // example: otdel = ГипроРИВС, department = Руководство						
                             departmentsTree[otdel].push(department);
                         }
@@ -65,9 +65,9 @@ $(document).ready(function () {
             $("#loaderEmployeePage").hide();
 
             /** added for id of additionalEmployee */
-            var index = 0;
+            let index = 0;
             // create widgets departments
-            for (var name in sortDepartmentsTree(departmentsTree)) {
+            for (let name in sortDepartmentsTree(departmentsTree)) {
                 if (index === 0) {
                     createWidgetDepartment("#container_widget_departments", "widget_departament owner", name, "additionalEmployee_" + index);
                 } else {
@@ -78,21 +78,21 @@ $(document).ready(function () {
 
             //  handlers on click widget of main page
             $(".widget_departament").on('click', function () {
-                var organization = $(this).children('.title_inner').text();
-                var dataAdditionalEmployee = $(this).children('.additionalEmployee').text().split('|');
+                let organization = $(this).children('.title_inner').text();
+                let dataAdditionalEmployee = $(this).children('.additionalEmployee').text().split('|');
 
                 prepareSearch();
                 addBreadcrumb(organization);
                 organizationCurrent = organization;
                 additionalEmployeesCurrent = dataAdditionalEmployee;
-                var isHasOtdels = false;
-                var otdels = $(this).children('.containerOtdels').text().split(',');
+                let isHasOtdels = false;
+                let otdels = $(this).children('.containerOtdels').text().split(',');
                 if (otdels && otdels.length > 0 && otdels[0] != " " && otdels[0] && otdels[0].trim() != 'Машзавод "РИВС"') {
                     createWidgetsOtdels(organization, otdels);
                     isHasOtdels = true;
                     addBreadcrumbHandler();
                 }
-                startSearch(organization, organization, true, isHasOtdels, dataAdditionalEmployee);
+                startSearch(organization, organization, true, isHasOtdels, dataAdditionalEmployee, null);
             });
         },
         error: errorHandler
@@ -101,19 +101,19 @@ $(document).ready(function () {
 
     // search input handler
     $("#btnMainSearch").click(function () {
-        var query = $("#textarea_mainsearch_client").val();
+        let query = $("#textarea_mainsearch_client").val();
         clearBreadcrumbs();
         $("#textarea_mainsearch_client").val('');
         prepareSearch();
-        startSearch(query, "", false, false);
+        startSearch(query, "", false, false, null, null);
         $("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + "Поиск: " + query + '\</a>');
     });
 
     // keypart enter handler
     $("#mainsearch_client").keypress(function (e) {
-        var query = $("#textarea_mainsearch_client").val();
+        let query = $("#textarea_mainsearch_client").val();
         query = query.trim();
-        if (e.which == 13 && query && query.length > 1) {
+        if (e.which === 13 && query && query.length > 1) {
             clearBreadcrumbs();
             $("#textarea_mainsearch_client").val('');
             $("#textarea_mainsearch_client").attr('rows', 1);
@@ -139,9 +139,9 @@ function clickBreadcrumbMiddleLevel() {
     addBreadcrumb(organizationCurrent);
     addBreadcrumbHandler();
     prepareSearch();
-    startSearch(organizationCurrent, organizationCurrent, true, true, additionalEmployeesCurrent);
+    startSearch(organizationCurrent, organizationCurrent, true, true, additionalEmployeesCurrent, null);
 
-    var key = organizationCurrent.trim();
+    let key = organizationCurrent.trim();
     if (departmentsTree[key]) {
         createWidgetsOtdels(key, departmentsTree[key]);
     }
@@ -163,11 +163,11 @@ function clearBreadcrumbs() {
     });
 }
 
-/** for: giprorivs, urals, mash factory ... */
+/** for: giprorivs, urals, mashfactory ... */
 function createWidgetsOtdels(organization, otdels) {
-    var initialIndex = 0;
+    let initialIndex = 0;
     otdels[0] = otdels[0].trim();
-    var index = otdels.indexOf("Руководство");
+    let index = otdels.indexOf("Руководство");
     if (index < 0) {
         index = otdels.indexOf("Управление");
     }
@@ -175,24 +175,24 @@ function createWidgetsOtdels(organization, otdels) {
         index = otdels.indexOf("Дирекция");
     }
     if (index != -1) {
-        var temp = otdels[0];
+        let temp = otdels[0];
         otdels[0] = otdels[index];
         otdels[index] = temp;
-        createWidgetDepartment("#chief_widget", "widget_organization_inner owner", otdels[0]);
+        createWidgetDepartment("#chief_widget", "widget_organization_inner owner", otdels[0], null);
         initialIndex++;
     }
-    for (var i = initialIndex; i < otdels.length; i++) {
+    for (let i = initialIndex; i < otdels.length; i++) {
         if (clearLetter(otdels[i]) === organization) {
             continue;
         }
-        createWidgetDepartment("#employeeBlock", "widget_organization_inner departament_row", otdels[i]);
+        createWidgetDepartment("#employeeBlock", "widget_organization_inner departament_row", otdels[i], null);
     }
     //  handlers of click widget otdels on inner page
     $(".widget_organization_inner").on('click', function () {
         // todo apply filter: only relative organization
-        var otdel = $(this).children('.title_inner').text();
+        let otdel = $(this).children('.title_inner').text();
         prepareSearch();
-        startSearch(otdel, organization, false, false);
+        startSearch(otdel, organization, false, false, null, null);
         $("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + otdel + '\</a>');
     });
 }
@@ -209,8 +209,8 @@ function prepareSearch() {
 }
 
 function createWidgetEmployee(photo, name, department, jobTitle, email, phone, isStub) {
-    var styleStub = isStub ? "style='display: none;'" : "";
-    var widget =
+    let styleStub = isStub ? "style='display: none;'" : "";
+    let widget =
         "<div class='employeeCell_widget'>" +
         "<div class='wrap_employeeCell_widget'" + styleStub + ">" +
         '<div class="col-xs-6 col-md-3 left_column_personal_widget"><a class="thumbnail"><img class="iconperson" src="' + photo + '" alt="" ></a></div>' +
@@ -227,7 +227,7 @@ function createWidgetEmployee(photo, name, department, jobTitle, email, phone, i
 
 /** create widget of otdel or department, idContainer - chief or employeeBlock container */
 function createWidgetDepartment(idContainer, cssClassWidget, name, idAdditionalEmployee) {
-    var contentForWidgetOnMainPage = idAdditionalEmployee ? '<div class="containerOtdels"> ' + departmentsTree[name] + '</div>' +
+    let contentForWidgetOnMainPage = idAdditionalEmployee ? '<div class="containerOtdels"> ' + departmentsTree[name] + '</div>' +
         '<div id="' + idAdditionalEmployee + '" class="additionalEmployee"> </div></div>' : "";
 
     $(idContainer).append(
@@ -235,9 +235,9 @@ function createWidgetDepartment(idContainer, cssClassWidget, name, idAdditionalE
         '<div class="title_inner"> ' + name + '</div>' + contentForWidgetOnMainPage);
 
     if (idAdditionalEmployee && departmentsTree[name] && departmentsTree[name].hasOwnProperty("additionalEmployess")) {
-        var names = departmentsTree[name].additionalEmployess;
-        var id = "#" + idAdditionalEmployee;
-        for (var i = 0; i <= names.length; i++) {
+        let names = departmentsTree[name].additionalEmployess;
+        let id = "#" + idAdditionalEmployee;
+        for (let i = 0; i <= names.length; i++) {
             getOnePersonFromSearch(names[i], id);
         }
     }
@@ -246,18 +246,19 @@ function createWidgetDepartment(idContainer, cssClassWidget, name, idAdditionalE
 /** used for additional users */
 function getOnePersonFromSearch(personName, idStorage) {
     $.ajax({
-        url: getRestUrl(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01%2cCountryCode", 1, true),
+        url: getRestUrl(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01%2cCountryCode", 
+        1, true, false),
         method: "GET",
         headers: {
             "Accept": "application/json;odata=verbose",
             "X-RequestDigest": $("#__REQUESTDIGEST").val()
         },
         success: function (data) {
-            var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
+            let results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;
 
-            var array = [];
-            for (var i = 0; i < results.length; i++) {
-                var d = getData(results[i]);
+            let array = [];
+            for (let i = 0; i < results.length; i++) {
+                let d = getData(results[i]);
                 array[0] = d.photo;
                 array[1] = d.name;
                 array[2] = d.department;
@@ -277,11 +278,11 @@ function getOnePersonFromSearch(personName, idStorage) {
 }
 
 /** constructor of rest url */
-function getRestUrl(query, selectproperties, rowlimit, isSortList, isInputSearch) {
-    var textWithWildcard = isInputSearch ? query + "*" : query;
+function getRestUrl(query, selectproperties, rowlimit, isSortList: boolean, isInputSearch: boolean) {
+    let textWithWildcard = isInputSearch ? query + "*" : query;
 
-    var sortList = isSortList ? "&sortlist='RefinableString01:ascending%2cRefinableString02:ascending'" : "";
-    var url =
+    let sortList = isSortList ? "&sortlist='RefinableString01:ascending%2cRefinableString02:ascending'" : "";
+    let url =
         "/_api/search/query?querytext='" + encodeURIComponent(textWithWildcard) + "'" +
         "&trimduplicates=false&rowlimit='" + rowlimit + "'" +
         sortList +
@@ -294,18 +295,18 @@ function getRestUrl(query, selectproperties, rowlimit, isSortList, isInputSearch
 
 /** wraper-helper function for get data of rest result*/
 function getData(result) {
-    var module = [];
+    let module = [];
     module.name = result.Cells.results[2].Value;
     module.jobTitle = result.Cells.results[3].Value ? result.Cells.results[3].Value : "_";
     if (module.jobTitle) {
-        var lines = module.jobTitle.split(/\r\n|\r|\n/g);
+        let lines = module.jobTitle.split(/\r\n|\r|\n/g);
         module.jobTitle = lines[0];
     }
     module.email = result.Cells.results[4].Value ? result.Cells.results[4].Value : "";
     module.phone = result.Cells.results[6].Value ? result.Cells.results[6].Value : "";
     module.department = result.Cells.results[7].Value;
     if (result.Cells.results[8].Value) {
-        var photo = result.Cells.results[8].Value.replace(/ /g, '%20');
+        let photo = result.Cells.results[8].Value.replace(/ /g, '%20');
         module.photo = photo.replace("_MThumb.jpg", "_LThumb.jpg");
     } else {
         module.photo = "/_layouts/15/CustomjsLibs/1.devsp/noPhoto.jpg";
@@ -320,9 +321,9 @@ function getData(result) {
 function clearLetter(letter) {
     if (!letter)
         return "";
-    var t = letter.replace(/['"]+/g, '');
-    var f = t.replace('»', '');
-    var v = f.replace('«', '');
+    let t = letter.replace(/['"]+/g, '');
+    let f = t.replace('»', '');
+    let v = f.replace('«', '');
     return v.replace('«', '');
 }
 

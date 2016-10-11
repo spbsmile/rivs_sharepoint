@@ -1,5 +1,5 @@
 function sendClaim(itemData, messageReport) {
-    $("#modalSendClaim").modal();    
+    $("#modalSendClaim").modal();
     $.ajax({
         url: "/support/_api/web/lists(guid'" + settings().listIdNewClaims + "')/items",
         type: "POST",
@@ -9,16 +9,16 @@ function sendClaim(itemData, messageReport) {
             "accept": "application/json;odata=verbose",
             "X-RequestDigest": jQuery("#__REQUESTDIGEST").val()
         },
-        success: function (data) {            
+        success: function (data) {
             reportClaimOperation(messageReport);
             if (!$("#panelSendClaims").is(":visible")) {
                 fetchClaimsCurrentUser(settings().listIdNewClaims, "Author", settings().listFieldsNewClaimsTable, claimSended, TableClaims.New, settings().statusClaim[0], settings().tooltipBtnNewClaim,
                     function () {
                         displayTableWithClaim("#panelSendClaims", "#tbodySendClaims", settings().btnNewClaim, claimSended)
                     });
-            } else {                
-                var claim = {};
-                var claimData = {};
+            } else {
+                let claim = {};
+                let claimData = {};
 
                 claimData.Discription = $("#discription").val();
                 claimData.urgently = $("#urgentlyValue").val();
@@ -28,7 +28,7 @@ function sendClaim(itemData, messageReport) {
 
                 // todo refactor this
                 if (fileName) {
-                    var temp = {};
+                    let temp = {};
                     temp.Title = fileName;
                     claimData.AttachFileNew = temp;
                 }
@@ -44,16 +44,16 @@ function sendClaim(itemData, messageReport) {
                 displayTableWithClaim("#panelSendClaims", "#tbodySendClaims", settings().btnNewClaim, claimSended);
             }
         },
-        error: function (data) {            
+        error: function (data) {
             reportClaimOperation("Ошибка отправки: " + data.toString());
             onError(data);
         }
     });
 }
 
-/** write data of claim when it's send */ 
-function getItemData(urgently, category, discription, fileId, comment) {        
-    var item = {
+/** write data of claim when it's send */
+function getItemData(urgently, category, discription, fileId, comment) {
+    let item = {
         "__metadata": {
             "type": "SP.Data.ListListItem",
             "Discription": "",

@@ -4,7 +4,7 @@
 var currentUserId = null;
 var TableClaims;
 var fileName = " ";
-/** this array for sort claim in table claims */ 
+/** this array for sort claim in table claims */
 var claimSended = [];
 var claimResolved = [];
 var clientIp = " ";
@@ -21,8 +21,8 @@ $(document).ready(function () {
 	SP.SOD.executeFunc('sp.js', 'SP.ClientContext', sharePointReady);
 
 	function sharePointReady() {
-		var context = SP.ClientContext.get_current();
-		var currentUser = context.get_web().get_currentUser();
+		let context = SP.ClientContext.get_current();
+		let currentUser = context.get_web().get_currentUser();
 		context.load(currentUser);
 		context.executeQueryAsync(function () {
 			currentUserId = currentUser.get_id();
@@ -52,7 +52,7 @@ $(document).ready(function () {
 
 	// click button "отправить"
 	$("#sendTicket").click(function () {
-		var discription = $("#discription").val() + "\n" + " Подкатегория: " + $("#subcategory option:selected").text();
+		let discription = $("#discription").val() + "\n" + " Подкатегория: " + $("#subcategory option:selected").text();
 		if ($("#getFile").get(0).files.length === 0) {
 			sendClaim(getItemData($("#urgentlyValue").val(), $("#category option:selected").text(), discription, null, ""), "Заявка Отправлена!");
 		} else {
@@ -75,7 +75,7 @@ $(document).ready(function () {
 	});
 
 	$("#mainTips").hide();
-	
+
 	// fetch cleint ip and machine name
 	$('#ip_machine_client').children('span').each(function (i) {
 		if (i === 0) {
@@ -83,7 +83,7 @@ $(document).ready(function () {
 		} else if (i === 1) {
 			clientMachineName = $(this).text();
 		}
-	});	
+	});
 });
 
 //todo open dialog

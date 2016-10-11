@@ -4,13 +4,17 @@
         "comment-format": [
             true,
             "check-space"
-        ],
+        ]/*,
         "indent": [
             true,
             "spaces"
-        ],
+        ]*/,
         "no-duplicate-variable": true,
         "no-eval": true,
+        "no-console": [
+            true,
+            "log"
+        ],
         "no-internal-module": true,
         "no-trailing-whitespace": true,
         "no-unsafe-finally": true,
@@ -20,10 +24,10 @@
             "check-open-brace",
             "check-whitespace"
         ],
-        "quotemark": [
+        /*"quotemark": [
             true,
             "double"
-        ],     
+        ],*/     
         "semicolon": [
             true,
             "always"

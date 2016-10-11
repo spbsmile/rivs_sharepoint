@@ -9,8 +9,8 @@ namespace MainPage {
 				$("#EURcurrency").text($(this).text());
 			} // flow currency
 			else if (i === 2) {
-				//usd
-				var flowCurrency = $(this).text();
+				// usd
+				let flowCurrency = $(this).text();
 				if (flowCurrency === "down") {
 					$("#usd_top").hide();
 					$("#usd_down").show();
@@ -19,7 +19,7 @@ namespace MainPage {
 					$("#usd_down").hide();
 				}
 			} else if (i === 3) {
-				var flowCurrency = $(this).text();
+				let flowCurrency = $(this).text();
 				if (flowCurrency === "down") {
 					$("#eur_down").show();
 					$("#eur_top").hide();
@@ -30,17 +30,17 @@ namespace MainPage {
 			}
 		});
 
-		var unicId = $('#currency').parent().attr('id');
+		let unicId = $('#currency').parent().attr('id');
 
-		//weather
-		var spb = $('#' + unicId + '_ctl00_spbDegreesDuplicat').text();
-		var uchaly = $('#' + unicId + '_ctl00_uchalyDegrees').text();
-		var kentay = $('#' + unicId + '_ctl00_kentayDegrees').text();
-		var magn = $('#' + unicId + '_ctl00_magnitogorskDegrees').text();
-		var erdenet = $('#' + unicId + '_ctl00_erdenetGegrees').text();
-		var msc = $('#' + unicId + '_ctl00_mscDegrees').text();
-		var erevan = $('#' + unicId + '_ctl00_erevanDegrees').text();
-		var tachkent = $('#' + unicId + '_ctl00_tashkentDergrees').text();
+		// weather
+		let spb = $('#' + unicId + '_ctl00_spbDegreesDuplicat').text();
+		let uchaly = $('#' + unicId + '_ctl00_uchalyDegrees').text();
+		let kentay = $('#' + unicId + '_ctl00_kentayDegrees').text();
+		let magn = $('#' + unicId + '_ctl00_magnitogorskDegrees').text();
+		let erdenet = $('#' + unicId + '_ctl00_erdenetGegrees').text();
+		let msc = $('#' + unicId + '_ctl00_mscDegrees').text();
+		let erevan = $('#' + unicId + '_ctl00_erevanDegrees').text();
+		let tachkent = $('#' + unicId + '_ctl00_tashkentDergrees').text();
 
 		$("#spbIconDuplicat_View").addClass($('#' + unicId + '_ctl00_spbIconDuplicat').attr('class'));
 		$("#spbDescriptionDuplicat_View").text($('#' + unicId + '_ctl00_spbDescriptionDuplicat').text());
@@ -58,7 +58,7 @@ namespace MainPage {
 		$("#magnitogorskWeatherDescription_View").text($('#' + unicId + '_ctl00_magnitogorskDescription').text());
 		$("#magnitogorskWeatherDegrees_View").text(magn);
 
-		//for modal window
+		// for modal window
 		$("#modalWeatherSpbDescription").text($('#' + unicId + '_ctl00_spbDescriptionDuplicat').text());
 		$("#modalWeatherSpbDegrees").text(spb);
 
@@ -96,7 +96,7 @@ namespace MainPage {
 		defineWeatherIcon("#cell_weather_magnitogorsk_image", $('#' + unicId + '_ctl00_magnitogorskDescription').text());
 		defineWeatherIcon("#cell_weather_kentay_image", $('#' + unicId + '_ctl00_kentayDescription').text());
 
-		//for modal window
+		// for modal window
 		defineWeatherIcon("#modalWeatherSpbImage", $('#' + unicId + '_ctl00_spbDescriptionDuplicat').text());
 		defineWeatherIcon("#modalWeatherUchalyImage", $('#' + unicId + '_ctl00_uchalyDescription').text());
 		defineWeatherIcon("#modalWeatherMagnImage", $('#' + unicId + '_ctl00_magnitogorskDescription').text());
@@ -110,26 +110,26 @@ namespace MainPage {
 
 	// ясно, пасмурно, легкий дождь, ясно, гроза// нет картинки тумана
 	function defineWeatherIcon(childId, state) {
-		var imagePostfix = null;
-		var imageUrl = "/_layouts/15/CustomjsLibs/1.devsp/weather-icons/";
+		let imagePostfix = null;
+		let imageUrl = "/_layouts/15/CustomjsLibs/1.devsp/weather-icons/";
 		if (state === "ясно") {
-			imageUrl += "sun.png"
+			imageUrl += "sun.png";
 		} else if (state === "пасмурно") {
-			imageUrl += "cloudy.png"
+			imageUrl += "cloudy.png";
 		} else if (state === "слегка облачно") {
-			imageUrl += "part_cloudy.png"
+			imageUrl += "part_cloudy.png";
 		} else if (state === "облачно") {
-			imageUrl += "cloudy.png"
+			imageUrl += "cloudy.png";
 		} else if (state === "гроза" || state === "гроза с мелким дождём") {
-			imageUrl += "rain_w_thunder.png"
+			imageUrl += "rain_w_thunder.png";
 		} else if (state === "дождь" || state === "легкий дождь" || state === "проливной дождь") {
-			imageUrl += "chance_of_rain.png"
+			imageUrl += "chance_of_rain.png";
 		} else if (state === "снег") {
-			imageUrl += "snow.png"
+			imageUrl += "snow.png";
 		} else if (state === "туманно" || state === "сыро") {
-			imageUrl += "cloudy.png"
+			imageUrl += "cloudy.png";
 		} else if (state === "" || state === "Label" || state === "label") {
-			imageUrl += "weather-offline.png"
+			imageUrl += "weather-offline.png";
 		}
 
 		$(childId).attr("src", imageUrl);

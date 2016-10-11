@@ -17,7 +17,7 @@ $(document).ready(function () {
         userLoginName: currentUser,
         async: true,
         completefunc: function (xData, Status) {
-            if ($(xData.responseXML).find("Group[Name='" + "SupportOwner" + "']").length == 1) {
+            if ($(xData.responseXML).find("Group[Name='" + "SupportOwner" + "']").length === 1) {
                 isMember = true;
             }
             else {
@@ -39,7 +39,7 @@ $(document).ready(function () {
         userLoginName: currentUser,
         async: true,
         completefunc: function (xData, Status) {
-            if ($(xData.responseXML).find("Group[Name='" + "DevepolerGroup" + "']").length == 1) {
+            if ($(xData.responseXML).find("Group[Name='" + "DevepolerGroup" + "']").length === 1) {
                 $('#ms-designer-ribbon').show();
                 $("#suiteBarRight").show;
                 $('#RibbonContainer-TabRowRight').show();

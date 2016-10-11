@@ -10,19 +10,19 @@ $(document).ready(function () {
 	$(".ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
 
 	// site-collection 'document' 
-	var libraryMenuClass = ".ms-list-itemLink-td.ms-cellstyle";
+	let libraryMenuClass = ".ms-list-itemLink-td.ms-cellstyle";
 	$(libraryMenuClass).hide();
 
-	var isMember = null;
-	var currentUser = $().SPServices.SPGetCurrentUser();
-	
+	let isMember = null;
+	let currentUser = $().SPServices.SPGetCurrentUser();
+
 	// navigation button 'support' link manager 
 	$().SPServices({
 		operation: "GetGroupCollectionFromUser",
 		userLoginName: currentUser,
 		async: true,
 		completefunc: function (xData, Status) {
-			if ($(xData.responseXML).find("Group[Name='" + "SupportOwner" + "']").length == 1) {
+			if ($(xData.responseXML).find("Group[Name='" + "SupportOwner" + "']").length === 1) {
 				isMember = true;
 			} else {
 				isMember = false;
@@ -33,7 +33,7 @@ $(document).ready(function () {
 				} else {
 					window.location = "/Pages/helpdesk.aspx";
 				}
-			})
+			});
 		}
 	});
 
@@ -43,7 +43,7 @@ $(document).ready(function () {
 		userLoginName: currentUser,
 		async: true,
 		completefunc: function (xData, Status) {
-			if ($(xData.responseXML).find("Group[Name='" + "DevepolerGroup" + "']").length == 1) {
+			if ($(xData.responseXML).find("Group[Name='" + "DevepolerGroup" + "']").length === 1) {
 				$('#ms-designer-ribbon').show();
 				$("#suiteBarRight").show;
 				$('#RibbonContainer-TabRowRight').show();
@@ -58,11 +58,11 @@ $(document).ready(function () {
 				});
 			}
 		}
-	});	
+	});
 
 	// disable click event on user link
-	$('.ms-subtleLink').each(function (i, obj) {			
+	$('.ms-subtleLink').each(function (i, obj) {
 		$(this).attr("href", "#");
 		$(this).removeAttr("onclick");
-	});	
+	});
 });

@@ -9,7 +9,7 @@ var MainPage;
                 $("#EURcurrency").text($(this).text());
             } // flow currency
             else if (i === 2) {
-                //usd
+                // usd
                 var flowCurrency = $(this).text();
                 if (flowCurrency === "down") {
                     $("#usd_top").hide();
@@ -33,7 +33,7 @@ var MainPage;
             }
         });
         var unicId = $('#currency').parent().attr('id');
-        //weather
+        // weather
         var spb = $('#' + unicId + '_ctl00_spbDegreesDuplicat').text();
         var uchaly = $('#' + unicId + '_ctl00_uchalyDegrees').text();
         var kentay = $('#' + unicId + '_ctl00_kentayDegrees').text();
@@ -54,7 +54,7 @@ var MainPage;
         $("#magnitogorskWeatherIcon_View").addClass($('#' + unicId + '_ctl00_magnitogorskIcon').attr('class'));
         $("#magnitogorskWeatherDescription_View").text($('#' + unicId + '_ctl00_magnitogorskDescription').text());
         $("#magnitogorskWeatherDegrees_View").text(magn);
-        //for modal window
+        // for modal window
         $("#modalWeatherSpbDescription").text($('#' + unicId + '_ctl00_spbDescriptionDuplicat').text());
         $("#modalWeatherSpbDegrees").text(spb);
         $("#modalWeatherUchalyDescription").text($('#' + unicId + '_ctl00_uchalyDescription').text());
@@ -81,7 +81,7 @@ var MainPage;
         defineWeatherIcon("#cell_weather_uchaly_image", $('#' + unicId + '_ctl00_uchalyDescription').text());
         defineWeatherIcon("#cell_weather_magnitogorsk_image", $('#' + unicId + '_ctl00_magnitogorskDescription').text());
         defineWeatherIcon("#cell_weather_kentay_image", $('#' + unicId + '_ctl00_kentayDescription').text());
-        //for modal window
+        // for modal window
         defineWeatherIcon("#modalWeatherSpbImage", $('#' + unicId + '_ctl00_spbDescriptionDuplicat').text());
         defineWeatherIcon("#modalWeatherUchalyImage", $('#' + unicId + '_ctl00_uchalyDescription').text());
         defineWeatherIcon("#modalWeatherMagnImage", $('#' + unicId + '_ctl00_magnitogorskDescription').text());

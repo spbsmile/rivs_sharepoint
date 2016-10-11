@@ -1,5 +1,5 @@
 namespace DocumentsPage {
-	
+
 	$(document).ready(function () {
 
 		/** hide useless sharepoint content */
@@ -10,7 +10,7 @@ namespace DocumentsPage {
 		$(".link-item").on('click', function () {
 			window.open(
 				$(this).find(".linkOrder").attr('href'), "_self");
-		});		
+		});
 	});
 }
 

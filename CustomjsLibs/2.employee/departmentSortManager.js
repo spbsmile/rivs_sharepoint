@@ -1,3 +1,4 @@
+/** custom sort order otdels and departments such as:main page departments, giprorivs, urals, etc */
 function sortDepartmentsTree(departmentsTree) {
     var sortHierarchyOtdel = {};
     sortHierarchyOtdel["ГипроРИВС"] = ["Руководство", "Секретариат", "Бюро главных инженеров", "Отдел технологического проектирования", "Строительная группа", "Отдел гидротехнических сооружений",

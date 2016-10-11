@@ -14,7 +14,7 @@ var OrdersPage;
                 "Accept": "application/json; odata=verbose"
             },
             success: function (data) {
-                //stop animate loader effect
+                // stop animate loader effect
                 $("#loaderOrderPage").hide();
                 var results = data.d.results;
                 for (var i = 0; i < results.length; i++) {

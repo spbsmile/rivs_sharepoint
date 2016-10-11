@@ -17,15 +17,15 @@ namespace OrdersPage {
 			},
 			success: function (data) {
 
-				//stop animate loader effect
+				// stop animate loader effect
 				$("#loaderOrderPage").hide();
-				var results = data.d.results;
-				for (var i = 0; i < results.length; i++) {
-					var r = results[i];
-					var id = "news" + i;
+				let results = data.d.results;
+				for (let i = 0; i < results.length; i++) {
+					let r = results[i];
+					let id = "news" + i;
 
-					var docTitle = r.Title;
-					var docPath = r.File["ServerRelativeUrl"];
+					let docTitle = r.Title;
+					let docPath = r.File["ServerRelativeUrl"];
 
 					// #resultsDivOrders - it's id of div element in web part: cewp
 					$("#resultsDivOrders").append('<div class="myItem">' +
@@ -45,7 +45,7 @@ namespace OrdersPage {
 			error: function (sender, args) {
 				console.log("request failed " + args.get_message() + "\n" + args.get_stackTrace());
 			}
-		});				
+		});
 	});
 }
 

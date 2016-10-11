@@ -1,6 +1,6 @@
-function recallClaim(rowId, itemId) {    
+function recallClaim(rowId, itemId) {
     removeRow(rowId, "#panelSendClaims", "#tableSend");
-    $("#modalSendClaim").modal();    
+    $("#modalSendClaim").modal();
     $.ajax({
         url: "/support/_api/web/lists(guid'" + settings().listIdNewClaims + "')/items(" + itemId + ")",
         type: "POST",
@@ -11,8 +11,8 @@ function recallClaim(rowId, itemId) {
             "IF-MATCH": "*",
             "X-HTTP-Method": "DELETE"
         },
-        success: function () {            
-            reportClaimOperation("Заявка Закрыта!");            
+        success: function () {
+            reportClaimOperation("Заявка Закрыта!");
         },
         error: function (data) {
             reportClaimOperation("Техническая ошибка удаления заявки: " + "<br/>" + data.toString());

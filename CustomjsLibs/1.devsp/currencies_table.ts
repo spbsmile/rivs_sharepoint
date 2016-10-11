@@ -1,5 +1,5 @@
 namespace CurrencyPage {
-    
+
     // helper function for page:http://intranet/Pages/currency.aspx, correct format date in input 
     $(document).ready(function () {
         $(function () {

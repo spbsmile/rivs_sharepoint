@@ -11,10 +11,10 @@ namespace MainPage {
 			},
 			// dynamicaly create news widgets
 			success: function (data) {
-				var results = data.d.results;
-				for (var i = 0; i < results.length; i++) {
-					var r = results[i];
-					var id = "news" + i;
+				let results = data.d.results;
+				for (let i = 0; i < results.length; i++) {
+					let r = results[i];
+					let id = "news" + i;
 
 					// #resultsDivNews - id of element news container 
 					$("#resultsDivNews").append('<div id="' + id + '\" class="newsBlock">' +
@@ -26,7 +26,7 @@ namespace MainPage {
 						// invoke on click
 						function () {
 							// when click get selector of current context 
-							var selector = (typeof ($(this).attr('id')) !== 'undefined' || $(this).attr('id') !== null) ? '#' + $(this).attr('id') : '.' + $(this).attr('class');
+							let selector = (typeof ($(this).attr('id')) !== 'undefined' || $(this).attr('id') !== null) ? '#' + $(this).attr('id') : '.' + $(this).attr('class');
 							// title of news
 							$("#myModalLabelNews").text("Новости: " + $(selector + "title").text());
 							$('#modal-body-news').empty();

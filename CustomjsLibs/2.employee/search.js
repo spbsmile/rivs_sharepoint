@@ -1,4 +1,5 @@
 /// <reference path="../2.employee/widgets_control.ts" />
+/** create widgets users of search results*/
 function startSearch(query, organization, isMainSearch, isHaveOtdels, additionalEmployees, isInputSearch) {
     $.ajax({
         url: getRestUrl(query, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01", 100, true, isInputSearch),
@@ -16,7 +17,7 @@ function startSearch(query, organization, isMainSearch, isHaveOtdels, additional
             function createWidgetEmployeeWithNewRow(data, indexRow) {
                 var rowId = "row_empl_" + indexRow;
                 $("#employeeBlock").append('<div id="' + rowId + '" class="employeeRow">' +
-                    createWidgetEmployee(data.photo, data.name, data.department, data.jobTitle, data.email, data.phone) +
+                    createWidgetEmployee(data.photo, data.name, data.department, data.jobTitle, data.email, data.phone, null) +
                     '</div>');
                 return "#" + rowId;
             }
@@ -45,7 +46,7 @@ function startSearch(query, organization, isMainSearch, isHaveOtdels, additional
                 }
                 if (innerIndex === 0 && !isHaveOtdels) {
                     if (d.postalCode && d.department != "Коммерческий отдел" && d.department != "Департамент административного управления") {
-                        $("#chief_widget").append(createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone));
+                        $("#chief_widget").append(createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone, null));
                     }
                     else {
                         innerShift = 0;
@@ -59,7 +60,7 @@ function startSearch(query, organization, isMainSearch, isHaveOtdels, additional
                         rowId = createWidgetEmployeeWithNewRow(d, indexRow);
                     }
                     else {
-                        $(rowId).append(createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone));
+                        $(rowId).append(createWidgetEmployee(d.photo, d.name, d.department, d.jobTitle, d.email, d.phone, null));
                     }
                 }
                 innerIndex++;
@@ -71,18 +72,18 @@ function startSearch(query, organization, isMainSearch, isHaveOtdels, additional
                         indexRow = Math.floor((innerIndex - innerShift) / countWidgetsInRow);
                         rowId = "row_empl_" + indexRow;
                         $("#employeeBlock").append('<div id="' + "row_empl_" + indexRow + '" class="employeeRow">' +
-                            createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5]) +
+                            createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5], null) +
                             '</div>');
                         rowId = "#" + rowId;
                     }
                     else if (employeeData[1] == "Нестеров Петр Олегович") {
-                        $("#chief_widget").append(createWidgetEmployee(employeeData[0], employeeData[1], "Коммерческий отдел", "Коммерческий директор", employeeData[4], employeeData[5]));
+                        $("#chief_widget").append(createWidgetEmployee(employeeData[0], employeeData[1], "Коммерческий отдел", "Коммерческий директор", employeeData[4], employeeData[5], null));
                     }
                     else if (employeeData[1] == "Лигузов Алексей Дмитриевич") {
-                        $("#chief_widget").append(createWidgetEmployee(employeeData[0], employeeData[1], "Департамент административного управления", "Заместитель генерального директора. Директор Департамента АУ", employeeData[4], employeeData[5]));
+                        $("#chief_widget").append(createWidgetEmployee(employeeData[0], employeeData[1], "Департамент административного управления", "Заместитель генерального директора. Директор Департамента АУ", employeeData[4], employeeData[5], null));
                     }
                     else {
-                        $(rowId).append(createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5]));
+                        $(rowId).append(createWidgetEmployee(employeeData[0], employeeData[1], employeeData[2], employeeData[3], employeeData[4], employeeData[5], null));
                     }
                     innerIndex++;
                 }

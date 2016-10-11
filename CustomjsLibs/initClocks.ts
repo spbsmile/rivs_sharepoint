@@ -1,5 +1,5 @@
 namespace SiteHeader {
-	
+
 	$(document).ready(function () {
 
 		if (!moment.tz)
@@ -13,18 +13,18 @@ namespace SiteHeader {
 		initAllClock();
 		setInterval(initAllClock, 60000);
 
-		var minutesClass = "minutes-container";
+		let minutesClass = "minutes-container";
 		$("." + minutesClass).show();
 		$("." + minutesClass).hide();
 		$("." + minutesClass).show();
 
-		var hourClass = "hours-container";
+		let hourClass = "hours-container";
 		$("." + hourClass).show();
 		$("." + hourClass).hide();
 		$("." + hourClass).show();
 
-		var currentDate = moment().format("D MMMM").toString();
-		var array = currentDate.split(" ");
+		let currentDate = moment().format("D MMMM").toString();
+		let array = currentDate.split(" ");
 		$('.dateline').html(moment().format("D") + "&nbsp" + array[1] + "&nbsp" + "2016" + ", " +
 			capitalizeFirstLetter(moment().format('dddd')));
 	});
@@ -36,11 +36,11 @@ namespace SiteHeader {
 	}
 
 	function initLocalClocks(timezone, initialId) {
-		var minutes = moment().tz(timezone).format('m');
-		var hours = moment().tz(timezone).format('H');
+		let minutes = moment().tz(timezone).format('m');
+		let hours = moment().tz(timezone).format('H');
 
 		// Create an object with each hand and it's angle in degrees
-		var hands = [{
+		let hands = [{
 			hand: 'hours',
 			angle: (hours * 30) + (minutes / 2)
 		}, {
@@ -50,8 +50,8 @@ namespace SiteHeader {
 		];
 
 		// Loop through each of these hands to set their angle
-		for (var j = 0; j < hands.length; j++) {
-			var elements = document.getElementById(initialId + "_" + hands[j].hand);
+		for (let j = 0; j < hands.length; j++) {
+			let elements = document.getElementById(initialId + "_" + hands[j].hand);
 			if (elements) {
 				elements.style.webkitTransform = 'rotateZ(' + hands[j].angle + 'deg)';
 				elements.style.transform = 'rotateZ(' + hands[j].angle + 'deg)';

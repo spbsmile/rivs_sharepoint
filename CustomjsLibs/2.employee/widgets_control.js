@@ -11,7 +11,7 @@ $(document).ready(function () {
     // start create main page    
     $("#loaderEmployeePage").show();
     $.ajax({
-        url: getRestUrl('*', "Department%2cOrganizationLong%2cIsDisabled%2cotdel2%2cTitle", 600, false),
+        url: getRestUrl('*', "Department%2cOrganizationLong%2cIsDisabled%2cotdel2%2cTitle", 600, false, null),
         method: "GET",
         headers: {
             "Accept": "application/json;odata=verbose",
@@ -28,12 +28,12 @@ $(document).ready(function () {
                 var otdel2 = results[i].Cells.results[5].Value;
                 if (department && !isDisabled) {
                     // check on hierarchy otdel				
-                    if (otdel && otdel != department) {
+                    if (otdel && otdel !== department) {
                         if (!departmentsTree.hasOwnProperty(otdel)) {
                             departmentsTree[otdel] = [];
                             departmentsTree[otdel].push(department);
                         }
-                        else if (departmentsTree[otdel].indexOf(department) == -1) {
+                        else if (departmentsTree[otdel].indexOf(department) === -1) {
                             // example: otdel = ГипроРИВС, department = Руководство						
                             departmentsTree[otdel].push(department);
                         }
@@ -62,12 +62,12 @@ $(document).ready(function () {
             /** added for id of additionalEmployee */
             var index = 0;
             // create widgets departments
-            for (var name in sortDepartmentsTree(departmentsTree)) {
+            for (var name_1 in sortDepartmentsTree(departmentsTree)) {
                 if (index === 0) {
-                    createWidgetDepartment("#container_widget_departments", "widget_departament owner", name, "additionalEmployee_" + index);
+                    createWidgetDepartment("#container_widget_departments", "widget_departament owner", name_1, "additionalEmployee_" + index);
                 }
                 else {
-                    createWidgetDepartment("#container_widget_departments", "widget_departament departament_row", name, "additionalEmployee_" + index);
+                    createWidgetDepartment("#container_widget_departments", "widget_departament departament_row", name_1, "additionalEmployee_" + index);
                 }
                 index++;
             }
@@ -86,7 +86,7 @@ $(document).ready(function () {
                     isHasOtdels = true;
                     addBreadcrumbHandler();
                 }
-                startSearch(organization, organization, true, isHasOtdels, dataAdditionalEmployee);
+                startSearch(organization, organization, true, isHasOtdels, dataAdditionalEmployee, null);
             });
         },
         error: errorHandler
@@ -98,14 +98,14 @@ $(document).ready(function () {
         clearBreadcrumbs();
         $("#textarea_mainsearch_client").val('');
         prepareSearch();
-        startSearch(query, "", false, false);
+        startSearch(query, "", false, false, null, null);
         $("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + "Поиск: " + query + '\</a>');
     });
     // keypart enter handler
     $("#mainsearch_client").keypress(function (e) {
         var query = $("#textarea_mainsearch_client").val();
         query = query.trim();
-        if (e.which == 13 && query && query.length > 1) {
+        if (e.which === 13 && query && query.length > 1) {
             clearBreadcrumbs();
             $("#textarea_mainsearch_client").val('');
             $("#textarea_mainsearch_client").attr('rows', 1);
@@ -129,7 +129,7 @@ function clickBreadcrumbMiddleLevel() {
     addBreadcrumb(organizationCurrent);
     addBreadcrumbHandler();
     prepareSearch();
-    startSearch(organizationCurrent, organizationCurrent, true, true, additionalEmployeesCurrent);
+    startSearch(organizationCurrent, organizationCurrent, true, true, additionalEmployeesCurrent, null);
     var key = organizationCurrent.trim();
     if (departmentsTree[key]) {
         createWidgetsOtdels(key, departmentsTree[key]);
@@ -148,9 +148,8 @@ function clearBreadcrumbs() {
         }
     });
 }
-// for: giprorivs, urals, mash factory ...
+/** for: giprorivs, urals, mashfactory ... */
 function createWidgetsOtdels(organization, otdels) {
-    //otdels.sort();
     var initialIndex = 0;
     otdels[0] = otdels[0].trim();
     var index = otdels.indexOf("Руководство");
@@ -164,25 +163,25 @@ function createWidgetsOtdels(organization, otdels) {
         var temp = otdels[0];
         otdels[0] = otdels[index];
         otdels[index] = temp;
-        createWidgetDepartment("#chief_widget", "widget_organization_inner owner", otdels[0]);
+        createWidgetDepartment("#chief_widget", "widget_organization_inner owner", otdels[0], null);
         initialIndex++;
     }
     for (var i = initialIndex; i < otdels.length; i++) {
         if (clearLetter(otdels[i]) === organization) {
             continue;
         }
-        createWidgetDepartment("#employeeBlock", "widget_organization_inner departament_row", otdels[i]);
+        createWidgetDepartment("#employeeBlock", "widget_organization_inner departament_row", otdels[i], null);
     }
     //  handlers of click widget otdels on inner page
     $(".widget_organization_inner").on('click', function () {
         // todo apply filter: only relative organization
         var otdel = $(this).children('.title_inner').text();
         prepareSearch();
-        startSearch(otdel, organization, false, false);
+        startSearch(otdel, organization, false, false, null, null);
         $("#breadcrumbs_group").append('<a href="#" class="btn btn-default">' + otdel + '\</a>');
     });
 }
-// main functions of search
+/** before search clear all previos search results */
 function prepareSearch() {
     $("#container_widget_departments").hide();
     $("#container_employee_department").show();
@@ -207,7 +206,7 @@ function createWidgetEmployee(photo, name, department, jobTitle, email, phone, i
         '</div></div></div>';
     return widget;
 }
-/** create widget of otdel or department*/
+/** create widget of otdel or department, idContainer - chief or employeeBlock container */
 function createWidgetDepartment(idContainer, cssClassWidget, name, idAdditionalEmployee) {
     var contentForWidgetOnMainPage = idAdditionalEmployee ? '<div class="containerOtdels"> ' + departmentsTree[name] + '</div>' +
         '<div id="' + idAdditionalEmployee + '" class="additionalEmployee"> </div></div>' : "";
@@ -224,7 +223,7 @@ function createWidgetDepartment(idContainer, cssClassWidget, name, idAdditionalE
 /** used for additional users */
 function getOnePersonFromSearch(personName, idStorage) {
     $.ajax({
-        url: getRestUrl(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01%2cCountryCode", 1, true),
+        url: getRestUrl(personName, "Title%2cJobTitle%2cWorkemail%2cPath%2cWorkPhone%2cDepartment%2cPictureURL%2cOrganizationLong%2cIsDisabled%2cRefinableString01%2cCountryCode", 1, true, false),
         method: "GET",
         headers: {
             "Accept": "application/json;odata=verbose",

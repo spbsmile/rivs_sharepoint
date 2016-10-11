@@ -1,4 +1,3 @@
-//module.siteUrl = "http://intranet/support/"; 
 function settings() {
     var module = [];
     module.currentUserId = "";

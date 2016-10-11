@@ -1,30 +1,20 @@
-/** show table claims */
+/** show table claims, invoke when page load */
 function displayClaims() {
     displayTableWithClaim("#panelSendClaims", "#tbodySendClaims", settings().btnNewClaim, claimSended);
     displayTableWithClaim("#panelResolvedClaims", "#tbodyResolvedClaims", settings().btnResolvedClaim, claimResolved);
 }
+/**  */
 function displayTableWithClaim(panelId, tableId, buttonHtml, arrayClaim) {
-    //if (arrayClaim.length > 0) 
     for (var index = 0; index < arrayClaim.length; index++) {
         var claim = arrayClaim[index];
         var rowIndex = index + 1;
-        var claimMonth = null;
-        var typeTable = claim.typeTable;
-        var r = claim.data;
-        if (typeTable === TableClaims.Resolved) {
-            claimMonth = parseInt(moment(r.Date).format('M'));
-        }
-        else if (typeTable === TableClaims.Accepted) {
-            claimMonth = parseInt(moment(r.Created).format('M'));
-        }
-        else {
-            claimMonth = parseInt(moment(r.Created).format('M'));
-        }
-        if (parseInt(moment().format('M')) != claimMonth) {
+        // filter on current month
+        var claimMonth = claim.typeTable === TableClaims.Resolved ? parseInt(moment(claim.data.Date).format('M')) : parseInt(moment(claim.data.Created).format('M'));
+        if (parseInt(moment().format('M')) !== claimMonth) {
             continue;
         }
         $(panelId).show();
-        appendRow(tableId, rowIndex, claim.data, typeTable, claim.statusClaim, claim.listId, claim.tooltip);
+        appendRow(tableId, rowIndex, claim.data, claim.typeTable, claim.statusClaim, claim.listId, claim.tooltip);
         assignCallbackClaimButton(claim.listId, buttonHtml, rowIndex, claim.data, claim.typeTable, claim.data.ID);
     }
     // todo refactor this
@@ -43,6 +33,7 @@ function appendRow(tableId, rowIndex, r, typeTable, statusClaim, listId, tooltip
         "<td id=\"buttoncell" + rowIndex + listId + "\" class=\"hint--bottom-left hint--info\" data-hint=\"" + tooltip + "\"</td>" +
         "</tr>");
 }
+/** for each row of table add button */
 function assignCallbackClaimButton(listId, buttonHtml, rowIndex, data, typeTable, newId) {
     // todo temp
     if (typeTable === TableClaims.Accepted)

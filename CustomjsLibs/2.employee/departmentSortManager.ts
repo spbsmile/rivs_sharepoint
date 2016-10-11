@@ -2,7 +2,7 @@
 /** custom sort order otdels and departments such as:main page departments, giprorivs, urals, etc */
 function sortDepartmentsTree(departmentsTree) {
 
-    var sortHierarchyOtdel = {};
+    let sortHierarchyOtdel = {};
     sortHierarchyOtdel["ГипроРИВС"] = ["Руководство", "Секретариат", "Бюро главных инженеров", "Отдел технологического проектирования", "Строительная группа", "Отдел гидротехнических сооружений",
         "Сметно-Экономический отдел", "Технологическая группа", "Экологическая группа", "Группа оформления проектной документации"];
 
@@ -11,30 +11,30 @@ function sortDepartmentsTree(departmentsTree) {
     sortHierarchyOtdel["Уральское Представительство"] = ["Дирекция", "Проектно-конструкторская группа", "Группа шеф-монтажных и пуско-наладочных работ", "Научно-исследовательская лаборатория",
         "Лаборатория гидрометаллургии", "Департамент информационных технологий", "Канцелярия", "Группа комплектации, продаж и отгрузок оборудования"];
 
-    for (var property in sortHierarchyOtdel) {
+    for (let property in sortHierarchyOtdel) {
         if (sortHierarchyOtdel.hasOwnProperty(property) && departmentsTree.hasOwnProperty(property)) {
             sortHierarchy(sortHierarchyOtdel[property], property);
         }
     }
 
     // main page
-    var sortArray = ["Руководство", "Секретариат и канцелярия", "Планово-финансовый департамент", "Бухгалтерия", "Коммерческий отдел", "Департамент информационных технологий",
+    let sortArray = ["Руководство", "Секретариат и канцелярия", "Планово-финансовый департамент", "Бухгалтерия", "Коммерческий отдел", "Департамент информационных технологий",
         "Департамент основного технологического оборудования", "ГипроРИВС", "Департамент технологических исследований", "Департамент процессов рудоподготовки", "Аналитический Центр",
         "Департамент АСУ", "Департамент ПЭ и ЭП", "Департамент строительства", "Департамент гидрометаллургии", "Лаборатория НМФП", "Служба стандартизации", "Производственная служба", "Отдел ВЭД и отгрузок",
         "Служба обеспечения запасными частями и технического сервиса ОП", "Отдел НТИ", "Машзавод РИВС", "Уральское Представительство", "Казахстан", "Представительство в Республике Армения",
         "Рекламный отдел", "Департамент административного управления", "Административная группа", "Транспортная группа"];
 
     function sortHierarchy(array, property) {
-        var a = [];
+        let a = [];
 
-        for (var index = 0; index < departmentsTree[property].length; index++) {
+        for (let index = 0; index < departmentsTree[property].length; index++) {
             a.push(departmentsTree[property][index]);
         }
 
-        for (var i = 0; i < array.length; i++) {
-            var index = a.indexOf(array[i]);
+        for (let i = 0; i < array.length; i++) {
+            let index = a.indexOf(array[i]);
             if (index === -1) continue;
-            var temp = a[i];
+            let temp = a[i];
             a[i] = array[i];
             a[index] = temp;
         }
@@ -42,7 +42,7 @@ function sortDepartmentsTree(departmentsTree) {
     }
 
     function sortObject(o) {
-        var sorted = {},
+        let sorted = {},
             key,
             a = [];
 
@@ -52,21 +52,21 @@ function sortDepartmentsTree(departmentsTree) {
             }
         }
 
-        for (var i = 0; i < sortArray.length; i++) {
-            var index = a.indexOf(sortArray[i]);
-            var temp = a[i];
+        for (let i = 0; i < sortArray.length; i++) {
+            let index = a.indexOf(sortArray[i]);
+            let temp = a[i];
             a[i] = sortArray[i];
             a[index] = temp;
         }
 
-        var secondArray = [];
-        for (var i = sortArray.length; i < a.length; i++) {
+        let secondArray = [];
+        for (let i = sortArray.length; i < a.length; i++) {
             secondArray.push(a[i]);
         }
         secondArray.sort();
 
-        var shift = sortArray.length;
-        for (var i = 0; i < secondArray.length; i++) {
+        let shift = sortArray.length;
+        for (let i = 0; i < secondArray.length; i++) {
             a[i + shift] = secondArray[i];
         }
 

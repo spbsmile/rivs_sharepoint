@@ -18,7 +18,7 @@ var MainPage;
         shiftStartDateCurrentMonth = moment([moment().format('YYYY'), currentIterateMonth]).weekday();
         // initialize calendar value days
         setCellCalendar(shiftStartDateCurrentMonth, currentIterateMonth);
-        //add red frame icon current day
+        // add red frame icon current day
         $("#cell_" + (parseInt(moment().format('D')) + shiftStartDateCurrentMonth - 1)).addClass('day_current');
         // click on prev month button 
         $("#btnPrevMonth").click(function () {
@@ -53,7 +53,7 @@ var MainPage;
                 var startPointDateHireEmployees = moment().day(-thresholdCountDaysHireEmployees).format("YYYY-MM-DD");
                 // iterate of all users
                 for (var i = 0; i < employeesData.length; i++) {
-                    var name = employeesData[i].Cells.results[2].Value;
+                    var name_1 = employeesData[i].Cells.results[2].Value;
                     var job = employeesData[i].Cells.results[3].Value;
                     if (job) {
                         var lines = job.split(/\r\n|\r|\n/g);
@@ -74,13 +74,13 @@ var MainPage;
                             $("#newEmployee_block").append('<h1> Новые Сотрудники </h1>');
                             newEmploeeInit = true;
                         }
-                        displayWidgetEmployee("#newEmployee_block", name, job, department, pictureUrl, organization);
+                        displayWidgetEmployee("#newEmployee_block", name_1, job, department, pictureUrl, organization);
                     }
-                    //filter users by it's birthday == current month/ create widgets today birthday users
+                    // filter users by it's birthday == current month/ create widgets today birthday users
                     if (moment(birthday, 'DD.MM.YYYY').isValid() && moment(birthday, 'DD.MM.YYYY').month() === moment().month()) {
                         var numberDayBirthday = moment(birthday, 'DD.MM.YYYY').format('D');
                         var indexCell = (parseInt(numberDayBirthday) + shiftStartDateCurrentMonth - 1);
-                        //it's id of div element 'birthday cell of calendar'
+                        // it's id of div element 'birthday cell of calendar'
                         var id = "#cell_" + indexCell;
                         // congrat today birthdays
                         if (moment().format('D') === numberDayBirthday) {
@@ -89,11 +89,11 @@ var MainPage;
                                 congratsBirthdayInit = true;
                             }
                             $(id).addClass('birthday_current');
-                            displayWidgetEmployee("#birthday_block", name, job, department, pictureUrl, organization);
+                            displayWidgetEmployee("#birthday_block", name_1, job, department, pictureUrl, organization);
                         }
                         $(id).addClass('birthday');
                         var prevName = $(id).prop("title") && $(id).prop("title").split(':')[1] ? ", " + $(id).prop("title").split(':')[1] : " ";
-                        $(id).attr('title', 'День Рождения: ' + name + prevName);
+                        $(id).attr('title', 'День Рождения: ' + name_1 + prevName);
                     }
                 }
                 if (!congratsBirthdayInit) {
@@ -119,9 +119,9 @@ var MainPage;
         // loop of all users
         for (var i = 0; i < employeesData.length; i++) {
             var birthday = employeesData[i].Cells.results[5].Value;
-            //filter birthday field of current month   
+            // filter birthday field of current month   
             if (moment(birthday, 'DD.MM.YYYY').isValid() && moment(birthday, 'DD.MM.YYYY').month() === iterateMonth) {
-                var name = employeesData[i].Cells.results[2].Value;
+                var name_2 = employeesData[i].Cells.results[2].Value;
                 var numberDayBirthday = moment(birthday, 'DD.MM.YYYY').format('D');
                 var indexCell = (parseInt(numberDayBirthday) + shiftStartDate - 1);
                 // birthday cell of calendar
@@ -133,7 +133,7 @@ var MainPage;
                 }
                 $(id).addClass('birthday');
                 var prevName = $(id).prop("title") && $(id).prop("title").split(':')[1] ? ", " + $(id).prop("title").split(':')[1] : " ";
-                $(id).attr('title', 'День Рождения: ' + name + prevName);
+                $(id).attr('title', 'День Рождения: ' + name_2 + prevName);
             }
         }
         if (!isTodayBirthday) {
@@ -155,7 +155,7 @@ var MainPage;
         var interval = shift + moment(moment([moment().format('YYYY'), currentMonth])).daysInMonth();
         var currentMonthDayValue = 1;
         var lastCellIndex = 0;
-        //loop for current month
+        // loop for current month
         for (var j = shift; j < interval; j++) {
             var id = "#cell_" + j;
             lastCellIndex = j;
