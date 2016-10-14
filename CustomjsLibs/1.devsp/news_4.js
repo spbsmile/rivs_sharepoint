@@ -10,6 +10,9 @@ var MainPage;
             },
             // dynamicaly create news widgets
             success: function (data) {
+                // attribute hidden html5 support ie11+
+                var versionIe = getInternetExplorerVersion();
+                var isOlderVersionIe = versionIe <= 10 && versionIe !== -1;
                 var results = data.d.results;
                 for (var i = 0; i < results.length; i++) {
                     var r = results[i];
@@ -20,6 +23,9 @@ var MainPage;
                         '<h1 id="' + id + "title" + '">  ' + r.Title + '</h1> ' +
                         ' <div id="' + id + "body" + '" hidden="true"> ' + r.Body + '</div> </div>');
                     // bind click event and news widget
+                    if (isOlderVersionIe) {
+                        $("#" + id + "body").hide();
+                    }
                     $("#" + id).on('click', 
                     // invoke on click
                     function () {
@@ -34,6 +40,19 @@ var MainPage;
                         $('#modalNews').modal('show');
                     });
                 }
+                function getInternetExplorerVersion() {
+                    var rv = -1; // Return value assumes failure.
+                    if (navigator.appName == 'Microsoft Internet Explorer') {
+                        var ua = navigator.userAgent;
+                        var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+                        if (re.exec(ua) != null)
+                            rv = parseFloat(RegExp.$1);
+                    }
+                    return rv;
+                }
+                if (isOlderVersionIe) {
+                    $("#modalNews").removeClass("fade");
+                }
             },
             error: function (error) {
                 console.log(error.responseText + " error in news on main page");
@@ -41,4 +60,4 @@ var MainPage;
         });
     });
 })(MainPage || (MainPage = {}));
-//# sourceMappingURL=news.js.map
+//# sourceMappingURL=news_4.js.map

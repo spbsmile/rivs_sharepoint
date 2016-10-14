@@ -11,6 +11,10 @@ namespace MainPage {
 			},
 			// dynamicaly create news widgets
 			success: function (data) {
+                // attribute hidden html5 support ie11+
+				let versionIe = getInternetExplorerVersion();
+                let isOlderVersionIe = versionIe <= 10 && versionIe !== -1;
+
 				let results = data.d.results;
 				for (let i = 0; i < results.length; i++) {
 					let r = results[i];
@@ -22,6 +26,11 @@ namespace MainPage {
 						'<h1 id="' + id + "title" + '">  ' + r.Title + '</h1> ' +
 						' <div id="' + id + "body" + '" hidden="true"> ' + r.Body + '</div> </div>');
 					// bind click event and news widget
+
+					if (isOlderVersionIe) {
+						$("#" + id + "body").hide();
+					}
+
 					$("#" + id).on('click',
 						// invoke on click
 						function () {
@@ -35,6 +44,23 @@ namespace MainPage {
 							// start modal window news
 							$('#modalNews').modal('show');
 						});
+				}
+
+				function getInternetExplorerVersion() {
+					let rv = -1; // Return value assumes failure.
+
+					if (navigator.appName == 'Microsoft Internet Explorer') {
+						let ua = navigator.userAgent;
+						let re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+						if (re.exec(ua) != null)
+							rv = parseFloat(RegExp.$1);
+					}
+
+					return rv;
+				}
+
+				if (isOlderVersionIe) {
+					$("#modalNews").removeClass("fade");
 				}
 			},
 			error: function (error) {
