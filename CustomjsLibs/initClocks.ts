@@ -25,7 +25,8 @@ namespace SiteHeader {
 
 		let currentDate = moment().format("D MMMM").toString();
 		let array = currentDate.split(" ");
-		$('.dateline').html(moment().format("D") + "&nbsp" + array[1] + "&nbsp" + "2016" + ", " +
+		// код выставления текущей даты
+		$('.dateline').html(moment().format("D") + "&nbsp" + array[1] + "&nbsp" + moment().format('YYYY') + ", " +
 			capitalizeFirstLetter(moment().format('dddd')));
 	});
 

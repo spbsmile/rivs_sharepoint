@@ -1,3 +1,5 @@
+// скрипт отвечает за календарь на главной странице и появления поздравлений с др и новых сотрудников.
+// в личном кабинете отдельный скрипт календаря 
 namespace MainPage {
 
     /** index of month for next/prev month, for iterations */
@@ -48,6 +50,14 @@ namespace MainPage {
 
         // fetch all users
         $.ajax({
+            /*
+            // в rest запросе указано, что искать (querytext='*' - ищется все) , какая сортировка по выдаче и какие свойства получать 
+            trimduplicates - дуюликаты убирать
+            enablequeryrules - 
+            rowlimit - ограничение на количество выдачи  
+            bypassresulttypes - не уверен в надобности это параметра
+            selectproperties - выбранные свойства
+            */
             url: "/_api/search/query?querytext='*'&trimduplicates=false&enablequeryrules=false&rowlimit=600&bypassresulttypes=true&selectproperties='Title%2cJobTitle%2cDepartment%2cBirthday%2cPictureURL%2chireDate%2cOrganizationLong%2cIsDisabled'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
             method: "GET",
             headers: {

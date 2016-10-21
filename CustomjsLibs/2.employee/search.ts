@@ -1,3 +1,5 @@
+// главная функция, сам поиск
+
 /// <reference path="../2.employee/widgets_control.ts" />
 
 /** create widgets users of search results*/

@@ -19,13 +19,24 @@ var SiteHeader;
         });
     });
     function startSearch() {
-        // value of query search 
+        // то что ты ищешь
         var query = $("#textSearch").val();
         // title modal window of search
         $("#modalSearchResultLabel").text("Поиск: " + query);
         var textWithWildcard = query + "*";
         var queryWrap = !!window.chrome && !!window.chrome.webstore ? textWithWildcard : encodeURIComponent(textWithWildcard);
         $.ajax({
+            // в rest запросе указано, что искать, какая сортировка по выдаче и какие свойства получать 
+            /*
+            trimduplicates - вырезка дубликтов
+            enablequeryrules
+            bypassresulttypes
+            rowlimit - ограничение выдачи
+            RefinableString01 - матчится с postal code, главенство сотрудников в департаменте
+            RefinableString02 - матчится с LastName
+              sortlist='RefinableString01:ascending%2cRefinableString02:ascending' - сортировка сначала по postalcode, потом по фамилии
+
+            */
             url: "/_api/search/query?querytext='" + queryWrap + "'&trimduplicates=true&enablequeryrules=false&bypassresulttypes=true&rowlimit=100&sortlist='RefinableString01:ascending%2cRefinableString02:ascending'&selectproperties='Title%2cJobTitle%2cWorkemail%2cPath%2c+WorkPhone%2cDepartment%2cPictureURL%2cOrganization%2cIsDisabled'&sourceid='b09a7990-05ea-4af9-81ef-edfab16c4e31'&clienttype='ContentSearchRegular'",
             method: "GET",
             headers: {
@@ -33,6 +44,7 @@ var SiteHeader;
                 "X-RequestDigest": $("#__REQUESTDIGEST").val()
             },
             success: function (data) {
+                // скрыть индикатор загрузки
                 $("#loaderSearch").hide();
                 $("#textSearch").val(" ");
                 var results = data.d.query.PrimaryQueryResult.RelevantResults.Table.Rows.results;

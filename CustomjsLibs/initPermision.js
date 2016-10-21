@@ -1,8 +1,13 @@
+// для скрытия синего верхнего бара для всех, кроме разработчика и администраторов, для определения текущего пользователя к приндлежности к группе поддержки
+// в этом скрипте происходит декативации клика ссылки на личный кабинет. когда личный кабинет будет рабочим, код надо будет удалить 
 $(document).ready(function () {
     $("#ctl00_PlaceHolderMain_ctl01__ControlWrapper_RichHtmlField").remove();
     $("#ctl00_PlaceHolderLeftNavBar_PlaceHolderQuickLaunchBottom_idNavLinkViewAll").hide();
+    //
     $('#ms-designer-ribbon').hide();
+    // скрыть синий верхний бар
     $('#suiteBar').hide();
+    // скрыть синий верхний бар
     $('#s4-ribbonrow').hide();
     $(".td.ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
     $(".ms-list-addnew.ms-textXLarge.ms-list-addnew-aligntop.ms-soften").hide();
@@ -10,8 +15,9 @@ $(document).ready(function () {
     var libraryMenuClass = ".ms-list-itemLink-td.ms-cellstyle";
     $(libraryMenuClass).hide();
     var isMember = null;
+    // текущий пользователь на странице
     var currentUser = $().SPServices.SPGetCurrentUser();
-    // navigation button 'support' link manager 
+    // кнопка "техподдержка"  
     $().SPServices({
         operation: "GetGroupCollectionFromUser",
         userLoginName: currentUser,
@@ -55,7 +61,7 @@ $(document).ready(function () {
             }
         }
     });
-    // disable click event on user link
+    // disable click event on user link (ссылка на личный кабинет деактивирована)
     $('.ms-subtleLink').each(function (i, obj) {
         $(this).attr("href", "#");
         $(this).removeAttr("onclick");

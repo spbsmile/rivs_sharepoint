@@ -1,16 +1,20 @@
+// срипт погоды и курсов валют (доллар, евро) на главной странице
+// их значения извлекаются из скрытого div, котороый добален с помошью wsp решения
 var MainPage;
 (function (MainPage) {
     $(document).ready(function () {
+        // this element with id "currency" created by wsp solution, with display: none 
         $('#currency').children('span').each(function (i) {
             if (i === 0) {
                 $("#USDcurrency").text($(this).text());
             }
             else if (i === 1) {
                 $("#EURcurrency").text($(this).text());
-            } // flow currency
+            } // handler on icon currency on main page. flow currency
             else if (i === 2) {
                 // usd
                 var flowCurrency = $(this).text();
+                // down 
                 if (flowCurrency === "down") {
                     $("#usd_top").hide();
                     $("#usd_down").show();

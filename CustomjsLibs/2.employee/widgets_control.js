@@ -1,3 +1,5 @@
+// главный скрипт страницы сотрдников, здесь динамически через один рест запрос по поиску: * создается страница.
+// рест завпрос в параметрах осторирован, нужные свойства извлекются, динамически добавляются события кликов на виджеты департаметов.  
 /// <reference path="../2.employee/departmentSortManager.ts" />
 /// <reference path="../2.employee/search.ts" />
 /** used for breadcrumbs */
@@ -288,6 +290,7 @@ function getData(result) {
     module.countryCode = result.Cells.results[12].Value;
     return module;
 }
+/** delete », « */
 function clearLetter(letter) {
     if (!letter)
         return "";

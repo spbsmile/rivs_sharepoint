@@ -1,3 +1,4 @@
+// главная функция, сам поиск
 /// <reference path="../2.employee/widgets_control.ts" />
 /** create widgets users of search results*/
 function startSearch(query, organization, isMainSearch, isHaveOtdels, additionalEmployees, isInputSearch) {

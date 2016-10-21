@@ -19,7 +19,8 @@ var SiteHeader;
         $("." + hourClass).show();
         var currentDate = moment().format("D MMMM").toString();
         var array = currentDate.split(" ");
-        $('.dateline').html(moment().format("D") + "&nbsp" + array[1] + "&nbsp" + "2016" + ", " +
+        // код выставления текущей даты
+        $('.dateline').html(moment().format("D") + "&nbsp" + array[1] + "&nbsp" + moment().format('YYYY') + ", " +
             capitalizeFirstLetter(moment().format('dddd')));
     });
     function initAllClock() {
